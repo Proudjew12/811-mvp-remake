@@ -31,3 +31,9 @@ $login-primary-hover: color.adjust($login-primary, $lightness: -8%);
 
 $login-demo-bg: #d7e4d7;
 $login-demo-bg-hover: color.adjust($login-demo-bg, $lightness: -6%);
+
+// Login page background (white → green + glow)
+$login-bg-gradient: linear-gradient(135deg, #eaf5ef 0%, #d8eade 100%);
+$login-bg-overlay:
+  radial-gradient(circle at 15% 20%, rgba(255, 255, 255, 0.6) 0, transparent 55%),
+  radial-gradient(circle at 85% 80%, rgba(11, 63, 45, 0.25) 0, transparent 60%);
