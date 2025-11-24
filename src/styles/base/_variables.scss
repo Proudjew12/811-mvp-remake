@@ -1,3 +1,5 @@
+@use "sass:color";
+
 // Colors
 $clr-primary: #0a4283;
 $clr-primary-light: #1260b8;
@@ -22,3 +24,10 @@ $bp-l: 1060px;
 
 // Transition
 $transition-fast: .2s ease;
+
+// Login page colors
+$login-primary: #0b3f2d;
+$login-primary-hover: color.adjust($login-primary, $lightness: -8%);
+
+$login-demo-bg: #d7e4d7;
+$login-demo-bg-hover: color.adjust($login-demo-bg, $lightness: -6%);

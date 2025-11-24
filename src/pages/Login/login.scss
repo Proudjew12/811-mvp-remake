@@ -1,4 +1,4 @@
-@import "../../styles/base/variables";
+@use "../../styles/base/variables" as *;
 
 .login-page {
   height: 100vh;
@@ -52,7 +52,7 @@
     width: 100%;
     padding: 12px;
     margin-top: 10px;
-    background: #0b3f2d;
+    background: $login-primary;
     color: white;
     border: none;
     border-radius: 6px;
@@ -60,7 +60,7 @@
     font-size: 16px;
 
     &:hover {
-      background: darken(#0b3f2d, 8%);
+      background: $login-primary-hover;
     }
   }
 
@@ -81,12 +81,12 @@
     button {
       padding: 10px 16px;
       border: none;
-      background: #d7e4d7;
+      background: $login-demo-bg;
       border-radius: 6px;
       cursor: pointer;
 
       &:hover {
-        background: darken(#d7e4d7, 6%);
+        background: $login-demo-bg-hover;
       }
     }
   }

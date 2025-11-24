@@ -1,3 +1,5 @@
+@use "./variables" as *;
+
 @media (max-width: 900px) {
   .main-layout {
     padding-inline: $space-md;
