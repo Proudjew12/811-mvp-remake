@@ -9,7 +9,6 @@
   overflow: hidden;
 }
 
-/* Soft animated glow using vars */
 .login-page::before {
   content: "";
   position: absolute;
@@ -79,7 +78,6 @@
   display: block;
 }
 
-/* Inputs */
 .login-card input {
   width: 100%;
   padding: 12px 14px;
@@ -113,7 +111,6 @@
   }
 }
 
-/* Main CTA button */
 .login-card .login-btn {
   width: 100%;
   padding: 12px;
@@ -156,7 +153,6 @@
   font-size: 14px;
 }
 
-/* Demo buttons group */
 .login-card .demo-buttons {
   display: flex;
   gap: 10px;
@@ -190,8 +186,6 @@
     box-shadow: none;
   }
 }
-
-/* Animations */
 
 @keyframes login-card-in {
   from {
