@@ -1,0 +1,11 @@
+@media (max-width: 900px) {
+  .main-layout {
+    padding-inline: $space-md;
+  }
+}
+
+@media (min-width: 640px) {
+  .main-layout {
+    grid-template-columns: minmax(16px, 1fr) minmax(auto, 600px) minmax(16px, 1fr);
+  }
+}

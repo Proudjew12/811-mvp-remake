@@ -1,4 +1,4 @@
-import "../styles/base.scss"
+import "./Login.scss"
 
 export default function Login() {
   return (
@@ -10,7 +10,7 @@ export default function Login() {
         <h2>ברוכים הבאים</h2>
 
         <img
-          src="/logo.png"
+          src="/mate-logo-green.png"
           className="login-logo"
           alt="logo"
         />
@@ -29,7 +29,7 @@ export default function Login() {
 
         <hr />
 
-        <h4>Demo Accounts</h4>
+        <p className="demo-title">Demo Accounts</p>
 
         <div className="demo-buttons">
           <button>organization</button>
