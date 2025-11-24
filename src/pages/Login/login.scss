@@ -1,0 +1,93 @@
+@import "../../styles/base/variables";
+
+.login-page {
+  height: 100vh;
+  background: linear-gradient(135deg, #eaf5ef 0%, #d8eade 100%);
+  direction: rtl;
+  position: relative;
+  padding-top: 20px;
+}
+
+.lang-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: #e2ecdf;
+  border: none;
+  padding: 6px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.login-card {
+  width: 450px;
+  background: white;
+  padding: 32px;
+  border-radius: 12px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
+  text-align: center;
+
+  h2 {
+    font-size: 20px;
+    margin-bottom: 16px;
+  }
+
+  .login-logo {
+    width: 180px;
+    margin: 20px auto;
+    display: block;
+  }
+
+  input {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    border: 1px solid #c8d7cd;
+    border-radius: 6px;
+    font-size: 15px;
+  }
+
+  .login-btn {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    background: #0b3f2d;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+
+    &:hover {
+      background: darken(#0b3f2d, 8%);
+    }
+  }
+
+  hr {
+    margin: 24px 0;
+    border: none;
+    height: 1px;
+    background: #eeeeee;
+  }
+
+  .demo-title {
+    margin: 16px 0 12px;
+    color: #6a7c74;
+    font-size: 14px;
+  }
+
+  .demo-buttons {
+    button {
+      padding: 10px 16px;
+      border: none;
+      background: #d7e4d7;
+      border-radius: 6px;
+      cursor: pointer;
+
+      &:hover {
+        background: darken(#d7e4d7, 6%);
+      }
+    }
+  }
+}
