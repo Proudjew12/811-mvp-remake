@@ -1,5 +1,5 @@
-import "./Login/login.scss";
-import logoGreen from "../assets/Logo/mate-logo-green.png";
+import "./login.scss";
+import logoGreen from "../../assets/Logo/mate-logo-green.png";
 
 export default function Login() {
   return (
