@@ -1,13 +1,17 @@
 import { ChangeEvent, FormEvent, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./login.scss";
 import logoGreen from "../../assets/Logo/mate-logo-green.png";
 import {
   loginService,
   DemoAccountKey,
   LoginCredentials,
+  LoginResult,
 } from "../../services/Login/login.service";
 
 export default function Login() {
+  const navigate = useNavigate();
+
   const [credentials, setCredentials] = useState<LoginCredentials>(
     loginService.getEmptyCredentials()
   );
@@ -36,6 +40,20 @@ export default function Login() {
     if (errorMessage) setErrorMessage(null);
   }
 
+  function navigateByAccountType(result: LoginResult) {
+    switch (result.accountType) {
+      case "organization":
+        navigate("/organization");
+        break;
+      case "admin":
+        navigate("/admin");
+        break;
+      case "requester":
+        navigate("/requester");
+        break;
+    }
+  }
+
   async function onLoginSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setErrorMessage(null);
@@ -48,8 +66,8 @@ export default function Login() {
 
     try {
       setIsSubmitting(true);
-      await loginService.login(credentials);
-      // TODO: navigate to next route on successful login
+      const loginResult = await loginService.login(credentials);
+      navigateByAccountType(loginResult);
     } catch (error) {
       setErrorMessage(loginService.getErrorMessage(error));
     } finally {
