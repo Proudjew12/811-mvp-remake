@@ -1,69 +1,53 @@
-// src/services/auth.service.ts
-
-export const authService = {
-  login: _login,
-  validateCredentials: _validateCredentials,
-  getDemoCredentials: _getDemoCredentials,
-  getErrorMessage: _getErrorMessage,
-  getEmptyCreds: _getEmptyCreds,
+export const loginService = {
+  login,
+  validateCredentials,
+  getDemoCredentials,
+  getErrorMessage,
+  getEmptyCredentials,
 };
 
-
+/** Credentials required for login */
 export type LoginCredentials = {
   email: string;
   password: string;
 };
 
+/** Allowed types of demo accounts */
 export type DemoAccountKey = "organization" | "admin" | "requester";
 
+/** Shape of the demo accounts map */
 type DemoAccountsMap = Record<DemoAccountKey, LoginCredentials>;
 
-const DEMO_ACCOUNTS: DemoAccountsMap = {
+/** Predefined demo accounts for quick testing */
+const demoAccounts: DemoAccountsMap = {
   organization: { email: "org@demo.com", password: "org1234" },
   admin: { email: "admin@demo.com", password: "admin1234" },
   requester: { email: "requester@demo.com", password: "request1234" },
 };
 
-class AuthError extends Error {
+/** Custom error used for login failures */
+class LoginError extends Error {
   status?: number;
 
   constructor(message: string, status?: number) {
     super(message);
-    this.name = "AuthError";
+    this.name = "LoginError";
     this.status = status;
   }
 }
 
-function _delay(ms: number): Promise<void> {
-  return new Promise((resolve) => setTimeout(resolve, ms));
+/** Simulate network delay (for mock login before we have a real API) */
+function simulateNetworkDelay(milliseconds: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, milliseconds));
 }
 
-async function _login(creds: LoginCredentials): Promise<void> {
-  const { email, password } = creds;
-
-  // TODO: replace with axios when backend is ready
-  // example:
-  // const res = await axios.post("/api/auth/login", { email, password });
-
-  await _delay(500);
-
-  // temporary mock against DEMO_ACCOUNTS
-  const isDemoUser = Object.values(DEMO_ACCOUNTS).some(
-    (u) =>
-      u.email.toLowerCase() === email.toLowerCase() &&
-      u.password === password
-  );
-
-  if (!isDemoUser) {
-    throw new AuthError("דוא״ל או סיסמה שגויים", 401);
-  }
-
-  // with real API, validate response here and throw if needed
-}
-
-function _validateCredentials(creds: LoginCredentials): string | null {
-  const email = creds.email.trim();
-  const password = creds.password.trim();
+/**
+ * Validate login credentials on the client side.
+ * Returns a translated error message string or null if everything is valid.
+ */
+function validateCredentials(credentials: LoginCredentials): string | null {
+  const email = credentials.email.trim();
+  const password = credentials.password.trim();
 
   if (!email || !password) {
     return 'נא למלא דוא״ל וסיסמה';
@@ -80,16 +64,42 @@ function _validateCredentials(creds: LoginCredentials): string | null {
   return null;
 }
 
-function _getDemoCredentials(key: DemoAccountKey): LoginCredentials | null {
-  return DEMO_ACCOUNTS[key] ?? null;
+/**
+ * Perform the login action.
+ * For now it checks against demo accounts. Later this will call the real API.
+ */
+async function login(credentials: LoginCredentials): Promise<void> {
+  // later you can replace this body with axios:
+  // const response = await axios.post("/api/auth/login", credentials);
+
+  await simulateNetworkDelay(500);
+
+  const matchingDemoAccount = Object.values(demoAccounts).find(
+    (account) =>
+      account.email.toLowerCase() === credentials.email.toLowerCase() &&
+      account.password === credentials.password
+  );
+
+  if (!matchingDemoAccount) {
+    throw new LoginError("דוא״ל או סיסמה שגויים", 401);
+  }
+
+  // with real API you can return token/user instead of void
 }
 
-function _getErrorMessage(error: unknown): string {
-  if (error instanceof AuthError) return error.message;
+/** Get predefined demo credentials for a specific demo account type */
+function getDemoCredentials(key: DemoAccountKey): LoginCredentials | null {
+  return demoAccounts[key] ?? null;
+}
+
+/** Map any error object into a user-facing error message */
+function getErrorMessage(error: unknown): string {
+  if (error instanceof LoginError) return error.message;
   if (error instanceof Error) return error.message;
   return "ההתחברות נכשלה, נסו שוב";
 }
 
-function _getEmptyCreds(): LoginCredentials {
+/** Helper to create an empty credentials object */
+function getEmptyCredentials(): LoginCredentials {
   return { email: "", password: "" };
 }
