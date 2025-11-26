@@ -43,13 +43,13 @@ export default function Login() {
   function navigateByAccountType(result: LoginResult) {
     switch (result.accountType) {
       case "organization":
-        navigate("/organization");
+        navigate("/home");
         break;
       case "admin":
-        navigate("/admin");
+        navigate("/home");
         break;
       case "requester":
-        navigate("/requester");
+        navigate("/home");
         break;
     }
   }
