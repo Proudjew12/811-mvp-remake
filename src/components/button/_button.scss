@@ -1,0 +1,100 @@
+@use "../../styles/base/variables" as vars;
+@use "sass:color";
+
+.app-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+
+  padding: 10px 16px;
+  font-size: 0.95rem;
+
+  transition:
+    background-color vars.$transition-fast,
+    color vars.$transition-fast,
+    box-shadow vars.$transition-fast,
+    transform vars.$transition-fast,
+    opacity vars.$transition-fast;
+
+  &--fullWidth {
+    width: 100%;
+  }
+
+  &--size-sm {
+    padding: 6px 12px;
+    font-size: 0.85rem;
+  }
+
+  &--size-md {
+    padding: 10px 16px;
+    font-size: 0.95rem;
+  }
+
+  &--variant-primary {
+    background: vars.$clr-primary-dark;
+    color: #fff;
+
+    &:hover:not(:disabled) {
+      background: color.adjust(vars.$clr-primary-dark, $lightness: -5%);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.18);
+    }
+  }
+
+  &--variant-secondary {
+    background: vars.$clr-primary-light;
+    color: #fff;
+
+    &:hover:not(:disabled) {
+      background: color.adjust(vars.$clr-primary-light, $lightness: -5%);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.14);
+    }
+  }
+
+  &--variant-ghost {
+    background: transparent;
+    color: vars.$clr-header;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+
+    &:hover:not(:disabled) {
+      background: rgba(0, 0, 0, 0.03);
+      transform: translateY(-1px);
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
+    }
+  }
+
+  &--variant-danger {
+    background: #c0392b;
+    color: #fff;
+
+    &:hover:not(:disabled) {
+      background: color.adjust(#c0392b, $lightness: -5%);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.22);
+    }
+  }
+
+  &--loading {
+    cursor: wait;
+    opacity: 0.8;
+  }
+
+  &--active {
+    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.08);
+    transform: translateY(-1px);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+  }
+}

@@ -2,6 +2,7 @@ import { ChangeEvent, FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./login.scss";
 import logoGreen from "../../assets/Logo/mate-logo-green.png";
+import Button from "../../components/button/button";
 import {
   loginService,
   DemoAccountKey,
@@ -85,9 +86,9 @@ export default function Login() {
 
   return (
     <div className="login-page flex column center">
-      <button className="lang-btn" type="button">
+      <Button className="lang-btn" type="button" variant="secondary">
         עברית
-      </button>
+      </Button>
 
       <div className="login-card flex column center">
         <h2>ברוכים הבאים</h2>
@@ -117,9 +118,14 @@ export default function Login() {
 
           {errorMessage && <p className="login-error">{errorMessage}</p>}
 
-          <button className="login-btn" type="submit" disabled={isSubmitting}>
+          <Button
+            type="submit"
+            variant="primary"
+            fullWidth
+            isLoading={isSubmitting}
+          >
             {isSubmitting ? "מתחבר..." : "התחברות"}
-          </button>
+          </Button>
         </form>
 
         <hr />
@@ -127,24 +133,29 @@ export default function Login() {
         <p className="demo-title">Demo Accounts</p>
 
         <div className="demo-buttons flex center gap-16">
-          <button
+          <Button
             type="button"
+            variant="secondary"
             onClick={() => onDemoAccountClick("organization")}
           >
             organization
-          </button>
-          <button
+          </Button>
+
+          <Button
             type="button"
+            variant="secondary"
             onClick={() => onDemoAccountClick("admin")}
           >
             admin
-          </button>
-          <button
+          </Button>
+
+          <Button
             type="button"
+            variant="secondary"
             onClick={() => onDemoAccountClick("requester")}
           >
             requester
-          </button>
+          </Button>
         </div>
       </div>
     </div>
