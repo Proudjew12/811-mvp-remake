@@ -1,0 +1,136 @@
+{
+  "common": {
+    "welcome": "ברוכים הבאים",
+    "login": "התחברות",
+    "logout": "התנתקות",
+    "home": "בית",
+    "requests": "בקשות",
+    "assistance": "סיוע",
+    "admin": "מנהל",
+    "submit": "שלח",
+    "cancel": "ביטול",
+    "save": "שמור",
+    "edit": "ערוך",
+    "delete": "מחק",
+    "loading": "טוען...",
+    "error": "שגיאה",
+    "success": "הצלחה",
+    "language": "שפה"
+  },
+  "navigation": {
+    "home": "בית",
+    "requests": "בקשות",
+    "assistance": "סיוע",
+    "admin": "מנהל",
+    "profile": "פרופיל"
+  },
+  "forms": {
+    "emailPlaceholder": "הזן את הדוא״ל שלך",
+    "passwordPlaceholder": "הזן את הסיסמה שלך",
+    "required": "שדה חובה",
+    "invalidEmail": "כתובת אימייל לא תקינה",
+    "passwordTooShort": "סיסמה קצרה מדי",
+    "confirmPassword": "אשר סיסמה",
+    "passwordsDoNotMatch": "הסיסמאות אינן תואמות"
+  },
+  "assistance": {
+    "requestAssistance": "בקש סיוע",
+    "assistanceType": "סוג הסיוע",
+    "location": "מיקום",
+    "description": "תיאור",
+    "urgency": "דחיפות",
+    "status": "סטטוס"
+  },
+  "requests": {
+    "myRequests": "הבקשות שלי",
+    "allRequests": "כל הבקשות",
+    "newRequest": "בקשה חדשה",
+    "pending": "ממתין",
+    "inProgress": "בטיפול",
+    "completed": "הושלם",
+    "cancelled": "בוטל"
+  },
+  "button": {
+    "primary": "כפתור ראשי",
+    "secondary": "כפתור משני",
+    "tertiary": "כפתור שלישי",
+    "fullWidthPrimary": "כפתור ראשי ברוחב מלא",
+    "secondaryWithIcon": "כפתור משני עם אייקון",
+    "transparentOnLight": "שקוף על רקע בהיר",
+    "transparentOnDark": "שקוף על רקע כהה",
+    "disabledSecondary": "כפתור משני מושבת",
+    "clickMe": "לחץ עליי!",
+    "primaryFullWidth": "כפתור ראשי ברוחב מלא",
+    "primarySmall": "כפתור ראשי קטן",
+    "primaryMedium": "כפתור ראשי בינוני",
+    "primaryLarge": "כפתור ראשי גדול",
+    "secondarySmall": "כפתור משני קטן",
+    "secondaryMedium": "כפתור משני בינוני",
+    "secondaryLarge": "כפתור משני גדול",
+    "transparentSmall": "כפתור שקוף קטן",
+    "transparentMedium": "כפתור שקוף בינוני",
+    "transparentLarge": "כפתור שקוף גדול",
+    "nextPage": "עמוד הבא",
+    "previousPage": "עמוד הקודם"
+  },
+  "formField": {
+    "selectOption": "בחר אפשרות",
+    "selectOptions": "בחר אפשרויות",
+    "selectedCount": "{{count}} נבחרו"
+  },
+  "footer": {
+    "previous": "הקודם",
+    "next": "הבא"
+  },
+  "loader": {
+    "searchingSupport": "מחפשים לך יד תומכת...",
+    "fillingHeart": "ממלאים לך את הלב...",
+    "buildingBridge": "בונים גשר לעזרה...",
+    "lightingHope": "מדליקים אור קטן...",
+    "connectingPeople": "מחברים אותך לאנשים טובים...",
+    "organizingHug": "מארגנים חיבוק קהילתי...",
+    "loadingHope": "טוענים תקווה...",
+    "arrangingMoment": "מסדרים רגע של נשימה...",
+    "extendingHand": "מושיטים יד חמה...",
+    "startingCircle": "מתניעים מעגל של עזרה..."
+  },
+  "emptyState": {
+    "defaultTitle": "מצב ריק",
+    "defaultSubtitle": "מצטערים, לא מצאנו את מה שחיפשת"
+  },
+  "languageSwitcher": {
+    "hebrew": "עברית",
+    "english": "English",
+    "switchToHebrew": "החלף לעברית",
+    "switchToEnglish": "Switch to English"
+  },
+  "redux": {
+    "languageChanged": "שפה שונתה בהצלחה",
+    "currentLanguage": "שפה נוכחית",
+    "languageState": "מצב שפה"
+  },
+  "modal": {
+    "closeButton": "סגור",
+    "openModal": "פתח חלון",
+    "defaultContent": "זהו חלון בסיסי עם תוכן ברירת מחדל.",
+    "defaultDescription": "אפשר לשים כאן כל תוכן - טפסים, תמונות, טקסט וכו'.",
+    "smallModalDescription": "זהו חלון קטן, מושלם לאישורים מהירים או טפסים קטנים.",
+    "largeModalTitle": "תוכן חלון גדול",
+    "largeModalDescription": "החלון הזה גדול יותר ויכול להכיל יותר תוכן.",
+    "largeModalUseCase": "הוא נהדר לטפסים, תצוגות מפורטות או אינטראקציות מורכבות.",
+    "uiElementsTitle": "אפשר לכלול אלמנטי ממשק שונים כמו:",
+    "uiElement1": "טפסים ושדות קלט",
+    "uiElement2": "טבלאות ונתונים",
+    "uiElement3": "תמונות ומדיה",
+    "uiElement4": "פריסות מורכבות",
+    "contactFormTitle": "טופס יצירת קשר",
+    "formNameLabel": "שם",
+    "formNamePlaceholder": "הזן את שמך",
+    "formEmailLabel": "אימייל",
+    "formEmailPlaceholder": "הזן את כתובת האימייל שלך",
+    "formMessageLabel": "הודעה",
+    "formMessagePlaceholder": "הזן את ההודעה שלך",
+    "formCancel": "ביטול",
+    "formSubmit": "שלח"
+  }
+}

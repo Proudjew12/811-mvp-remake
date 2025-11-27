@@ -1,7 +1,10 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+
 import "./login.scss";
 import logoGreen from "../../assets/Logo/mate-logo-green.png";
+import Button from "../../components/button/button";
 import {
   loginService,
   DemoAccountKey,
@@ -11,12 +14,20 @@ import {
 
 export default function Login() {
   const navigate = useNavigate();
+  const { t, i18n } = useTranslation();
 
   const [credentials, setCredentials] = useState<LoginCredentials>(
     loginService.getEmptyCredentials()
   );
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  const isHebrew = i18n.language.startsWith("he");
+
+  function onLanguageToggle() {
+    const nextLanguage = isHebrew ? "en" : "he";
+    i18n.changeLanguage(nextLanguage);
+  }
 
   function onEmailChange(event: ChangeEvent<HTMLInputElement>) {
     const value = event.target.value;
@@ -43,13 +54,13 @@ export default function Login() {
   function navigateByAccountType(result: LoginResult) {
     switch (result.accountType) {
       case "organization":
-        navigate("/organization");
+        navigate("/home");
         break;
       case "admin":
-        navigate("/admin");
+        navigate("/home");
         break;
       case "requester":
-        navigate("/requester");
+        navigate("/home");
         break;
     }
   }
@@ -85,12 +96,19 @@ export default function Login() {
 
   return (
     <div className="login-page flex column center">
-      <button className="lang-btn" type="button">
-        עברית
-      </button>
+      <Button
+        className="lang-btn"
+        type="button"
+        variant="secondary"
+        size="sm"
+        onClick={onLanguageToggle}
+      >
+        {isHebrew
+          ? t("languageSwitcher.hebrew")
+          : t("languageSwitcher.english")}
+      </Button>
 
       <div className="login-card flex column center">
-        <h2>ברוכים הבאים</h2>
 
         <img
           src={logoGreen}
@@ -99,27 +117,33 @@ export default function Login() {
         />
 
         <form onSubmit={onLoginSubmit} className="flex column center">
-          <input
-            type="email"
-            placeholder="הזן את הדוא״ל שלך"
-            value={credentials.email}
-            onChange={onEmailChange}
-            autoComplete="email"
-          />
+  <input
+  type="email"
+  placeholder={t("forms.emailPlaceholder")}
+  value={credentials.email}
+  onChange={onEmailChange}
+  autoComplete="email"
+/>
 
-          <input
-            type="password"
-            placeholder="הזן את הסיסמה שלך"
-            value={credentials.password}
-            onChange={onPasswordChange}
-            autoComplete="current-password"
-          />
+<input
+  type="password"
+  placeholder={t("forms.passwordPlaceholder")}
+  value={credentials.password}
+  onChange={onPasswordChange}
+  autoComplete="current-password"
+/>
+
 
           {errorMessage && <p className="login-error">{errorMessage}</p>}
 
-          <button className="login-btn" type="submit" disabled={isSubmitting}>
-            {isSubmitting ? "מתחבר..." : "התחברות"}
-          </button>
+          <Button
+            type="submit"
+            variant="primary"
+            fullWidth
+            isLoading={isSubmitting}
+          >
+            {isSubmitting ? t("common.loading") : t("common.login")}
+          </Button>
         </form>
 
         <hr />
@@ -127,24 +151,29 @@ export default function Login() {
         <p className="demo-title">Demo Accounts</p>
 
         <div className="demo-buttons flex center gap-16">
-          <button
+          <Button
             type="button"
+            variant="secondary"
             onClick={() => onDemoAccountClick("organization")}
           >
             organization
-          </button>
-          <button
+          </Button>
+
+          <Button
             type="button"
+            variant="secondary"
             onClick={() => onDemoAccountClick("admin")}
           >
             admin
-          </button>
-          <button
+          </Button>
+
+          <Button
             type="button"
+            variant="secondary"
             onClick={() => onDemoAccountClick("requester")}
           >
             requester
-          </button>
+          </Button>
         </div>
       </div>
     </div>
