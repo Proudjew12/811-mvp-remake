@@ -1,0 +1,136 @@
+{
+  "common": {
+    "welcome": "Welcome",
+    "login": "Login",
+    "logout": "Logout",
+    "home": "Home",
+    "requests": "Requests",
+    "assistance": "Assistance",
+    "admin": "Admin",
+    "submit": "Submit",
+    "cancel": "Cancel",
+    "save": "Save",
+    "edit": "Edit",
+    "delete": "Delete",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "language": "Language"
+  },
+  "navigation": {
+    "home": "Home",
+    "requests": "Requests",
+    "assistance": "Assistance",
+    "admin": "Admin",
+    "profile": "Profile"
+  },
+  "forms": {
+      "emailPlaceholder": "Enter your email",
+    "passwordPlaceholder": "Enter your password",
+    "required": "Required field",
+    "invalidEmail": "Invalid email address",
+    "passwordTooShort": "Password too short",
+    "confirmPassword": "Confirm password",
+    "passwordsDoNotMatch": "Passwords do not match"
+  },
+  "assistance": {
+    "requestAssistance": "Request Assistance",
+    "assistanceType": "Assistance Type",
+    "location": "Location",
+    "description": "Description",
+    "urgency": "Urgency",
+    "status": "Status"
+  },
+  "requests": {
+    "myRequests": "My Requests",
+    "allRequests": "All Requests",
+    "newRequest": "New Request",
+    "pending": "Pending",
+    "inProgress": "In Progress",
+    "completed": "Completed",
+    "cancelled": "Cancelled"
+  },
+  "button": {
+    "primary": "Primary Button",
+    "secondary": "Secondary Button",
+    "tertiary": "Tertiary Button",
+    "fullWidthPrimary": "Full Width Primary",
+    "secondaryWithIcon": "Secondary Button with Icon",
+    "transparentOnLight": "Transparent on Light",
+    "transparentOnDark": "Transparent on Dark",
+    "disabledSecondary": "Disabled Secondary",
+    "clickMe": "Click Me!",
+    "primaryFullWidth": "Primary Full Width",
+    "primarySmall": "Primary Small",
+    "primaryMedium": "Primary Medium",
+    "primaryLarge": "Primary Large",
+    "secondarySmall": "Secondary Small",
+    "secondaryMedium": "Secondary Medium",
+    "secondaryLarge": "Secondary Large",
+    "transparentSmall": "Transparent Small",
+    "transparentMedium": "Transparent Medium",
+    "transparentLarge": "Transparent Large",
+    "nextPage": "Next Page",
+    "previousPage": "Previous Page"
+  },
+  "formField": {
+    "selectOption": "Select option",
+    "selectOptions": "Select options",
+    "selectedCount": "{{count}} selected"
+  },
+  "footer": {
+    "previous": "Previous",
+    "next": "Next"
+  },
+  "loader": {
+    "searchingSupport": "Looking for supportive help...",
+    "fillingHeart": "Filling your heart...",
+    "buildingBridge": "Building a bridge for help...",
+    "lightingHope": "Lighting a small light...",
+    "connectingPeople": "Connecting you to good people...",
+    "organizingHug": "Organizing a community hug...",
+    "loadingHope": "Loading hope...",
+    "arrangingMoment": "Arranging a moment of breath...",
+    "extendingHand": "Extending a warm hand...",
+    "startingCircle": "Starting a circle of help..."
+  },
+  "emptyState": {
+    "defaultTitle": "Empty State",
+    "defaultSubtitle": "Sorry, we didn't find what you want"
+  },
+  "languageSwitcher": {
+    "hebrew": "עברית",
+    "english": "English",
+    "switchToHebrew": "החלף לעברית",
+    "switchToEnglish": "Switch to English"
+  },
+  "redux": {
+    "languageChanged": "Language changed successfully",
+    "currentLanguage": "Current Language",
+    "languageState": "Language State"
+  },
+  "modal": {
+    "closeButton": "Close",
+    "openModal": "Open Modal",
+    "defaultContent": "This is a basic modal with default content.",
+    "defaultDescription": "You can put any content here - forms, images, text, etc.",
+    "smallModalDescription": "This is a small modal, perfect for quick confirmations or small forms.",
+    "largeModalTitle": "Large Modal Content",
+    "largeModalDescription": "This modal is larger and can accommodate more content.",
+    "largeModalUseCase": "It's great for forms, detailed views, or complex interactions.",
+    "uiElementsTitle": "You can include various UI elements like:",
+    "uiElement1": "Forms and inputs",
+    "uiElement2": "Tables and data",
+    "uiElement3": "Images and media",
+    "uiElement4": "Complex layouts",
+    "contactFormTitle": "Contact Form",
+    "formNameLabel": "Name",
+    "formNamePlaceholder": "Enter your name",
+    "formEmailLabel": "Email",
+    "formEmailPlaceholder": "Enter your email",
+    "formMessageLabel": "Message",
+    "formMessagePlaceholder": "Enter your message",
+    "formCancel": "Cancel",
+    "formSubmit": "Submit"
+  }
+}
