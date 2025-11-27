@@ -15,7 +15,34 @@
     "loading": "Loading...",
     "error": "Error",
     "success": "Success",
-    "language": "Language"
+    "language": "Language",
+    "yes": "Yes",
+    "no": "No",
+    "ok": "OK",
+    "close": "Close",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "refresh": "Refresh",
+    "retry": "Retry",
+    "search": "Search",
+    "clear": "Clear",
+    "view": "View",
+    "viewMore": "View more",
+    "details": "Details",
+    "download": "Download",
+    "upload": "Upload",
+    "print": "Print",
+    "copy": "Copy",
+    "confirm": "Confirm",
+    "successMessage": "The action was completed successfully",
+    "genericError": "Something went wrong. Please try again.",
+    "notFound": "Not found",
+    "empty": "No data to display",
+    "active": "Active",
+    "inactive": "Inactive",
+    "enabled": "Enabled",
+    "disabled": "Disabled"
   },
   "navigation": {
     "home": "Home",
@@ -25,7 +52,7 @@
     "profile": "Profile"
   },
   "forms": {
-      "emailPlaceholder": "Enter your email",
+    "emailPlaceholder": "Enter your email",
     "passwordPlaceholder": "Enter your password",
     "required": "Required field",
     "invalidEmail": "Invalid email address",
@@ -101,7 +128,7 @@
   "languageSwitcher": {
     "hebrew": "עברית",
     "english": "English",
-    "switchToHebrew": "החלף לעברית",
+    "switchToHebrew": "Switch to Hebrew",
     "switchToEnglish": "Switch to English"
   },
   "redux": {
@@ -132,5 +159,129 @@
     "formMessagePlaceholder": "Enter your message",
     "formCancel": "Cancel",
     "formSubmit": "Submit"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "overview": {
+      "title": "Overview",
+      "subtitle": "A quick snapshot of your recent activity."
+    },
+    "stats": {
+      "openRequests": {
+        "label": "Open requests",
+        "hint": "3 of them are urgent"
+      },
+      "todayRequests": {
+        "label": "Requests for today",
+        "hint": "2 waiting for approval"
+      },
+      "handledThisWeek": {
+        "label": "Handled this week",
+        "hint": "+8 compared to last week"
+      }
+    },
+    "actions": {
+      "newRequest": "Create new request",
+      "viewAllRequests": "View all requests"
+    },
+    "quickActions": {
+      "title": "Quick actions",
+      "itemApprovePending": "Requests waiting for your approval",
+      "itemRecent": "Requests submitted in the last week",
+      "itemUrgent": "Requests marked as urgent"
+    },
+    "recentActivity": {
+      "title": "Recent activity",
+      "item1": {
+        "main": "A new request was opened by \"Lev HaChayal\" organization",
+        "meta": "12 minutes ago · Status: In progress"
+      },
+      "item2": {
+        "main": "Request #214 was approved by the system admin",
+        "meta": "1 hour ago"
+      },
+      "item3": {
+        "main": "Request #209 was sent back to the organization for more details",
+        "meta": "Yesterday"
+      }
+    }
+  },
+  "validation": {
+    "required": "This field is required",
+    "invalidEmail": "Please enter a valid email address",
+    "invalidPhone": "Please enter a valid phone number",
+    "invalidNumber": "Please enter a valid number",
+    "minLength": "Must be at least {{min}} characters",
+    "maxLength": "Must be at most {{max}} characters",
+    "passwordTooWeak": "Password is too weak",
+    "dateRequired": "Please select a date",
+    "fieldTooShort": "The value is too short",
+    "fieldTooLong": "The value is too long"
+  },
+  "table": {
+    "noData": "No rows to display",
+    "rowsPerPage": "Rows per page",
+    "page": "Page",
+    "of": "of",
+    "sortAsc": "Sort ascending",
+    "sortDesc": "Sort descending"
+  },
+  "filters": {
+    "title": "Filters",
+    "reset": "Reset filters",
+    "apply": "Apply filters",
+    "showFilters": "Show filters",
+    "hideFilters": "Hide filters"
+  },
+  "status": {
+    "open": "Open",
+    "pending": "Pending",
+    "approved": "Approved",
+    "rejected": "Rejected",
+    "cancelled": "Cancelled",
+    "inProgress": "In progress",
+    "completed": "Completed",
+    "draft": "Draft",
+    "archived": "Archived"
+  },
+  "dates": {
+    "today": "Today",
+    "yesterday": "Yesterday",
+    "tomorrow": "Tomorrow",
+    "thisWeek": "This week",
+    "lastWeek": "Last week",
+    "thisMonth": "This month",
+    "lastMonth": "Last month"
+  },
+  "toast": {
+    "saved": "Saved successfully",
+    "updated": "Updated successfully",
+    "deleted": "Deleted successfully",
+    "error": "Something went wrong",
+    "networkError": "Network error. Please check your connection.",
+    "unauthorized": "You are not authorized to perform this action.",
+    "forbidden": "You do not have permission to view this page.",
+    "serverError": "Server error. Please try again later."
+  },
+  "dialog": {
+    "confirmTitle": "Are you sure?",
+    "confirmDescription": "You can’t undo this action.",
+    "cancel": "Cancel",
+    "confirm": "Confirm"
+  },
+  "requestsPage": {
+    "title": "Requests",
+    "myRequests": "My requests",
+    "allRequests": "All requests",
+    "newRequest": "New request",
+    "searchPlaceholder": "Search by name, organization or request ID",
+    "filterByStatus": "Filter by status",
+    "noResults": "No requests match your filters."
+  },
+  "assistancePage": {
+    "title": "Assistance request",
+    "subtitle": "Fill in the details so we can match the right help for you.",
+    "submitSuccess": "Your request was received. Someone will contact you soon.",
+    "submitError": "We couldn't send the request. Please try again."
   }
 }

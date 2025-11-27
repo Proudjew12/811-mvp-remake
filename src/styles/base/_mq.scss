@@ -1,6 +1,9 @@
+// src/styles/base/_mq.scss
 @use "./variables" as *;
 
-@media (max-width: 900px) {
+// ========== GLOBAL LAYOUT ==========
+
+@media (max-width: $bp-m) {
   .main-layout {
     padding-inline: $space-md;
   }
@@ -8,9 +11,14 @@
 
 @media (min-width: 640px) {
   .main-layout {
-    grid-template-columns: minmax(16px, 1fr) minmax(auto, 600px) minmax(16px, 1fr);
+    grid-template-columns:
+      minmax(16px, 1fr)
+      minmax(auto, 600px)
+      minmax(16px, 1fr);
   }
 }
+
+// ========== LOGIN PAGE ==========
 
 @media (max-width: $bp-s) {
   .login-page {
@@ -26,5 +34,40 @@
   .lang-btn {
     top: 16px;
     right: 16px;
+  }
+}
+
+// ========== HOME PAGE ==========
+
+@media (max-width: 900px) {
+  .home-layout {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "overview"
+      "sidebar"
+      "activity";
+  }
+
+  .home-stats {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .home-actions {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .home-header {
+    grid-template-columns: auto 1fr auto;
+    padding-inline: 16px;
+  }
+
+  .home-header__title {
+    font-size: 1rem;
+  }
+
+  .home-card {
+    padding: 20px 18px;
   }
 }

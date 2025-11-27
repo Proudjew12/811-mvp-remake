@@ -1,15 +1,17 @@
 @use "sass:color";
 
-// Colors
-$clr-primary: #0a4283;
-$clr-primary-light: #1260b8;
-$clr-primary-dark: #062d5b;
+// Colors – green palette
+$clr-primary: #0b3f2d;
+$clr-primary-light: color.adjust($clr-primary, $lightness: 10%);
+$clr-primary-dark: color.adjust($clr-primary, $lightness: -8%);
 
-$clr-header: #1C2944;
-$clr-header-text: #E8C8FF;
+$clr-header: $clr-primary;
+$clr-header-text: #eaf5ef;
 
-$clr-bg: #fff;
+$clr-bg: #f3f7f4;
+$clr-surface: #ffffff;
 $clr-text: #222;
+
 
 // Spacing scale
 $space-xs: 4px;

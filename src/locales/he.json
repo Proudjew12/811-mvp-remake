@@ -15,7 +15,34 @@
     "loading": "טוען...",
     "error": "שגיאה",
     "success": "הצלחה",
-    "language": "שפה"
+    "language": "שפה",
+    "yes": "כן",
+    "no": "לא",
+    "ok": "אישור",
+    "close": "סגור",
+    "back": "חזרה",
+    "next": "הבא",
+    "previous": "הקודם",
+    "refresh": "רענון",
+    "retry": "נסה שוב",
+    "search": "חיפוש",
+    "clear": "נקה",
+    "view": "צפייה",
+    "viewMore": "הצג עוד",
+    "details": "פרטים",
+    "download": "הורדה",
+    "upload": "העלאה",
+    "print": "הדפסה",
+    "copy": "העתקה",
+    "confirm": "אישור",
+    "successMessage": "הפעולה הושלמה בהצלחה",
+    "genericError": "אירעה שגיאה. נסה שוב.",
+    "notFound": "לא נמצא",
+    "empty": "אין נתונים להצגה",
+    "active": "פעיל",
+    "inactive": "לא פעיל",
+    "enabled": "מאופשר",
+    "disabled": "מושבת"
   },
   "navigation": {
     "home": "בית",
@@ -116,7 +143,7 @@
     "defaultDescription": "אפשר לשים כאן כל תוכן - טפסים, תמונות, טקסט וכו'.",
     "smallModalDescription": "זהו חלון קטן, מושלם לאישורים מהירים או טפסים קטנים.",
     "largeModalTitle": "תוכן חלון גדול",
-    "largeModalDescription": "החלון הזה גדול יותר ויכול להכיל יותר תוכן.",
+    "largeModalDescription": "החלון这个 גדול יותר ויכול להכיל יותר תוכן.",
     "largeModalUseCase": "הוא נהדר לטפסים, תצוגות מפורטות או אינטראקציות מורכבות.",
     "uiElementsTitle": "אפשר לכלול אלמנטי ממשק שונים כמו:",
     "uiElement1": "טפסים ושדות קלט",
@@ -132,5 +159,129 @@
     "formMessagePlaceholder": "הזן את ההודעה שלך",
     "formCancel": "ביטול",
     "formSubmit": "שלח"
+  },
+  "dashboard": {
+    "title": "לוח מחוונים",
+    "overview": {
+      "title": "סקירה כללית",
+      "subtitle": "תמונת מצב מהירה על הפעילות האחרונה."
+    },
+    "stats": {
+      "openRequests": {
+        "label": "בקשות פתוחות",
+        "hint": "מתוכן 3 דחופות"
+      },
+      "todayRequests": {
+        "label": "בקשות להיום",
+        "hint": "2 ממתינות לאישור"
+      },
+      "handledThisWeek": {
+        "label": "טופלו השבוע",
+        "hint": "+8 לעומת שבוע שעבר"
+      }
+    },
+    "actions": {
+      "newRequest": "יצירת בקשה חדשה",
+      "viewAllRequests": "צפייה בכל הבקשות"
+    },
+    "quickActions": {
+      "title": "פעולות מהירות",
+      "itemApprovePending": "בקשות שממתינות לאישור שלך",
+      "itemRecent": "בקשות שהוגשו בשבוע האחרון",
+      "itemUrgent": "בקשות שסומנו כדחופות"
+    },
+    "recentActivity": {
+      "title": "פעילות אחרונה",
+      "item1": {
+        "main": "בקשה חדשה נפתחה ע\"י עמותת \"לב החייל\"",
+        "meta": "לפני 12 דקות · סטטוס: בטיפול"
+      },
+      "item2": {
+        "main": "בקשה #214 אושרה ע\"י מנהל המערכת",
+        "meta": "לפני שעה"
+      },
+      "item3": {
+        "main": "בקשה #209 נשלחה חזרה לעמותה להשלמת פרטים",
+        "meta": "אתמול"
+      }
+    }
+  },
+  "validation": {
+    "required": "שדה זה הוא שדה חובה",
+    "invalidEmail": "יש להזין כתובת אימייל תקינה",
+    "invalidPhone": "יש להזין מספר טלפון תקין",
+    "invalidNumber": "יש להזין מספר תקין",
+    "minLength": "יש להזין לפחות {{min}} תווים",
+    "maxLength": "יש להזין לכל היותר {{max}} תווים",
+    "passwordTooWeak": "הסיסמה חלשה מדי",
+    "dateRequired": "יש לבחור תאריך",
+    "fieldTooShort": "הערך קצר מדי",
+    "fieldTooLong": "הערך ארוך מדי"
+  },
+  "table": {
+    "noData": "אין שורות להצגה",
+    "rowsPerPage": "שורות בעמוד",
+    "page": "עמוד",
+    "of": "מתוך",
+    "sortAsc": "מיון מהנמוך לגבוה",
+    "sortDesc": "מיון מהגבוה לנמוך"
+  },
+  "filters": {
+    "title": "מסננים",
+    "reset": "איפוס מסננים",
+    "apply": "החלת מסננים",
+    "showFilters": "הצגת מסננים",
+    "hideFilters": "הסתרת מסננים"
+  },
+  "status": {
+    "open": "פתוח",
+    "pending": "ממתין",
+    "approved": "אושר",
+    "rejected": "נדחה",
+    "cancelled": "בוטל",
+    "inProgress": "בטיפול",
+    "completed": "הושלם",
+    "draft": "טיוטה",
+    "archived": "בארכיון"
+  },
+  "dates": {
+    "today": "היום",
+    "yesterday": "אתמול",
+    "tomorrow": "מחר",
+    "thisWeek": "השבוע",
+    "lastWeek": "שבוע שעבר",
+    "thisMonth": "החודש",
+    "lastMonth": "חודש שעבר"
+  },
+  "toast": {
+    "saved": "נשמר בהצלחה",
+    "updated": "עודכן בהצלחה",
+    "deleted": "נמחק בהצלחה",
+    "error": "אירעה שגיאה",
+    "networkError": "שגיאת רשת. בדוק את החיבור שלך.",
+    "unauthorized": "אין לך הרשאה לבצע פעולה זו.",
+    "forbidden": "אין לך הרשאה לצפות בדף זה.",
+    "serverError": "שגיאת שרת. נסה שוב מאוחר יותר."
+  },
+  "dialog": {
+    "confirmTitle": "האם את/ה בטוח/ה?",
+    "confirmDescription": "לא ניתן לבטל פעולה זו.",
+    "cancel": "ביטול",
+    "confirm": "אישור"
+  },
+  "requestsPage": {
+    "title": "בקשות",
+    "myRequests": "הבקשות שלי",
+    "allRequests": "כל הבקשות",
+    "newRequest": "בקשה חדשה",
+    "searchPlaceholder": "חיפוש לפי שם, עמותה או מספר בקשה",
+    "filterByStatus": "סינון לפי סטטוס",
+    "noResults": "אין בקשות שעונות על המסננים."
+  },
+  "assistancePage": {
+    "title": "בקשת סיוע",
+    "subtitle": "מלא/י את הפרטים כדי שנוכל להתאים עבורך את הסיוע הנכון.",
+    "submitSuccess": "הבקשה התקבלה. מישהו יחזור אליך בקרוב.",
+    "submitError": "לא הצלחנו לשלוח את הבקשה. נסה/י שוב."
   }
 }
