@@ -1,16 +1,17 @@
+// src/pages/HomePage/OrganizationHomePage.tsx
 import "./HomePage.scss";
 import Button from "../../components/button/button";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
-export default function HomePage() {
+export default function OrganizationHomePage() {
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
-
   const isHebrew = i18n.language.startsWith("he");
 
   function onToggleLanguage() {
-    i18n.changeLanguage(isHebrew ? "en" : "he");
+    const nextLang = isHebrew ? "en" : "he";
+    i18n.changeLanguage(nextLang);
   }
 
   function onLogoutClick() {
@@ -31,9 +32,11 @@ export default function HomePage() {
           </Button>
         </div>
 
-        <h1 className="home-header__title">{t("dashboard.title")}</h1>
+        <h1 className="home-header__title">
+          {t("dashboard.title")} – Organization
+        </h1>
 
-        <div className="home-header__side home-header__side--right flex justify-end align-center">
+        <div className="home-header__side home-header__side--right flex align-center">
           <Button
             type="button"
             variant="secondary"
@@ -41,13 +44,15 @@ export default function HomePage() {
             onClick={onToggleLanguage}
           >
             {isHebrew
-              ? t("languageSwitcher.hebrew")
-              : t("languageSwitcher.english")}
+              ? t("languageSwitcher.english")
+              : t("languageSwitcher.hebrew")}
           </Button>
         </div>
       </header>
 
+      {/* reuse same layout for now */}
       <main className="home-layout grid">
+        {/* you can customize these stats for orgs later */}
         <section className="home-card home-card--overview">
           <header className="home-card__header">
             <h2 className="home-card__title">
@@ -63,7 +68,7 @@ export default function HomePage() {
               <span className="home-stat__label">
                 {t("dashboard.stats.openRequests.label")}
               </span>
-              <span className="home-stat__value">12</span>
+              <span className="home-stat__value">7</span>
               <span className="home-stat__hint">
                 {t("dashboard.stats.openRequests.hint")}
               </span>
@@ -73,7 +78,7 @@ export default function HomePage() {
               <span className="home-stat__label">
                 {t("dashboard.stats.todayRequests.label")}
               </span>
-              <span className="home-stat__value">5</span>
+              <span className="home-stat__value">3</span>
               <span className="home-stat__hint">
                 {t("dashboard.stats.todayRequests.hint")}
               </span>
@@ -83,7 +88,7 @@ export default function HomePage() {
               <span className="home-stat__label">
                 {t("dashboard.stats.handledThisWeek.label")}
               </span>
-              <span className="home-stat__value">27</span>
+              <span className="home-stat__value">15</span>
               <span className="home-stat__hint">
                 {t("dashboard.stats.handledThisWeek.hint")}
               </span>
@@ -91,10 +96,10 @@ export default function HomePage() {
           </div>
 
           <div className="home-actions grid">
-            <Button type="button" variant="secondary">
+            <Button type="button" variant="primary">
               {t("dashboard.actions.newRequest")}
             </Button>
-            <Button type="button" variant="primary">
+            <Button type="button" variant="secondary">
               {t("dashboard.actions.viewAllRequests")}
             </Button>
           </div>
@@ -108,12 +113,6 @@ export default function HomePage() {
           </header>
 
           <ul className="home-quick-list grid">
-            <li className="home-quick-item flex align-center">
-              <span className="home-quick-item__bullet" />
-              <span className="home-quick-item__text">
-                {t("dashboard.quickActions.itemApprovePending")}
-              </span>
-            </li>
             <li className="home-quick-item flex align-center">
               <span className="home-quick-item__bullet" />
               <span className="home-quick-item__text">
@@ -151,14 +150,6 @@ export default function HomePage() {
               </p>
               <p className="home-activity__meta">
                 {t("dashboard.recentActivity.item2.meta")}
-              </p>
-            </li>
-            <li className="home-activity">
-              <p className="home-activity__main">
-                {t("dashboard.recentActivity.item3.main")}
-              </p>
-              <p className="home-activity__meta">
-                {t("dashboard.recentActivity.item3.meta")}
               </p>
             </li>
           </ul>

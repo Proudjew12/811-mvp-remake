@@ -8,10 +8,9 @@ $clr-primary-dark: color.adjust($clr-primary, $lightness: -8%);
 $clr-header: $clr-primary;
 $clr-header-text: #eaf5ef;
 
-$clr-bg: #f3f7f4;
-$clr-surface: #ffffff;
+$clr-bg: #e6efe9;
+$clr-surface: #f7faf8;
 $clr-text: #222;
-
 
 // Spacing scale
 $space-xs: 4px;
@@ -25,7 +24,7 @@ $bp-m: 890px;
 $bp-l: 1060px;
 
 // Transition
-$transition-fast: .2s ease;
+$transition-fast: 0.2s ease;
 
 // Login page colors
 $login-primary: #0b3f2d;
@@ -36,6 +35,9 @@ $login-demo-bg-hover: color.adjust($login-demo-bg, $lightness: -6%);
 
 // Login page background (white → green + glow)
 $login-bg-gradient: linear-gradient(135deg, #eaf5ef 0%, #d8eade 100%);
-$login-bg-overlay:
-  radial-gradient(circle at 15% 20%, rgba(255, 255, 255, 0.6) 0, transparent 55%),
+$login-bg-overlay: radial-gradient(
+    circle at 15% 20%,
+    rgba(255, 255, 255, 0.6) 0,
+    transparent 55%
+  ),
   radial-gradient(circle at 85% 80%, rgba(11, 63, 45, 0.25) 0, transparent 60%);

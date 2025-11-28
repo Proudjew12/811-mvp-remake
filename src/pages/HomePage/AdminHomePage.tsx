@@ -1,16 +1,17 @@
+// src/pages/HomePage/AdminHomePage.tsx
 import "./HomePage.scss";
 import Button from "../../components/button/button";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
-export default function HomePage() {
+export default function AdminHomePage() {
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
-
   const isHebrew = i18n.language.startsWith("he");
 
   function onToggleLanguage() {
-    i18n.changeLanguage(isHebrew ? "en" : "he");
+    const nextLang = isHebrew ? "en" : "he";
+    i18n.changeLanguage(nextLang);
   }
 
   function onLogoutClick() {
@@ -31,9 +32,9 @@ export default function HomePage() {
           </Button>
         </div>
 
-        <h1 className="home-header__title">{t("dashboard.title")}</h1>
+        <h1 className="home-header__title">{t("dashboard.title")} – Admin</h1>
 
-        <div className="home-header__side home-header__side--right flex justify-end align-center">
+        <div className="home-header__side home-header__side--right flex align-center">
           <Button
             type="button"
             variant="secondary"
@@ -41,13 +42,14 @@ export default function HomePage() {
             onClick={onToggleLanguage}
           >
             {isHebrew
-              ? t("languageSwitcher.hebrew")
-              : t("languageSwitcher.english")}
+              ? t("languageSwitcher.english")
+              : t("languageSwitcher.hebrew")}
           </Button>
         </div>
       </header>
 
       <main className="home-layout grid">
+        {/* Overview */}
         <section className="home-card home-card--overview">
           <header className="home-card__header">
             <h2 className="home-card__title">
@@ -100,6 +102,7 @@ export default function HomePage() {
           </div>
         </section>
 
+        {/* Quick actions */}
         <aside className="home-card home-card--sidebar">
           <header className="home-card__header">
             <h2 className="home-card__title">
@@ -129,6 +132,7 @@ export default function HomePage() {
           </ul>
         </aside>
 
+        {/* Recent activity */}
         <section className="home-card home-card--activity">
           <header className="home-card__header home-card__header--row flex justify-between align-center">
             <h2 className="home-card__title">

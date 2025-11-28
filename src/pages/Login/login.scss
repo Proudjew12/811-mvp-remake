@@ -2,10 +2,11 @@
 @use "sass:color";
 
 .login-page {
-  height: 100vh;
-  background: $login-bg-gradient;
-  position: relative;
-  padding-top: 20px;
+  min-height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  padding: 16px;
+  box-sizing: border-box;
 }
 
 .lang-btn {
@@ -15,7 +16,7 @@
 }
 
 .login-card {
-  width: 450px;
+  width: 380px;
   background: white;
   padding: 32px;
   border-radius: 12px;

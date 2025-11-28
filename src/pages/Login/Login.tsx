@@ -5,6 +5,8 @@ import { useTranslation } from "react-i18next";
 import "./login.scss";
 import logoGreen from "../../assets/Logo/mate-logo-green.png";
 import Button from "../../components/button/button";
+import { showWelcomeToast } from "../../services/ui/alerts.service";
+
 import {
   loginService,
   DemoAccountKey,
@@ -53,14 +55,14 @@ export default function Login() {
 
   function navigateByAccountType(result: LoginResult) {
     switch (result.accountType) {
-      case "organization":
-        navigate("/home");
-        break;
       case "admin":
-        navigate("/home");
+        navigate("/home/admin");
         break;
-      case "requester":
-        navigate("/home");
+      case "organization":
+        navigate("/home/organization");
+        break;
+      case "user":
+        navigate("/home/user");
         break;
     }
   }
@@ -78,6 +80,10 @@ export default function Login() {
     try {
       setIsSubmitting(true);
       const loginResult = await loginService.login(credentials);
+
+      const lang: "he" | "en" = i18n.language.startsWith("he") ? "he" : "en";
+      showWelcomeToast(loginResult.email, lang);
+
       navigateByAccountType(loginResult);
     } catch (error) {
       setErrorMessage(loginService.getErrorMessage(error));
@@ -109,7 +115,6 @@ export default function Login() {
       </Button>
 
       <div className="login-card flex column center">
-
         <img
           src={logoGreen}
           className="login-logo"
@@ -117,22 +122,21 @@ export default function Login() {
         />
 
         <form onSubmit={onLoginSubmit} className="flex column center">
-  <input
-  type="email"
-  placeholder={t("forms.emailPlaceholder")}
-  value={credentials.email}
-  onChange={onEmailChange}
-  autoComplete="email"
-/>
+          <input
+            type="email"
+            placeholder={t("forms.emailPlaceholder")}
+            value={credentials.email}
+            onChange={onEmailChange}
+            autoComplete="email"
+          />
 
-<input
-  type="password"
-  placeholder={t("forms.passwordPlaceholder")}
-  value={credentials.password}
-  onChange={onPasswordChange}
-  autoComplete="current-password"
-/>
-
+          <input
+            type="password"
+            placeholder={t("forms.passwordPlaceholder")}
+            value={credentials.password}
+            onChange={onPasswordChange}
+            autoComplete="current-password"
+          />
 
           {errorMessage && <p className="login-error">{errorMessage}</p>}
 
@@ -170,9 +174,9 @@ export default function Login() {
           <Button
             type="button"
             variant="secondary"
-            onClick={() => onDemoAccountClick("requester")}
+            onClick={() => onDemoAccountClick("user")}
           >
-            requester
+            user
           </Button>
         </div>
       </div>

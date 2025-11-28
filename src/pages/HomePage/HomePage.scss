@@ -40,7 +40,7 @@
 }
 
 .home-header__side--right {
-  right: 32px; 
+  right: 32px;
 }
 
 .home-layout {
@@ -139,10 +139,7 @@
   padding: 10px 12px;
   border-radius: 12px;
   cursor: pointer;
-  transition:
-    background 0.15s ease,
-    transform 0.15s ease,
-    box-shadow 0.15s ease;
+  transition: background 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
 }
 
 .home-quick-item:hover {

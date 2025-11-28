@@ -11,7 +11,7 @@ export type LoginCredentials = {
   password: string;
 };
 
-export type DemoAccountKey = "organization" | "admin" | "requester";
+export type DemoAccountKey = "organization" | "admin" | "user";
 
 export type LoginResult = {
   accountType: DemoAccountKey;
@@ -23,7 +23,7 @@ type DemoAccountsMap = Record<DemoAccountKey, LoginCredentials>;
 const demoAccounts: DemoAccountsMap = {
   organization: { email: "org@demo.com", password: "org1234" },
   admin: { email: "admin@demo.com", password: "admin1234" },
-  requester: { email: "requester@demo.com", password: "request1234" },
+  user: { email: "user@demo.com", password: "user1234" },
 };
 
 class LoginError extends Error {
@@ -45,7 +45,7 @@ function validateCredentials(credentials: LoginCredentials): string | null {
   const password = credentials.password.trim();
 
   if (!email || !password) {
-    return 'נא למלא דוא״ל וסיסמה';
+    return "נא למלא דוא״ל וסיסמה";
   }
 
   if (!email.includes("@")) {
@@ -60,7 +60,6 @@ function validateCredentials(credentials: LoginCredentials): string | null {
 }
 
 async function login(credentials: LoginCredentials): Promise<LoginResult> {
-
   await simulateNetworkDelay(500);
 
   const demoEntries = Object.entries(demoAccounts) as [
