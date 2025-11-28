@@ -1,10 +1,10 @@
-// src/pages/HomePage/AdminHomePage.tsx
-import "./HomePage.scss";
-import Button from "../../components/button/button";
+// src/pages/HomePage/OrganizationHomePage.tsx
+import "./OrganizationDashboard.scss";
+import Button from "../../../components/button/button";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
-export default function AdminHomePage() {
+export default function OrganizationHomePage() {
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const isHebrew = i18n.language.startsWith("he");
@@ -32,7 +32,9 @@ export default function AdminHomePage() {
           </Button>
         </div>
 
-        <h1 className="home-header__title">{t("dashboard.title")} – Admin</h1>
+        <h1 className="home-header__title">
+          {t("dashboard.title")} – Organization
+        </h1>
 
         <div className="home-header__side home-header__side--right flex align-center">
           <Button
@@ -48,8 +50,9 @@ export default function AdminHomePage() {
         </div>
       </header>
 
+      {/* reuse same layout for now */}
       <main className="home-layout grid">
-        {/* Overview */}
+        {/* you can customize these stats for orgs later */}
         <section className="home-card home-card--overview">
           <header className="home-card__header">
             <h2 className="home-card__title">
@@ -65,7 +68,7 @@ export default function AdminHomePage() {
               <span className="home-stat__label">
                 {t("dashboard.stats.openRequests.label")}
               </span>
-              <span className="home-stat__value">12</span>
+              <span className="home-stat__value">7</span>
               <span className="home-stat__hint">
                 {t("dashboard.stats.openRequests.hint")}
               </span>
@@ -75,7 +78,7 @@ export default function AdminHomePage() {
               <span className="home-stat__label">
                 {t("dashboard.stats.todayRequests.label")}
               </span>
-              <span className="home-stat__value">5</span>
+              <span className="home-stat__value">3</span>
               <span className="home-stat__hint">
                 {t("dashboard.stats.todayRequests.hint")}
               </span>
@@ -85,7 +88,7 @@ export default function AdminHomePage() {
               <span className="home-stat__label">
                 {t("dashboard.stats.handledThisWeek.label")}
               </span>
-              <span className="home-stat__value">27</span>
+              <span className="home-stat__value">15</span>
               <span className="home-stat__hint">
                 {t("dashboard.stats.handledThisWeek.hint")}
               </span>
@@ -93,16 +96,15 @@ export default function AdminHomePage() {
           </div>
 
           <div className="home-actions grid">
-            <Button type="button" variant="secondary">
+            <Button type="button" variant="primary">
               {t("dashboard.actions.newRequest")}
             </Button>
-            <Button type="button" variant="primary">
+            <Button type="button" variant="secondary">
               {t("dashboard.actions.viewAllRequests")}
             </Button>
           </div>
         </section>
 
-        {/* Quick actions */}
         <aside className="home-card home-card--sidebar">
           <header className="home-card__header">
             <h2 className="home-card__title">
@@ -111,12 +113,6 @@ export default function AdminHomePage() {
           </header>
 
           <ul className="home-quick-list grid">
-            <li className="home-quick-item flex align-center">
-              <span className="home-quick-item__bullet" />
-              <span className="home-quick-item__text">
-                {t("dashboard.quickActions.itemApprovePending")}
-              </span>
-            </li>
             <li className="home-quick-item flex align-center">
               <span className="home-quick-item__bullet" />
               <span className="home-quick-item__text">
@@ -132,7 +128,6 @@ export default function AdminHomePage() {
           </ul>
         </aside>
 
-        {/* Recent activity */}
         <section className="home-card home-card--activity">
           <header className="home-card__header home-card__header--row flex justify-between align-center">
             <h2 className="home-card__title">
@@ -155,14 +150,6 @@ export default function AdminHomePage() {
               </p>
               <p className="home-activity__meta">
                 {t("dashboard.recentActivity.item2.meta")}
-              </p>
-            </li>
-            <li className="home-activity">
-              <p className="home-activity__main">
-                {t("dashboard.recentActivity.item3.main")}
-              </p>
-              <p className="home-activity__meta">
-                {t("dashboard.recentActivity.item3.meta")}
               </p>
             </li>
           </ul>

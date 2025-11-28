@@ -1,0 +1,99 @@
+@use "../../../styles/base/_variables" as *;
+@use "sass:color";
+
+.volunteers-page {
+  min-height: 100vh;
+  background: $clr-bg;
+}
+
+.volunteers-main {
+  max-width: 1120px;
+  margin: 32px auto 48px;
+  padding-inline: 16px;
+}
+
+/* TOOLBAR */
+
+.volunteers-toolbar {
+  margin-block-end: 20px;
+}
+
+.volunteers-toolbar__left {
+  gap: 8px;
+}
+
+.volunteers-toolbar__right {
+  gap: 8px;
+}
+
+.volunteers-search-wrapper {
+  flex: 1;
+  margin-inline: 16px;
+}
+
+.volunteers-search-input {
+  inline-size: 100%;
+  padding: 10px 14px;
+  border-radius: 999px;
+  border: 1px solid color.adjust($clr-text, $lightness: 55%);
+  font-size: 0.9rem;
+  background: #fff;
+}
+
+/* GRID */
+
+.volunteers-grid {
+  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+/* CARD */
+
+.volunteer-card {
+  background: $clr-surface;
+  border-radius: 18px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+  padding: 20px 22px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.volunteer-card__header {
+  margin-block-end: 10px;
+}
+
+.volunteer-card__name {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: $clr-header;
+}
+
+.volunteer-card__role {
+  margin: 4px 0 0;
+  font-size: 0.88rem;
+  color: color.adjust($clr-text, $lightness: 5%);
+}
+
+.volunteer-card__body {
+  margin-block: 8px 12px;
+}
+
+.volunteer-card__field {
+  display: flex;
+  gap: 6px;
+  margin: 4px 0;
+  font-size: 0.88rem;
+  color: $clr-text;
+}
+
+.volunteer-card__label {
+  font-weight: 600;
+  color: color.adjust($clr-text, $lightness: -5%);
+}
+
+.volunteer-card__footer {
+  margin-top: 4px;
+  gap: 8px;
+}

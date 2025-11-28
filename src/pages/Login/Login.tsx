@@ -56,13 +56,17 @@ export default function Login() {
   function navigateByAccountType(result: LoginResult) {
     switch (result.accountType) {
       case "admin":
-        navigate("/home/admin");
+        navigate("/admin/dashboard");
         break;
       case "organization":
-        navigate("/home/organization");
+        navigate("/organization/dashboard");
         break;
       case "user":
-        navigate("/home/user");
+      case "user":
+        navigate("/user/dashboard");
+        break;
+      default:
+        navigate("/user/dashboard");
         break;
     }
   }
@@ -174,6 +178,7 @@ export default function Login() {
           <Button
             type="button"
             variant="secondary"
+            // label says "user", internal key stays "requester"
             onClick={() => onDemoAccountClick("user")}
           >
             user

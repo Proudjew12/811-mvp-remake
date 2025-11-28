@@ -1,0 +1,32 @@
+@use "../../../styles/base/_variables" as *;
+@use "sass:color";
+
+.control-page {
+  min-height: 100vh;
+  background: $clr-bg;
+}
+
+.control-main {
+  max-width: 1120px;
+  margin: 32px auto 48px;
+  padding-inline: 16px;
+}
+
+.control-card {
+  background: $clr-surface;
+  border-radius: 18px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+  padding: 24px 28px;
+}
+
+.control-card__title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: $clr-header;
+}
+
+.control-card__subtitle {
+  margin-block-start: 8px;
+  font-size: 0.9rem;
+  color: color.adjust($clr-text, $lightness: 10%);
+}

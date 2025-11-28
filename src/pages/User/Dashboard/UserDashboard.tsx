@@ -1,6 +1,6 @@
 // src/pages/HomePage/UserHomePage.tsx
-import "./HomePage.scss";
-import Button from "../../components/button/button";
+import "./UserDashboard.scss";
+import Button from "../../../components/button/button";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
