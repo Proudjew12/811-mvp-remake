@@ -12,14 +12,23 @@
   padding-inline: 32px;
   background: $clr-header;
   color: $clr-header-text;
+  display: flex;
   align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 1.2rem;
+  position: relative;
 }
 
 .user-request-header__title {
-  flex: 1;
-  text-align: center;
-  font-weight: 600;
-  font-size: 1.2rem;
+  margin: 0;
+}
+
+.user-request-header__actions {
+  position: absolute;
+  top: 50%;
+  right: 32px;
+  transform: translateY(-50%);
 }
 
 .user-request-header__side {
@@ -336,4 +345,9 @@
 
 .request-success-actions {
   margin-top: 24px;
+}
+
+.request-input--ltr {
+  direction: ltr;
+  text-align: left;
 }

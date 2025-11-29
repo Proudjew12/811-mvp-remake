@@ -68,6 +68,75 @@
     "urgency": "דחיפות",
     "status": "סטטוס"
   },
+  "userRequest": {
+    "title": "טופס בקשת סיוע",
+    "backToHome": "חזרה לדף הבית",
+    "clearSelection": "אפס בחירה",
+    "submitAndSave": "✓ שמירה ושליחה",
+    "successTitle": "הבקשה נשלחה בהצלחה!",
+    "successBody1": "בקשתך התקבלה במטה החמ\"ל הארצי. ממש בקרוב אחד מנציגינו יצור איתך קשר ויעביר את הבקשה הלאה.",
+    "successBody2": "תודה על פנייתכם, ניצור אתכם קשר בהקדם.",
+    "step1": {
+      "title": "מי צריך עזרה?",
+      "recipientNameLabel": "שם מקבל הסיוע",
+      "recipientNamePlaceholder": "שם מלא",
+      "phoneLabel": "מספר טלפון",
+      "phonePlaceholder": "מספר טלפון",
+      "requestTitleLabel": "כותרת הבקשה",
+      "requestTitlePlaceholder": "תיאור קצר של הבקשה",
+      "hint": "כתבו שם שמייצג את מי שצריך את העזרה. זה יכול להיות שם של אדם אחד או קבוצה. מספר הטלפון צריך להיות של מישהו שנמצא עם מקבלי הסיוע ויכול לענות לשיחות או למתנדב בשטח."
+    },
+    "step2": {
+      "title": "לאיפה להגיע?",
+      "districtLabel": "מחוז",
+      "cityLabel": "עיר",
+      "streetLabel": "רחוב",
+      "districtPlaceholder": "בחר מחוז",
+      "cityPlaceholder": "בחר עיר",
+      "chooseDistrictFirst": "בחר קודם מחוז",
+      "streetPlaceholder": "שם רחוב (אופציונלי)",
+      "hint": "אנחנו עובדים עם מחוזות פיקוד העורף. מיקום מדויק מאפשר לנו לשייך את הבקשה למתל\"ק הקרוב ביותר."
+    },
+    "step3": {
+      "title": "איזה סוג סיוע נדרש?"
+    },
+    "step4": {
+      "title": "כמה פרטים אחרונים...",
+      "transportQuestion": "נדרש שינוע?",
+      "transportNo": "לא, אין צורך",
+      "transportYes": "כן, נדרש שינוע",
+      "volunteersQuestion": "דרושים מתנדבים?",
+      "volunteersNo": "לא, אין צורך",
+      "volunteersYes": "כן, דרושים מתנדבים",
+      "uploadLabel": "העלאת קבצים/תמונות לוגוטייפ",
+      "uploadPlaceholder": "העלאת קבצים/תמונות/לוגוטייפ"
+    },
+    "step5": {
+      "title": "אישור פרטים",
+      "subtitle": "תיאור פרטים חשובים",
+      "requestTitleLabel": "כותרת הבקשה",
+      "descriptionLabel": "תיאור",
+      "descriptionPlaceholder": "פה זה המקום לפרט...",
+      "hint": "ככל שנדע יותר על הבקשה במדויק, כך יתקצר זמן הטיפול בה."
+    },
+    "step6": {
+      "title": "נא לוודא שכל הפרטים נכונים",
+      "subtitle": "סיכום הבקשה",
+      "sectionRequest": "פרטי הבקשה",
+      "sectionRequester": "פרטי מבקש הסיוע",
+      "sectionLocation": "פרטי מיקום",
+      "sectionAttachments": "קבצים מצורפים",
+      "sectionTasks": "משימות",
+      "assistanceTypeLabel": "סוג סיוע:",
+      "assistanceTypeNotSelected": "לא נבחר",
+      "noName": "שם לא הוזן",
+      "noPhone": "טלפון לא הוזן",
+      "noDistrict": "מחוז לא נבחר",
+      "noCity": "עיר לא נבחרה",
+      "noFiles": "לא צורפו קבצים",
+      "defaultTask": "משימת ברירת מחדל: ממתין לשיוך במתל\"ק."
+    }
+  },
   "requests": {
     "myRequests": "הבקשות שלי",
     "allRequests": "כל הבקשות",

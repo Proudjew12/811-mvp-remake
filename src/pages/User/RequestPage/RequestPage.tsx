@@ -1,6 +1,4 @@
-import { ChangeEvent, useState, ReactNode } from "react";
 import "./RequestPage.scss";
-
 import Button from "../../../components/button/button";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
@@ -10,7 +8,9 @@ import {
   AssistanceCategoryId,
   AssistanceCategory,
   CategoryDetailsMap,
+  City,
 } from "../../../services/RequestedPage/requestedPage.service";
+import { ChangeEvent, ReactNode, useState } from "react";
 
 type SummarySectionId =
   | "request"
@@ -37,9 +37,9 @@ type RequestFormData = {
 
 const TOTAL_STEPS = 6;
 
-const DISTRICTS = requestedPageService.onGetDistricts();
-const ASSISTANCE_CATEGORIES = requestedPageService.onGetCategories();
-const EMPTY_CATEGORY_DETAILS = requestedPageService.onGetEmptyCategoryDetails();
+const DISTRICTS = requestedPageService.getDistricts();
+const ASSISTANCE_CATEGORIES = requestedPageService.getCategories();
+const EMPTY_CATEGORY_DETAILS = requestedPageService.getEmptyCategoryDetails();
 
 const emptyForm: RequestFormData = {
   recipientName: "",
@@ -75,8 +75,10 @@ export default function UserRequestPage() {
     tasks: true,
   });
 
-  const selectedDistrict = requestedPageService.onGetDistrictById(
-    form.district
+  const selectedDistrict = requestedPageService.getDistrictById(form.district);
+
+  const selectedCity: City | undefined = selectedDistrict?.cities.find(
+    (city) => city.id === form.city
   );
 
   function onToggleLanguage() {
@@ -87,64 +89,64 @@ export default function UserRequestPage() {
     field: K,
     value: RequestFormData[K]
   ) {
-    setForm((previous) => ({ ...previous, [field]: value }));
+    setForm((prev) => ({ ...prev, [field]: value }));
   }
 
   function onNextStep() {
     if (step < TOTAL_STEPS - 1) {
-      setStep((previous) => previous + 1);
+      setStep((prev) => prev + 1);
     }
   }
 
   function onPreviousStep() {
     if (step > 0) {
-      setStep((previous) => previous - 1);
+      setStep((prev) => prev - 1);
     }
   }
 
   function onToggleCategory(categoryId: AssistanceCategoryId) {
-    setForm((previous) => {
-      const exists = previous.categories.includes(categoryId);
+    setForm((prev) => {
+      const exists = prev.categories.includes(categoryId);
       if (exists) {
         return {
-          ...previous,
-          categories: previous.categories.filter((id) => id !== categoryId),
+          ...prev,
+          categories: prev.categories.filter((id) => id !== categoryId),
           categoryDetails: {
-            ...previous.categoryDetails,
+            ...prev.categoryDetails,
             [categoryId]: [],
           },
         };
       }
-      return { ...previous, categories: [...previous.categories, categoryId] };
+      return { ...prev, categories: [...prev.categories, categoryId] };
     });
   }
 
   function onUpdateCategoryDetail(
     categoryId: AssistanceCategoryId,
-    option: string
+    optionId: string
   ) {
-    setForm((previous) => {
-      const currentOptions = previous.categoryDetails[categoryId] || [];
-      const exists = currentOptions.includes(option);
-      const updatedOptions = exists
-        ? currentOptions.filter((value) => value !== option)
-        : [...currentOptions, option];
+    setForm((prev) => {
+      const current = prev.categoryDetails[categoryId] || [];
+      const exists = current.includes(optionId);
+      const updated = exists
+        ? current.filter((id) => id !== optionId)
+        : [...current, optionId];
 
-      let categories = previous.categories;
-      const isInCategories = categories.includes(categoryId);
+      let categories = prev.categories;
+      const inCategories = categories.includes(categoryId);
 
-      if (updatedOptions.length && !isInCategories) {
+      if (updated.length && !inCategories) {
         categories = [...categories, categoryId];
-      } else if (!updatedOptions.length && isInCategories) {
+      } else if (!updated.length && inCategories) {
         categories = categories.filter((id) => id !== categoryId);
       }
 
       return {
-        ...previous,
+        ...prev,
         categories,
         categoryDetails: {
-          ...previous.categoryDetails,
-          [categoryId]: updatedOptions,
+          ...prev.categoryDetails,
+          [categoryId]: updated,
         },
       };
     });
@@ -154,9 +156,9 @@ export default function UserRequestPage() {
     const files = Array.from(event.target.files ?? []);
     if (!files.length) return;
 
-    setForm((previous) => ({
-      ...previous,
-      attachments: [...previous.attachments, ...files],
+    setForm((prev) => ({
+      ...prev,
+      attachments: [...prev.attachments, ...files],
     }));
   }
 
@@ -165,7 +167,7 @@ export default function UserRequestPage() {
   }
 
   function onRenderProgressDots() {
-    const dots = [];
+    const dots: ReactNode[] = [];
     for (let index = 0; index < TOTAL_STEPS; index += 1) {
       const isActive = index === step;
       const isDone = index < step;
@@ -180,12 +182,14 @@ export default function UserRequestPage() {
 
       dots.push(<span key={index} className={className} />);
     }
-    return <div className="request-progress">{dots}</div>;
+    return <div className="request-progress flex center">{dots}</div>;
   }
 
   function onToggleSummarySection(id: SummarySectionId) {
-    setOpenSections((previous) => ({ ...previous, [id]: !previous[id] }));
+    setOpenSections((prev) => ({ ...prev, [id]: !prev[id] }));
   }
+
+  const locale = isHebrew ? "he-IL" : "en-GB";
 
   if (isSubmitted) {
     return (
@@ -194,9 +198,10 @@ export default function UserRequestPage() {
         dir={isHebrew ? "rtl" : "ltr"}
       >
         <header className="user-request-header flex">
-          <div className="user-request-header__side" />
-          <h1 className="user-request-header__title">טופס בקשת סיוע</h1>
-          <div className="user-request-header__side">
+          <h1 className="user-request-header__title">
+            {t("userRequest.title")}
+          </h1>
+          <div className="user-request-header__actions">
             <Button
               type="button"
               variant="secondary"
@@ -204,21 +209,22 @@ export default function UserRequestPage() {
               onClick={onToggleLanguage}
             >
               {isHebrew
-                ? t("languageSwitcher.english")
-                : t("languageSwitcher.hebrew")}
+                ? t("languageSwitcher.hebrew")
+                : t("languageSwitcher.english")}
             </Button>
           </div>
         </header>
 
         <main className="request-step-main">
           <section className="request-success-card">
-            <h2 className="request-step__title">הבקשה נשלחה בהצלחה!</h2>
+            <h2 className="request-step__title">
+              {t("userRequest.successTitle")}
+            </h2>
             <p className="request-success-text">
-              בקשתך התקבלה במטה החמ&quot;ל הארצי. ממש בקרוב אחד מנציגינו יצור
-              איתך קשר ויעביר את הבקשה הלאה.
+              {t("userRequest.successBody1")}
             </p>
             <p className="request-success-text request-success-text--muted">
-              תודה על פנייתכם, ניצור אתכם קשר בהקדם.
+              {t("userRequest.successBody2")}
             </p>
 
             <div className="request-success-actions flex center">
@@ -227,7 +233,7 @@ export default function UserRequestPage() {
                 variant="secondary"
                 onClick={() => navigate("/user/dashboard")}
               >
-                חזרה לדף הבית
+                {t("userRequest.backToHome")}
               </Button>
             </div>
           </section>
@@ -242,9 +248,8 @@ export default function UserRequestPage() {
       dir={isHebrew ? "rtl" : "ltr"}
     >
       <header className="user-request-header flex">
-        <div className="user-request-header__side" />
-        <h1 className="user-request-header__title">טופס בקשת סיוע</h1>
-        <div className="user-request-header__side">
+        <h1 className="user-request-header__title">{t("userRequest.title")}</h1>
+        <div className="user-request-header__actions">
           <Button
             type="button"
             variant="secondary"
@@ -252,8 +257,8 @@ export default function UserRequestPage() {
             onClick={onToggleLanguage}
           >
             {isHebrew
-              ? t("languageSwitcher.english")
-              : t("languageSwitcher.hebrew")}
+              ? t("languageSwitcher.hebrew")
+              : t("languageSwitcher.english")}
           </Button>
         </div>
       </header>
@@ -261,7 +266,9 @@ export default function UserRequestPage() {
       <main className="request-step-main">
         {step === 0 && (
           <section className="request-step">
-            <h2 className="request-step__title">מי צריך עזרה?</h2>
+            <h2 className="request-step__title">
+              {t("userRequest.step1.title")}
+            </h2>
 
             <form
               onSubmit={(event) => {
@@ -272,7 +279,7 @@ export default function UserRequestPage() {
             >
               <div className="request-field">
                 <label className="request-label">
-                  שם מקבל הסיוע{" "}
+                  {t("userRequest.step1.recipientNameLabel")}{" "}
                   <span className="request-label__required">*</span>
                 </label>
                 <input
@@ -282,17 +289,21 @@ export default function UserRequestPage() {
                   onChange={(event) =>
                     onUpdateField("recipientName", event.target.value)
                   }
-                  placeholder="שם מלא"
+                  placeholder={t("userRequest.step1.recipientNamePlaceholder")}
                   required
                 />
               </div>
 
               <div className="request-field">
                 <label className="request-label">
-                  מספר טלפון <span className="request-label__required">*</span>
+                  {t("userRequest.step1.phoneLabel")}{" "}
+                  <span className="request-label__required">*</span>
                 </label>
                 <input
-                  className="request-input request-input--phone"
+                  className={
+                    "request-input request-input--phone" +
+                    (!isHebrew ? " request-input--ltr" : "")
+                  }
                   type="tel"
                   inputMode="numeric"
                   pattern="[0-9]*"
@@ -301,14 +312,15 @@ export default function UserRequestPage() {
                     const digitsOnly = event.target.value.replace(/\D/g, "");
                     onUpdateField("recipientPhone", digitsOnly);
                   }}
-                  placeholder="מספר טלפון"
+                  placeholder={t("userRequest.step1.phonePlaceholder")}
                   required
                 />
               </div>
 
               <div className="request-field">
                 <label className="request-label">
-                  כותרת הבקשה <span className="request-label__required">*</span>
+                  {t("userRequest.step1.requestTitleLabel")}{" "}
+                  <span className="request-label__required">*</span>
                 </label>
                 <input
                   className="request-input"
@@ -317,16 +329,12 @@ export default function UserRequestPage() {
                   onChange={(event) =>
                     onUpdateField("requestTitle", event.target.value)
                   }
-                  placeholder="תיאור קצר של הבקשה"
+                  placeholder={t("userRequest.step1.requestTitlePlaceholder")}
                   required
                 />
               </div>
 
-              <p className="request-hint">
-                כתבו שם שמייצג את מי שצריך את העזרה. זה יכול להיות שם של אדם אחד
-                או קבוצה. מספר הטלפון צריך להיות של מישהו שנמצא עם מקבלי הסיוע
-                ויכול לענות לשיחות או למתנדב בשטח.
-              </p>
+              <p className="request-hint">{t("userRequest.step1.hint")}</p>
 
               <footer className="request-step-footer flex">
                 <Button
@@ -334,13 +342,13 @@ export default function UserRequestPage() {
                   variant="secondary"
                   onClick={() => navigate("/user/dashboard")}
                 >
-                  חזרה לדף הבית
+                  {t("userRequest.backToHome")}
                 </Button>
 
                 {onRenderProgressDots()}
 
                 <Button type="submit" variant="primary">
-                  השלב הבא →
+                  {t("footer.next")} →
                 </Button>
               </footer>
             </form>
@@ -349,7 +357,9 @@ export default function UserRequestPage() {
 
         {step === 1 && (
           <section className="request-step">
-            <h2 className="request-step__title">לאיפה להגיע?</h2>
+            <h2 className="request-step__title">
+              {t("userRequest.step2.title")}
+            </h2>
 
             <form
               onSubmit={(event) => {
@@ -360,7 +370,8 @@ export default function UserRequestPage() {
             >
               <div className="request-field request-field--half">
                 <label className="request-label">
-                  מחוז <span className="request-label__required">*</span>
+                  {t("userRequest.step2.districtLabel")}{" "}
+                  <span className="request-label__required">*</span>
                 </label>
                 <select
                   className="request-input"
@@ -373,10 +384,12 @@ export default function UserRequestPage() {
                   }
                   required
                 >
-                  <option value="">בחר מחוז</option>
+                  <option value="">
+                    {t("userRequest.step2.districtPlaceholder")}
+                  </option>
                   {DISTRICTS.map((district) => (
                     <option key={district.id} value={district.id}>
-                      {district.name}
+                      {isHebrew ? district.nameHe : district.nameEn}
                     </option>
                   ))}
                 </select>
@@ -384,7 +397,8 @@ export default function UserRequestPage() {
 
               <div className="request-field request-field--half">
                 <label className="request-label">
-                  עיר <span className="request-label__required">*</span>
+                  {t("userRequest.step2.cityLabel")}{" "}
+                  <span className="request-label__required">*</span>
                 </label>
                 <select
                   className="request-input"
@@ -396,20 +410,24 @@ export default function UserRequestPage() {
                   required
                 >
                   <option value="">
-                    {selectedDistrict ? "בחר עיר" : "בחר קודם מחוז"}
+                    {selectedDistrict
+                      ? t("userRequest.step2.cityPlaceholder")
+                      : t("userRequest.step2.chooseDistrictFirst")}
                   </option>
                   {requestedPageService
-                    .onGetCitiesByDistrict(form.district)
-                    .map((city) => (
-                      <option key={city.id} value={city.name}>
-                        {city.name}
+                    .getCitiesByDistrict(form.district)
+                    .map((city: City) => (
+                      <option key={city.id} value={city.id}>
+                        {isHebrew ? city.nameHe : city.nameEn}
                       </option>
                     ))}
                 </select>
               </div>
 
               <div className="request-field">
-                <label className="request-label">רחוב</label>
+                <label className="request-label">
+                  {t("userRequest.step2.streetLabel")}
+                </label>
                 <input
                   className="request-input"
                   type="text"
@@ -417,14 +435,11 @@ export default function UserRequestPage() {
                   onChange={(event) =>
                     onUpdateField("street", event.target.value)
                   }
-                  placeholder="שם רחוב (אופציונלי)"
+                  placeholder={t("userRequest.step2.streetPlaceholder")}
                 />
               </div>
 
-              <p className="request-hint">
-                אנחנו עובדים עם מחוזות פיקוד העורף. מיקום מדויק מאפשר לנו לשייך
-                את הבקשה למתל&quot;ק הקרוב ביותר.
-              </p>
+              <p className="request-hint">{t("userRequest.step2.hint")}</p>
 
               <footer className="request-step-footer flex">
                 <Button
@@ -432,13 +447,13 @@ export default function UserRequestPage() {
                   variant="secondary"
                   onClick={onPreviousStep}
                 >
-                  ← השלב הקודם
+                  ← {t("footer.previous")}
                 </Button>
 
                 {onRenderProgressDots()}
 
                 <Button type="submit" variant="primary">
-                  השלב הבא →
+                  {t("footer.next")} →
                 </Button>
               </footer>
             </form>
@@ -447,57 +462,69 @@ export default function UserRequestPage() {
 
         {step === 2 && (
           <section className="request-step">
-            <h2 className="request-step__title">איזה סוג סיוע נדרש?</h2>
+            <h2 className="request-step__title">
+              {t("userRequest.step3.title")}
+            </h2>
 
             <div className="request-step__actions flex">
               <Button
                 type="button"
                 variant="secondary"
                 onClick={() =>
-                  setForm((previous) => ({
-                    ...previous,
+                  setForm((prev) => ({
+                    ...prev,
                     categories: [],
                     categoryDetails: { ...EMPTY_CATEGORY_DETAILS },
                   }))
                 }
               >
-                אפס בחירה
+                {t("userRequest.clearSelection")}
               </Button>
             </div>
 
             <div className="request-categories grid">
-              {ASSISTANCE_CATEGORIES.map((category) => {
+              {ASSISTANCE_CATEGORIES.map((category: AssistanceCategory) => {
                 const isActive = form.categories.includes(category.id);
                 const selectedOptions = form.categoryDetails[category.id] || [];
+                const label = isHebrew ? category.labelHe : category.labelEn;
+                const options = category.options ?? [];
+
                 return (
                   <div
                     key={category.id}
                     className="request-category flex column"
                   >
                     <CategoryCard
-                      category={category}
+                      id={category.id}
+                      label={label}
                       isActive={isActive}
                       onToggle={onToggleCategory}
                     />
-                    {category.subOptions && (
+                    {options.length > 0 && (
                       <div className="request-category__options flex">
-                        {category.subOptions.map((option) => {
-                          const isSelected = selectedOptions.includes(option);
+                        {options.map((option) => {
+                          const isSelected = selectedOptions.includes(
+                            option.id
+                          );
                           const optionClassName =
                             "request-category__option" +
                             (isSelected
                               ? " request-category__option--active"
                               : "");
+                          const optionLabel = isHebrew
+                            ? option.labelHe
+                            : option.labelEn;
+
                           return (
                             <button
-                              key={option}
+                              key={option.id}
                               type="button"
                               className={optionClassName}
                               onClick={() =>
-                                onUpdateCategoryDetail(category.id, option)
+                                onUpdateCategoryDetail(category.id, option.id)
                               }
                             >
-                              {option}
+                              {optionLabel}
                             </button>
                           );
                         })}
@@ -514,13 +541,13 @@ export default function UserRequestPage() {
                 variant="secondary"
                 onClick={onPreviousStep}
               >
-                ← השלב הקודם
+                ← {t("footer.previous")}
               </Button>
 
               {onRenderProgressDots()}
 
               <Button type="button" variant="primary" onClick={onNextStep}>
-                השלב הבא →
+                {t("footer.next")} →
               </Button>
             </footer>
           </section>
@@ -528,7 +555,9 @@ export default function UserRequestPage() {
 
         {step === 3 && (
           <section className="request-step">
-            <h2 className="request-step__title">כמה פרטים אחרונים...</h2>
+            <h2 className="request-step__title">
+              {t("userRequest.step4.title")}
+            </h2>
 
             <form
               onSubmit={(event) => {
@@ -538,7 +567,9 @@ export default function UserRequestPage() {
               className="request-form"
             >
               <div className="request-toggle-group">
-                <span className="request-toggle-group__label">נדרש שינוע?</span>
+                <span className="request-toggle-group__label">
+                  {t("userRequest.step4.transportQuestion")}
+                </span>
                 <div className="request-toggle-group__buttons flex">
                   <Button
                     type="button"
@@ -547,7 +578,7 @@ export default function UserRequestPage() {
                     }
                     onClick={() => onUpdateField("needsTransport", false)}
                   >
-                    לא, אין צורך
+                    {t("userRequest.step4.transportNo")}
                   </Button>
                   <Button
                     type="button"
@@ -556,14 +587,14 @@ export default function UserRequestPage() {
                     }
                     onClick={() => onUpdateField("needsTransport", true)}
                   >
-                    כן, נדרש שינוע
+                    {t("userRequest.step4.transportYes")}
                   </Button>
                 </div>
               </div>
 
               <div className="request-toggle-group">
                 <span className="request-toggle-group__label">
-                  דרושים מתנדבים?
+                  {t("userRequest.step4.volunteersQuestion")}
                 </span>
                 <div className="request-toggle-group__buttons flex">
                   <Button
@@ -573,7 +604,7 @@ export default function UserRequestPage() {
                     }
                     onClick={() => onUpdateField("needsVolunteers", false)}
                   >
-                    לא, אין צורך
+                    {t("userRequest.step4.volunteersNo")}
                   </Button>
                   <Button
                     type="button"
@@ -582,18 +613,18 @@ export default function UserRequestPage() {
                     }
                     onClick={() => onUpdateField("needsVolunteers", true)}
                   >
-                    כן, דרושים מתנדבים
+                    {t("userRequest.step4.volunteersYes")}
                   </Button>
                 </div>
               </div>
 
               <div className="request-upload">
                 <p className="request-upload__label">
-                  העלאת קבצים/תמונות לוגוטייפ
+                  {t("userRequest.step4.uploadLabel")}
                 </p>
                 <label className="request-upload__dropzone flex center">
                   <span className="request-upload__hint">
-                    העלאת קבצים/תמונות/לוגוטייפ
+                    {t("userRequest.step4.uploadPlaceholder")}
                   </span>
                   <input
                     type="file"
@@ -604,7 +635,7 @@ export default function UserRequestPage() {
                 </label>
 
                 {form.attachments.length > 0 && (
-                  <ul className="request-upload__list">
+                  <ul className="request-upload__list clean-list">
                     {form.attachments.map((file, index) => (
                       <li key={index}>{file.name}</li>
                     ))}
@@ -618,13 +649,13 @@ export default function UserRequestPage() {
                   variant="secondary"
                   onClick={onPreviousStep}
                 >
-                  ← השלב הקודם
+                  ← {t("footer.previous")}
                 </Button>
 
                 {onRenderProgressDots()}
 
                 <Button type="submit" variant="primary">
-                  השלב הבא →
+                  {t("footer.next")} →
                 </Button>
               </footer>
             </form>
@@ -633,8 +664,12 @@ export default function UserRequestPage() {
 
         {step === 4 && (
           <section className="request-step">
-            <h2 className="request-step__title">אישור פרטים</h2>
-            <h3 className="request-step__subtitle">תיאור פרטים חשובים</h3>
+            <h2 className="request-step__title">
+              {t("userRequest.step5.title")}
+            </h2>
+            <h3 className="request-step__subtitle">
+              {t("userRequest.step5.subtitle")}
+            </h3>
 
             <form
               onSubmit={(event) => {
@@ -644,7 +679,9 @@ export default function UserRequestPage() {
               className="request-form"
             >
               <div className="request-field">
-                <label className="request-label">כותרת הבקשה</label>
+                <label className="request-label">
+                  {t("userRequest.step5.requestTitleLabel")}
+                </label>
                 <input
                   className="request-input"
                   type="text"
@@ -652,26 +689,29 @@ export default function UserRequestPage() {
                   onChange={(event) =>
                     onUpdateField("detailsTitle", event.target.value)
                   }
-                  placeholder={form.requestTitle || "כותרת הבקשה"}
+                  placeholder={
+                    form.requestTitle ||
+                    t("userRequest.step5.requestTitleLabel")
+                  }
                 />
               </div>
 
               <div className="request-field">
-                <label className="request-label">תיאור</label>
+                <label className="request-label">
+                  {t("userRequest.step5.descriptionLabel")}
+                </label>
                 <textarea
                   className="request-textarea"
                   value={form.detailsDescription}
                   onChange={(event) =>
                     onUpdateField("detailsDescription", event.target.value)
                   }
-                  placeholder="פה זה המקום לפרט..."
+                  placeholder={t("userRequest.step5.descriptionPlaceholder")}
                   rows={5}
                 />
               </div>
 
-              <p className="request-hint">
-                ככל שנדע יותר על הבקשה במדויק, כך יתקצר זמן הטיפול בה.
-              </p>
+              <p className="request-hint">{t("userRequest.step5.hint")}</p>
 
               <footer className="request-step-footer flex">
                 <Button
@@ -679,13 +719,13 @@ export default function UserRequestPage() {
                   variant="secondary"
                   onClick={onPreviousStep}
                 >
-                  ← השלב הקודם
+                  ← {t("footer.previous")}
                 </Button>
 
                 {onRenderProgressDots()}
 
                 <Button type="submit" variant="primary">
-                  השלב הבא →
+                  {t("footer.next")} →
                 </Button>
               </footer>
             </form>
@@ -694,38 +734,51 @@ export default function UserRequestPage() {
 
         {step === 5 && (
           <section className="request-step">
-            <h2 className="request-step__title">נא לוודא שכל הפרטים נכונים</h2>
-            <h3 className="request-step__subtitle">סיכום הבקשה</h3>
+            <h2 className="request-step__title">
+              {t("userRequest.step6.title")}
+            </h2>
+            <h3 className="request-step__subtitle">
+              {t("userRequest.step6.subtitle")}
+            </h3>
 
             <div className="request-summary__meta">
               <span>
-                {new Date().toLocaleTimeString("he-IL", {
+                {new Date().toLocaleTimeString(locale, {
                   hour: "2-digit",
                   minute: "2-digit",
                 })}{" "}
-                | {new Date().toLocaleDateString("he-IL")}
+                | {new Date().toLocaleDateString(locale)}
               </span>
             </div>
 
             <div className="request-summary__headline">
               <div className="request-summary__headline-main flex">
                 <span className="request-summary__title-text">
-                  {form.requestTitle || "כותרת הבקשה"}
+                  {form.requestTitle ||
+                    t("userRequest.step5.requestTitleLabel")}
                 </span>
                 <span className="request-summary__heart">💚</span>
               </div>
 
               <div className="request-summary__chips flex">
                 {selectedDistrict && (
-                  <span className="request-chip">{selectedDistrict.name}</span>
+                  <span className="request-chip">
+                    {isHebrew
+                      ? selectedDistrict.nameHe
+                      : selectedDistrict.nameEn}
+                  </span>
                 )}
-                {form.city && <span className="request-chip">{form.city}</span>}
+                {selectedCity && (
+                  <span className="request-chip">
+                    {isHebrew ? selectedCity.nameHe : selectedCity.nameEn}
+                  </span>
+                )}
                 {form.categories.length > 0 && (
                   <span className="request-chip">
                     {
                       ASSISTANCE_CATEGORIES.find(
                         (category) => category.id === form.categories[0]
-                      )?.label
+                      )?.[isHebrew ? "labelHe" : "labelEn"]
                     }
                   </span>
                 )}
@@ -735,80 +788,101 @@ export default function UserRequestPage() {
             <div className="request-summary-accordion">
               <SummarySection
                 id="request"
-                title="פרטי הבקשה"
+                title={t("userRequest.step6.sectionRequest")}
                 isOpen={openSections.request}
                 onToggle={onToggleSummarySection}
               >
                 <p>
-                  <strong>סוג סיוע:</strong>{" "}
+                  <strong>{t("userRequest.step6.assistanceTypeLabel")}</strong>{" "}
                   {form.categories.length
                     ? form.categories
                         .map((categoryId) => {
                           const category =
-                            requestedPageService.onGetCategoryById(categoryId);
-                          const baseLabel = category?.label ?? categoryId;
-                          const details = form.categoryDetails[categoryId];
-                          const suffix =
-                            details && details.length
-                              ? ` – ${details.join(", ")}`
-                              : "";
+                            requestedPageService.getCategoryById(categoryId);
+                          const baseLabel = category
+                            ? isHebrew
+                              ? category.labelHe
+                              : category.labelEn
+                            : categoryId;
+                          const detailIds =
+                            form.categoryDetails[categoryId] || [];
+                          const optionLabels =
+                            category?.options
+                              ?.filter((option) =>
+                                detailIds.includes(option.id)
+                              )
+                              .map((option) =>
+                                isHebrew ? option.labelHe : option.labelEn
+                              ) ?? [];
+                          const suffix = optionLabels.length
+                            ? ` – ${optionLabels.join(", ")}`
+                            : "";
                           return `${baseLabel}${suffix}`;
                         })
                         .join(" | ")
-                    : "לא נבחר"}
+                    : t("userRequest.step6.assistanceTypeNotSelected")}
                 </p>
                 {form.detailsDescription && <p>{form.detailsDescription}</p>}
               </SummarySection>
 
               <SummarySection
                 id="requester"
-                title="פרטי מבקש הסיוע"
+                title={t("userRequest.step6.sectionRequester")}
                 isOpen={openSections.requester}
                 onToggle={onToggleSummarySection}
               >
                 <p>
-                  {form.recipientName || "שם לא הוזן"} ·{" "}
-                  {form.recipientPhone || "טלפון לא הוזן"}
+                  {form.recipientName || t("userRequest.step6.noName")} ·{" "}
+                  {form.recipientPhone || t("userRequest.step6.noPhone")}
                 </p>
               </SummarySection>
 
               <SummarySection
                 id="location"
-                title="פרטי מיקום"
+                title={t("userRequest.step6.sectionLocation")}
                 isOpen={openSections.location}
                 onToggle={onToggleSummarySection}
               >
                 <p>
-                  {selectedDistrict?.name || "מחוז לא נבחר"},{" "}
-                  {form.city || "עיר לא נבחרה"}
+                  {(selectedDistrict &&
+                    (isHebrew
+                      ? selectedDistrict.nameHe
+                      : selectedDistrict.nameEn)) ||
+                    t("userRequest.step6.noDistrict")}
+                  ,{" "}
+                  {selectedCity
+                    ? isHebrew
+                      ? selectedCity.nameHe
+                      : selectedCity.nameEn
+                    : t("userRequest.step6.noCity")}
                   {form.street && `, ${form.street}`}
                 </p>
               </SummarySection>
 
               <SummarySection
                 id="attachments"
-                title="קבצים מצורפים"
+                title={t("userRequest.step6.sectionAttachments")}
                 isOpen={openSections.attachments}
                 onToggle={onToggleSummarySection}
               >
                 {form.attachments.length ? (
-                  <ul>
+                  <ul className="clean-list">
                     {form.attachments.map((file, index) => (
                       <li key={index}>{file.name}</li>
                     ))}
                   </ul>
                 ) : (
-                  <p>לא צורפו קבצים</p>
+                  <p>{t("userRequest.step6.noFiles")}</p>
                 )}
               </SummarySection>
 
               <SummarySection
                 id="tasks"
-                title="משימות"
+                title={t("userRequest.step6.sectionTasks")}
                 isOpen={openSections.tasks}
                 onToggle={onToggleSummarySection}
               >
-                <p>משימת ברירת מחדל: ממתין לשיוך במתל&quot;ק.</p>
+                <p>{t("userRequest.step6.defaultTask")}</p>
               </SummarySection>
             </div>
 
@@ -818,13 +892,13 @@ export default function UserRequestPage() {
                 variant="secondary"
                 onClick={onPreviousStep}
               >
-                ← השלב הקודם
+                ← {t("footer.previous")}
               </Button>
 
               {onRenderProgressDots()}
 
               <Button type="button" variant="primary" onClick={onSubmitRequest}>
-                ✓ שמירה ושליחה
+                {t("userRequest.submitAndSave")}
               </Button>
             </footer>
           </section>
@@ -870,26 +944,20 @@ function SummarySection({
 }
 
 type CategoryCardProps = {
-  category: AssistanceCategory;
+  id: AssistanceCategoryId;
+  label: string;
   isActive: boolean;
   onToggle: (id: AssistanceCategoryId) => void;
 };
 
-function CategoryCard({ category, isActive, onToggle }: CategoryCardProps) {
+function CategoryCard({ id, label, isActive, onToggle }: CategoryCardProps) {
   const className =
     "request-category-card" +
     (isActive ? " request-category-card--active" : "");
 
   return (
-    <button
-      type="button"
-      className={className}
-      onClick={() => onToggle(category.id)}
-    >
-      <div className="request-category-card__title">{category.label}</div>
-      <div className="request-category-card__subtitle">
-        {category.englishLabel}
-      </div>
+    <button type="button" className={className} onClick={() => onToggle(id)}>
+      <div className="request-category-card__title">{label}</div>
     </button>
   );
 }

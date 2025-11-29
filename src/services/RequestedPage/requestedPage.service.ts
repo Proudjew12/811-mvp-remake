@@ -1,81 +1,88 @@
 export const requestedPageService = {
-  onGetDistricts,
-  onGetDistrictById,
-  onGetCitiesByDistrict,
-  onGetCategories,
-  onGetCategoryById,
-  onGetEmptyCategoryDetails,
+  getDistricts,
+  getDistrictById,
+  getCitiesByDistrict,
+  getCategories,
+  getCategoryById,
+  getEmptyCategoryDetails,
 };
 
 export type DistrictId = "north" | "haifa" | "center" | "jerusalem" | "south";
 
 export type City = {
   id: string;
-  name: string;
+  nameHe: string;
+  nameEn: string;
 };
 
 export type District = {
   id: DistrictId;
-  name: string;
+  nameHe: string;
+  nameEn: string;
   cities: City[];
 };
 
 const districts: District[] = [
   {
     id: "north",
-    name: "מחוז צפון",
+    nameHe: "מחוז צפון",
+    nameEn: "Northern district",
     cities: [
-      { id: "kiryatShmona", name: "קריית שמונה" },
-      { id: "safed", name: "צפת" },
-      { id: "tiberias", name: "טבריה" },
-      { id: "nahariya", name: "נהריה" },
-      { id: "akko", name: "עכו" },
-      { id: "karmiel", name: "כרמיאל" },
+      { id: "kiryatShmona", nameHe: "קריית שמונה", nameEn: "Kiryat Shmona" },
+      { id: "safed", nameHe: "צפת", nameEn: "Safed" },
+      { id: "tiberias", nameHe: "טבריה", nameEn: "Tiberias" },
+      { id: "nahariya", nameHe: "נהריה", nameEn: "Nahariya" },
+      { id: "akko", nameHe: "עכו", nameEn: "Akko" },
+      { id: "karmiel", nameHe: "כרמיאל", nameEn: "Karmiel" },
     ],
   },
   {
     id: "haifa",
-    name: "מחוז חיפה",
+    nameHe: "מחוז חיפה",
+    nameEn: "Haifa district",
     cities: [
-      { id: "haifa", name: "חיפה" },
-      { id: "kiryatAta", name: "קריית אתא" },
-      { id: "kiryatBialik", name: "קריית ביאליק" },
-      { id: "nesher", name: "נשר" },
-      { id: "tiratCarmel", name: "טירת כרמל" },
+      { id: "haifaCity", nameHe: "חיפה", nameEn: "Haifa" },
+      { id: "kiryatAta", nameHe: "קריית אתא", nameEn: "Kiryat Ata" },
+      { id: "kiryatBialik", nameHe: "קריית ביאליק", nameEn: "Kiryat Bialik" },
+      { id: "nesher", nameHe: "נשר", nameEn: "Nesher" },
+      { id: "tiratCarmel", nameHe: "טירת כרמל", nameEn: "Tirat Carmel" },
     ],
   },
   {
     id: "center",
-    name: "מחוז מרכז",
+    nameHe: "מחוז מרכז",
+    nameEn: "Central district",
     cities: [
-      { id: "telAviv", name: "תל אביב-יפו" },
-      { id: "ramatGan", name: "רמת גן" },
-      { id: "givatayim", name: "גבעתיים" },
-      { id: "petahTikva", name: "פתח תקווה" },
-      { id: "rishonLezion", name: "ראשון לציון" },
-      { id: "rehovot", name: "רחובות" },
+      { id: "telAviv", nameHe: "תל אביב-יפו", nameEn: "Tel Aviv-Yafo" },
+      { id: "ramatGan", nameHe: "רמת גן", nameEn: "Ramat Gan" },
+      { id: "givatayim", nameHe: "גבעתיים", nameEn: "Giv'atayim" },
+      { id: "petahTikva", nameHe: "פתח תקווה", nameEn: "Petah Tikva" },
+      { id: "rishonLezion", nameHe: "ראשון לציון", nameEn: "Rishon Lezion" },
+      { id: "rehovot", nameHe: "רחובות", nameEn: "Rehovot" },
     ],
   },
   {
     id: "jerusalem",
-    name: "מחוז ירושלים",
+    nameHe: "מחוז ירושלים",
+    nameEn: "Jerusalem district",
     cities: [
-      { id: "jerusalem", name: "ירושלים" },
-      { id: "maleAdumim", name: "מעלה אדומים" },
-      { id: "beitShemesh", name: "בית שמש" },
-      { id: "mevasseret", name: "מבשרת ציון" },
+      { id: "jerusalemCity", nameHe: "ירושלים", nameEn: "Jerusalem" },
+      { id: "maleAdumim", nameHe: "מעלה אדומים", nameEn: "Ma'ale Adumim" },
+      { id: "beitShemesh", nameHe: "בית שמש", nameEn: "Beit Shemesh" },
+      { id: "mevasseret", nameHe: "מבשרת ציון", nameEn: "Mevasseret Zion" },
     ],
   },
   {
     id: "south",
-    name: "מחוז דרום",
+    nameHe: "מחוז דרום",
+    nameEn: "Southern district",
     cities: [
-      { id: "beerSheva", name: "באר שבע" },
-      { id: "ashdod", name: "אשדוד" },
-      { id: "ashkelon", name: "אשקלון" },
-      { id: "kiryatGat", name: "קריית גת" },
-      { id: "kiryatMalachi", name: "קריית מלאכי" },
-      { id: "ofakim", name: "אופקים" },
+      { id: "beerSheva", nameHe: "באר שבע", nameEn: "Be'er Sheva" },
+      { id: "ashdod", nameHe: "אשדוד", nameEn: "Ashdod" },
+      { id: "ashkelon", nameHe: "אשקלון", nameEn: "Ashkelon" },
+      { id: "kiryatGat", nameHe: "קריית גת", nameEn: "Kiryat Gat" },
+      { id: "kiryatMalachi", nameHe: "קריית מלאכי", nameEn: "Kiryat Malachi" },
+      { id: "ofakim", nameHe: "אופקים", nameEn: "Ofakim" },
     ],
   },
 ];
@@ -94,121 +101,277 @@ export type AssistanceCategoryId =
   | "supportToHamal"
   | "reportingInformation";
 
+export type SubCategoryOption = {
+  id: string;
+  labelHe: string;
+  labelEn: string;
+};
+
 export type AssistanceCategory = {
   id: AssistanceCategoryId;
-  label: string;
-  englishLabel: string;
-  subOptions?: string[];
+  labelHe: string;
+  labelEn: string;
+  options?: SubCategoryOption[];
 };
 
 const assistanceCategories: AssistanceCategory[] = [
   {
     id: "food",
-    label: "מזון",
-    englishLabel: "food",
-    subOptions: [
-      "מנות חמות",
-      "חבילות מזון",
-      "מזון לתינוקות",
-      "מזון מיוחד (צליאק, סוכרת)",
+    labelHe: "מזון",
+    labelEn: "Food",
+    options: [
+      { id: "hotMeals", labelHe: "מנות חמות", labelEn: "Hot meals" },
+      { id: "foodPackages", labelHe: "חבילות מזון", labelEn: "Food packages" },
+      { id: "babyFood", labelHe: "מזון לתינוקות", labelEn: "Baby food" },
+      {
+        id: "specialFood",
+        labelHe: "מזון מיוחד (צליאק, סוכרת)",
+        labelEn: "Special food (celiac, diabetes)",
+      },
     ],
   },
   {
     id: "transport",
-    label: "הסעות ותחבורה",
-    englishLabel: "transportation",
-    subOptions: [
-      "הסעות למשפחות",
-      "הסעות לבתי חולים",
-      "שאטלים קבועים",
-      "סיוע בדלק",
+    labelHe: "הסעות ותחבורה",
+    labelEn: "Transportation",
+    options: [
+      {
+        id: "families",
+        labelHe: "הסעות למשפחות",
+        labelEn: "Rides for families",
+      },
+      {
+        id: "hospitals",
+        labelHe: "הסעות לבתי חולים",
+        labelEn: "Rides to hospitals",
+      },
+      { id: "shuttles", labelHe: "שאטלים קבועים", labelEn: "Fixed shuttles" },
+      { id: "fuel", labelHe: "סיוע בדלק", labelEn: "Fuel assistance" },
     ],
   },
   {
     id: "logistics",
-    label: "לוגיסטיקה ושינוע",
-    englishLabel: "logistics & delivery",
-    subOptions: ["מחסנים", "שינוע ציוד", "העמסה ופריקה", "חלוקה בשטח"],
+    labelHe: "לוגיסטיקה ושינוע",
+    labelEn: "Logistics & delivery",
+    options: [
+      { id: "warehouses", labelHe: "מחסנים", labelEn: "Warehouses" },
+      {
+        id: "equipmentTransport",
+        labelHe: "שינוע ציוד",
+        labelEn: "Equipment transport",
+      },
+      {
+        id: "loading",
+        labelHe: "העמסה ופריקה",
+        labelEn: "Loading / unloading",
+      },
+      {
+        id: "fieldDistribution",
+        labelHe: "חלוקה בשטח",
+        labelEn: "Field distribution",
+      },
+    ],
   },
   {
     id: "personalEquipment",
-    label: "ציוד אישי",
-    englishLabel: "personal equipment",
-    subOptions: ["ביגוד", "היגיינה אישית", "שמיכות ושקי שינה", "ציוד לתינוקות"],
+    labelHe: "ציוד אישי",
+    labelEn: "Personal equipment",
+    options: [
+      { id: "clothing", labelHe: "ביגוד", labelEn: "Clothing" },
+      { id: "hygiene", labelHe: "היגיינה אישית", labelEn: "Personal hygiene" },
+      {
+        id: "blankets",
+        labelHe: "שמיכות ושקי שינה",
+        labelEn: "Blankets & sleeping bags",
+      },
+      { id: "babyGear", labelHe: "ציוד לתינוקות", labelEn: "Baby equipment" },
+    ],
   },
   {
     id: "housingCommunity",
-    label: "דיור ואירוח קהילתי",
-    englishLabel: "housing & community hosting",
-    subOptions: ["אירוח משפחות", "חדרי אירוח", "מרחב קהילתי", "דיור ארעי"],
+    labelHe: "דיור ואירוח קהילתי",
+    labelEn: "Housing & community hosting",
+    options: [
+      {
+        id: "familyHosting",
+        labelHe: "אירוח משפחות",
+        labelEn: "Hosting families",
+      },
+      { id: "rooms", labelHe: "חדרי אירוח", labelEn: "Guest rooms" },
+      {
+        id: "communitySpace",
+        labelHe: "מרחב קהילתי",
+        labelEn: "Community space",
+      },
+      {
+        id: "temporaryHousing",
+        labelHe: "דיור ארעי",
+        labelEn: "Temporary housing",
+      },
+    ],
   },
   {
     id: "shelters",
-    label: "מקלטים ומרחבים מוגנים",
-    englishLabel: "shelters & safe rooms",
-    subOptions: [
-      "הכשרת מקלטים",
-      "ניקיון ותחזוקה",
-      "ציוד בסיסי",
-      "שילוט והכוונה",
+    labelHe: "מקלטים ומרחבים מוגנים",
+    labelEn: "Shelters & safe rooms",
+    options: [
+      {
+        id: "preparation",
+        labelHe: "הכשרת מקלטים",
+        labelEn: "Preparing shelters",
+      },
+      {
+        id: "cleaning",
+        labelHe: "ניקיון ותחזוקה",
+        labelEn: "Cleaning & maintenance",
+      },
+      {
+        id: "basicEquipment",
+        labelHe: "ציוד בסיסי",
+        labelEn: "Basic equipment",
+      },
+      {
+        id: "signage",
+        labelHe: "שילוט והכוונה",
+        labelEn: "Signage & guidance",
+      },
     ],
   },
   {
     id: "volunteers",
-    label: "מתנדבים",
-    englishLabel: "volunteers",
-    subOptions: [
-      "התנדבות חד-פעמית",
-      "התנדבות קבועה",
-      "התנדבות מקצועית",
-      "התנדבות מרחוק",
+    labelHe: "מתנדבים",
+    labelEn: "Volunteers",
+    options: [
+      {
+        id: "oneTime",
+        labelHe: "התנדבות חד-פעמית",
+        labelEn: "One-time volunteering",
+      },
+      {
+        id: "ongoing",
+        labelHe: "התנדבות קבועה",
+        labelEn: "Ongoing volunteering",
+      },
+      {
+        id: "professional",
+        labelHe: "התנדבות מקצועית",
+        labelEn: "Professional volunteering",
+      },
+      {
+        id: "remote",
+        labelHe: "התנדבות מרחוק",
+        labelEn: "Remote volunteering",
+      },
     ],
   },
   {
     id: "mentalHealth",
-    label: "בריאות הנפש",
-    englishLabel: "mental health",
-    subOptions: [
-      "שיחות תמיכה",
-      "קבוצות תמיכה",
-      "ליווי לילדים",
-      "ליווי למשפחות",
+    labelHe: "בריאות הנפש",
+    labelEn: "Mental health",
+    options: [
+      { id: "supportCalls", labelHe: "שיחות תמיכה", labelEn: "Support calls" },
+      {
+        id: "groups",
+        labelHe: "קבוצות תמיכה",
+        labelEn: "Support groups",
+      },
+      { id: "kids", labelHe: "ליווי לילדים", labelEn: "Support for children" },
+      {
+        id: "families",
+        labelHe: "ליווי למשפחות",
+        labelEn: "Support for families",
+      },
     ],
   },
   {
     id: "educationEquipment",
-    label: "ציוד למוסדות חינוך וקהילה",
-    englishLabel: "education & community equipment",
-    subOptions: ["ציוד לימודי", "ציוד דיגיטלי", "ריהוט", "משחקים ופעילויות"],
+    labelHe: "ציוד למוסדות חינוך וקהילה",
+    labelEn: "Education & community equipment",
+    options: [
+      { id: "learning", labelHe: "ציוד לימודי", labelEn: "Learning materials" },
+      {
+        id: "digital",
+        labelHe: "ציוד דיגיטלי",
+        labelEn: "Digital equipment",
+      },
+      { id: "furniture", labelHe: "ריהוט", labelEn: "Furniture" },
+      {
+        id: "games",
+        labelHe: "משחקים ופעילויות",
+        labelEn: "Games & activities",
+      },
+    ],
   },
   {
     id: "maintenanceInfrastructure",
-    label: "תחזוקה ותשתיות",
-    englishLabel: "maintenance & infrastructure",
-    subOptions: ["תיקוני חשמל", "תיקוני מים", "ניקיון יסודי", "עבודות שטח"],
+    labelHe: "תחזוקה ותשתיות",
+    labelEn: "Maintenance & infrastructure",
+    options: [
+      {
+        id: "electricity",
+        labelHe: "תיקוני חשמל",
+        labelEn: "Electrical repairs",
+      },
+      { id: "water", labelHe: "תיקוני מים", labelEn: "Water repairs" },
+      {
+        id: "deepCleaning",
+        labelHe: "ניקיון יסודי",
+        labelEn: "Deep cleaning",
+      },
+      { id: "fieldWork", labelHe: "עבודות שטח", labelEn: "Field work" },
+    ],
   },
   {
     id: "supportToHamal",
-    label: 'סיוע לחמ"ל/עמותה',
-    englishLabel: "support to HQ / NGO",
-    subOptions: [
-      "ציוד משרדי",
-      "מחשבים ומדפסות",
-      "כיבוד לצוות",
-      "תיאום ומתנדבים",
+    labelHe: 'סיוע לחמ"ל/עמותה',
+    labelEn: "Support to HQ / NGO",
+    options: [
+      { id: "office", labelHe: "ציוד משרדי", labelEn: "Office equipment" },
+      {
+        id: "computers",
+        labelHe: "מחשבים ומדפסות",
+        labelEn: "Computers & printers",
+      },
+      {
+        id: "refreshments",
+        labelHe: "כיבוד לצוות",
+        labelEn: "Refreshments for staff",
+      },
+      {
+        id: "coordination",
+        labelHe: "תיאום ומתנדבים",
+        labelEn: "Coordination & volunteers",
+      },
     ],
   },
   {
     id: "reportingInformation",
-    label: "דיווח ומידע",
-    englishLabel: "reporting & information",
-    subOptions: ["איסוף נתונים", "אימות מידע", "עדכון טבלאות", "מוקד טלפוני"],
+    labelHe: "דיווח ומידע",
+    labelEn: "Reporting & information",
+    options: [
+      { id: "callCenter", labelHe: "מוקד טלפוני", labelEn: "Call center" },
+      {
+        id: "updating",
+        labelHe: "עדכון טבלאות",
+        labelEn: "Updating spreadsheets",
+      },
+      {
+        id: "dataCollection",
+        labelHe: "איסוף נתונים",
+        labelEn: "Data collection",
+      },
+      {
+        id: "verification",
+        labelHe: "אימות מידע",
+        labelEn: "Information verification",
+      },
+    ],
   },
 ];
 
 export type CategoryDetailsMap = Record<AssistanceCategoryId, string[]>;
 
-function onGetEmptyCategoryDetails(): CategoryDetailsMap {
+function getEmptyCategoryDetails(): CategoryDetailsMap {
   const details: Partial<CategoryDetailsMap> = {};
   for (const category of assistanceCategories) {
     details[category.id] = [];
@@ -216,26 +379,24 @@ function onGetEmptyCategoryDetails(): CategoryDetailsMap {
   return details as CategoryDetailsMap;
 }
 
-function onGetDistricts(): District[] {
+function getDistricts(): District[] {
   return districts;
 }
 
-function onGetDistrictById(id: DistrictId | ""): District | null {
+function getDistrictById(id: DistrictId | ""): District | null {
   if (!id) return null;
   return districts.find((district) => district.id === id) ?? null;
 }
 
-function onGetCitiesByDistrict(id: DistrictId | ""): City[] {
-  const district = onGetDistrictById(id);
+function getCitiesByDistrict(id: DistrictId | ""): City[] {
+  const district = getDistrictById(id);
   return district?.cities ?? [];
 }
 
-function onGetCategories(): AssistanceCategory[] {
+function getCategories(): AssistanceCategory[] {
   return assistanceCategories;
 }
 
-function onGetCategoryById(
-  id: AssistanceCategoryId
-): AssistanceCategory | null {
+function getCategoryById(id: AssistanceCategoryId): AssistanceCategory | null {
   return assistanceCategories.find((category) => category.id === id) ?? null;
 }

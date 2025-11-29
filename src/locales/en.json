@@ -68,6 +68,76 @@
     "urgency": "Urgency",
     "status": "Status"
   },
+  "userRequest": {
+    "title": "Assistance request form",
+    "backToHome": "Back to home page",
+    "clearSelection": "Clear selection",
+    "submitAndSave": "Save and send",
+    "successTitle": "Request sent successfully!",
+    "successBody1": "Your request was received at the national HQ. Very soon, one of our representatives will contact you and forward the request.",
+    "successBody2": "Thank you for reaching out, we will contact you as soon as possible.",
+    "step1": {
+      "title": "Who needs help?",
+      "recipientNameLabel": "Recipient name",
+      "recipientNamePlaceholder": "Full name",
+      "phoneLabel": "Phone number",
+      "phonePlaceholder": "Phone number",
+      "requestTitleLabel": "Request title",
+      "requestTitlePlaceholder": "Short description of the request",
+      "hint": "Write a name that represents whoever needs the assistance. It can be one person or a group. The phone number should belong to someone who is with the recipients and can answer calls or volunteers on site."
+    },
+    "step2": {
+      "title": "Where should we arrive?",
+      "districtLabel": "District",
+      "cityLabel": "City",
+      "streetLabel": "Street",
+      "districtPlaceholder": "Choose district",
+      "cityPlaceholder": "Choose city",
+      "chooseDistrictFirst": "Choose a district first",
+      "streetPlaceholder": "Street name (optional)",
+      "hint": "We work with Home Front Command districts. An accurate location lets us route the request to the closest operations center."
+    },
+    "step3": {
+      "title": "What kind of assistance is needed?"
+    },
+    "step4": {
+      "title": "A few more details...",
+      "transportQuestion": "Is transport required?",
+      "transportNo": "No, no transport needed",
+      "transportYes": "Yes, transport is required",
+      "volunteersQuestion": "Are volunteers needed?",
+      "volunteersNo": "No, no volunteers needed",
+      "volunteersYes": "Yes, volunteers are needed",
+      "uploadLabel": "Upload files/photos/logos",
+      "uploadPlaceholder": "Upload files / photos / logos"
+    },
+    "step5": {
+      "title": "Confirm details",
+      "subtitle": "Describe important details",
+      "requestTitleLabel": "Request title",
+      "descriptionLabel": "Description",
+      "descriptionPlaceholder": "This is the place to explain in more detail...",
+      "hint": "The more precise the details, the faster we can handle your request."
+    },
+    "step6": {
+      "title": "Please make sure all details are correct",
+      "subtitle": "Request summary",
+      "sectionRequest": "Request details",
+      "sectionRequester": "Requester details",
+      "sectionLocation": "Location details",
+      "sectionAttachments": "Attachments",
+      "sectionTasks": "Tasks",
+      "assistanceTypeLabel": "Assistance type:",
+      "assistanceTypeNotSelected": "Not selected",
+      "noName": "No name provided",
+      "noPhone": "No phone provided",
+      "noDistrict": "No district selected",
+      "noCity": "No city selected",
+      "noFiles": "No files attached",
+      "defaultTask": "Default task: waiting for assignment in the operations center."
+    }
+  },
+
   "requests": {
     "myRequests": "My Requests",
     "allRequests": "All Requests",
