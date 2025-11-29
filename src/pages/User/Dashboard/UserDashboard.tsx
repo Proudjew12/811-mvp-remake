@@ -81,11 +81,15 @@ export default function UserHomePage() {
           </div>
 
           <div className="home-actions grid">
-            <Button type="button" variant="primary">
-              {t("dashboard.actions.newRequest")}
-            </Button>
             <Button type="button" variant="secondary">
               {t("dashboard.actions.viewAllRequests")}
+            </Button>
+            <Button
+              type="button"
+              variant="primary"
+              onClick={() => navigate("/user/request")}
+            >
+              {t("dashboard.actions.newRequest")}
             </Button>
           </div>
         </section>
