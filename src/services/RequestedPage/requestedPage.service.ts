@@ -5,6 +5,9 @@ export const requestedPageService = {
   getCategories,
   getCategoryById,
   getEmptyCategoryDetails,
+  saveRequestSnapshot,
+  loadRequestSnapshot,
+  clearRequestSnapshot,
 };
 
 export type DistrictId = "north" | "haifa" | "center" | "jerusalem" | "south";
@@ -21,6 +24,54 @@ export type District = {
   nameEn: string;
   cities: City[];
 };
+
+export type AssistanceCategoryId =
+  | "food"
+  | "transport"
+  | "logistics"
+  | "personalEquipment"
+  | "housingCommunity"
+  | "shelters"
+  | "volunteers"
+  | "mentalHealth"
+  | "educationEquipment"
+  | "maintenanceInfrastructure"
+  | "supportToHqNgo"
+  | "reportingInformation";
+
+export type SubCategoryOption = {
+  id: string;
+  labelHe: string;
+  labelEn: string;
+};
+
+export type AssistanceCategory = {
+  id: AssistanceCategoryId;
+  labelHe: string;
+  labelEn: string;
+  options?: SubCategoryOption[];
+};
+
+export type CategoryDetailsMap = Record<AssistanceCategoryId, string[]>;
+
+export type UserRequestSnapshot = {
+  recipientName: string;
+  recipientPhone: string;
+  requestTitle: string;
+  district: DistrictId | "";
+  city: string;
+  street: string;
+  categories: AssistanceCategoryId[];
+  categoryDetails: CategoryDetailsMap;
+  needsTransport: boolean | null;
+  needsVolunteers: boolean | null;
+  attachments: string[];
+  detailsTitle: string;
+  detailsDescription: string;
+  savedAt: string;
+};
+
+const STORAGE_KEY = "811:userRequest:last";
 
 const districts: District[] = [
   {
@@ -86,33 +137,6 @@ const districts: District[] = [
     ],
   },
 ];
-
-export type AssistanceCategoryId =
-  | "food"
-  | "transport"
-  | "logistics"
-  | "personalEquipment"
-  | "housingCommunity"
-  | "shelters"
-  | "volunteers"
-  | "mentalHealth"
-  | "educationEquipment"
-  | "maintenanceInfrastructure"
-  | "supportToHamal"
-  | "reportingInformation";
-
-export type SubCategoryOption = {
-  id: string;
-  labelHe: string;
-  labelEn: string;
-};
-
-export type AssistanceCategory = {
-  id: AssistanceCategoryId;
-  labelHe: string;
-  labelEn: string;
-  options?: SubCategoryOption[];
-};
 
 const assistanceCategories: AssistanceCategory[] = [
   {
@@ -322,7 +346,7 @@ const assistanceCategories: AssistanceCategory[] = [
     ],
   },
   {
-    id: "supportToHamal",
+    id: "supportToHqNgo",
     labelHe: 'סיוע לחמ"ל/עמותה',
     labelEn: "Support to HQ / NGO",
     options: [
@@ -369,8 +393,6 @@ const assistanceCategories: AssistanceCategory[] = [
   },
 ];
 
-export type CategoryDetailsMap = Record<AssistanceCategoryId, string[]>;
-
 function getEmptyCategoryDetails(): CategoryDetailsMap {
   const details: Partial<CategoryDetailsMap> = {};
   for (const category of assistanceCategories) {
@@ -399,4 +421,29 @@ function getCategories(): AssistanceCategory[] {
 
 function getCategoryById(id: AssistanceCategoryId): AssistanceCategory | null {
   return assistanceCategories.find((category) => category.id === id) ?? null;
+}
+
+function saveRequestSnapshot(snapshot: UserRequestSnapshot) {
+  try {
+    const serialized = JSON.stringify(snapshot);
+    localStorage.setItem(STORAGE_KEY, serialized);
+  } catch {
+    /* ignore */
+  }
+}
+
+function loadRequestSnapshot(): UserRequestSnapshot | null {
+  try {
+    const serialized = localStorage.getItem(STORAGE_KEY);
+    if (!serialized) return null;
+    return JSON.parse(serialized) as UserRequestSnapshot;
+  } catch {
+    return null;
+  }
+}
+
+function clearRequestSnapshot() {
+  try {
+    localStorage.removeItem(STORAGE_KEY);
+  } catch {}
 }

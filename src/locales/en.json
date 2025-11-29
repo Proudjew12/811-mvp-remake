@@ -76,6 +76,7 @@
     "successTitle": "Request sent successfully!",
     "successBody1": "Your request was received at the national HQ. Very soon, one of our representatives will contact you and forward the request.",
     "successBody2": "Thank you for reaching out, we will contact you as soon as possible.",
+    "viewMyRequest": "View my request",
     "step1": {
       "title": "Who needs help?",
       "recipientNameLabel": "Recipient name",
@@ -353,5 +354,13 @@
     "subtitle": "Fill in the details so we can match the right help for you.",
     "submitSuccess": "Your request was received. Someone will contact you soon.",
     "submitError": "We couldn't send the request. Please try again."
+  },
+  "myRequest": {
+    "title": "My request",
+    "emptyTitle": "No saved request yet",
+    "emptyBody": "After you submit a request, you’ll be able to review it here.",
+    "createNew": "Create a new request",
+    "backToDashboard": "Back to home page",
+    "clear": "Clear saved request"
   }
 }

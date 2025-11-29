@@ -1,6 +1,8 @@
 import "./RequestPage.scss";
+
 import Button from "../../../components/button/button";
 import { useTranslation } from "react-i18next";
+import { ChangeEvent, ReactNode, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   requestedPageService,
@@ -9,8 +11,8 @@ import {
   AssistanceCategory,
   CategoryDetailsMap,
   City,
+  UserRequestSnapshot,
 } from "../../../services/RequestedPage/requestedPage.service";
-import { ChangeEvent, ReactNode, useState } from "react";
 
 type SummarySectionId =
   | "request"
@@ -163,6 +165,24 @@ export default function UserRequestPage() {
   }
 
   function onSubmitRequest() {
+    const snapshot: UserRequestSnapshot = {
+      recipientName: form.recipientName,
+      recipientPhone: form.recipientPhone,
+      requestTitle: form.requestTitle,
+      district: form.district,
+      city: form.city,
+      street: form.street,
+      categories: form.categories,
+      categoryDetails: form.categoryDetails,
+      needsTransport: form.needsTransport,
+      needsVolunteers: form.needsVolunteers,
+      attachments: form.attachments.map((file) => file.name),
+      detailsTitle: form.detailsTitle,
+      detailsDescription: form.detailsDescription,
+      savedAt: new Date().toISOString(),
+    };
+
+    requestedPageService.saveRequestSnapshot(snapshot);
     setIsSubmitted(true);
   }
 
@@ -234,6 +254,13 @@ export default function UserRequestPage() {
                 onClick={() => navigate("/user/dashboard")}
               >
                 {t("userRequest.backToHome")}
+              </Button>
+              <Button
+                type="button"
+                variant="primary"
+                onClick={() => navigate("/user/my-request")}
+              >
+                {t("userRequest.viewMyRequest")}
               </Button>
             </div>
           </section>

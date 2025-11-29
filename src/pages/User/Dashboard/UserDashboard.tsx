@@ -18,6 +18,14 @@ export default function UserHomePage() {
     navigate("/", { replace: true });
   }
 
+  function onViewMyRequestClick() {
+    navigate("/user/my-request");
+  }
+
+  function onNewRequestClick() {
+    navigate("/user/request");
+  }
+
   return (
     <div className="home-page">
       <header className="home-header flex justify-between align-center">
@@ -81,14 +89,14 @@ export default function UserHomePage() {
           </div>
 
           <div className="home-actions grid">
-            <Button type="button" variant="secondary">
-              {t("dashboard.actions.viewAllRequests")}
-            </Button>
             <Button
               type="button"
-              variant="primary"
-              onClick={() => navigate("/user/request")}
+              variant="secondary"
+              onClick={onViewMyRequestClick}
             >
+              {t("dashboard.actions.viewAllRequests")}
+            </Button>
+            <Button type="button" variant="primary" onClick={onNewRequestClick}>
               {t("dashboard.actions.newRequest")}
             </Button>
           </div>
