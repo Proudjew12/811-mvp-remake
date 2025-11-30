@@ -1,3 +1,4 @@
+// src/pages/User/RequestPage/UserRequestPage.scss
 @use "../../../styles/base/variables" as *;
 @use "sass:color";
 
@@ -101,6 +102,11 @@
 .request-input--phone {
   direction: rtl;
   text-align: right;
+}
+
+.request-input--ltr {
+  direction: ltr;
+  text-align: left;
 }
 
 .request-textarea {
@@ -345,9 +351,4 @@
 
 .request-success-actions {
   margin-top: 24px;
-}
-
-.request-input--ltr {
-  direction: ltr;
-  text-align: left;
 }

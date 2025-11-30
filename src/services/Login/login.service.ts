@@ -6,84 +6,104 @@ export const loginService = {
   getEmptyCredentials,
 };
 
+import {
+  AccountType,
+  delay,
+  normalizeEmail,
+  trimCredentials,
+} from "../../utils/Login/LoginFunctions";
+
 export type LoginCredentials = {
   email: string;
   password: string;
 };
 
-export type DemoAccountKey = "organization" | "admin" | "user";
-
 export type LoginResult = {
-  accountType: DemoAccountKey;
   email: string;
+  accountType: AccountType;
 };
 
-type DemoAccountsMap = Record<DemoAccountKey, LoginCredentials>;
-
-const demoAccounts: DemoAccountsMap = {
-  organization: { email: "org@demo.com", password: "org1234" },
-  admin: { email: "admin@demo.com", password: "admin1234" },
-  user: { email: "user@demo.com", password: "user1234" },
-};
+export type DemoAccountKey = AccountType;
 
 class LoginError extends Error {
-  status?: number;
-
-  constructor(message: string, status?: number) {
+  constructor(message: string) {
     super(message);
     this.name = "LoginError";
-    this.status = status;
   }
 }
 
-function simulateNetworkDelay(milliseconds: number): Promise<void> {
-  return new Promise((resolve) => setTimeout(resolve, milliseconds));
+/**
+ * Demo accounts used by the MVP.
+ * These are the only accounts the login flow currently accepts.
+ */
+const demoAccounts: Record<DemoAccountKey, LoginCredentials> = {
+  admin: {
+    email: "admin@demo.com",
+    password: "admin123",
+  },
+  organization: {
+    email: "org@demo.com",
+    password: "org123",
+  },
+  user: {
+    email: "user@demo.com",
+    password: "user123",
+  },
+};
+
+async function login(credentials: LoginCredentials): Promise<LoginResult> {
+  // Normalize & trim once at the service level
+  const sanitized = trimCredentials(credentials);
+  const email = normalizeEmail(sanitized.email);
+  const password = sanitized.password;
+
+  // Simulate network delay so the UI can show a loading state
+  await delay(400);
+
+  // Find a matching demo account by normalized email
+  const entry = (
+    Object.entries(demoAccounts) as [DemoAccountKey, LoginCredentials][]
+  ).find(([, demo]) => normalizeEmail(demo.email) === email);
+
+  if (!entry) {
+    throw new LoginError("משתמש לא נמצא. בדקו את כתובת האימייל.");
+  }
+
+  const [accountType, demoCredentials] = entry;
+
+  if (demoCredentials.password !== password) {
+    throw new LoginError("הסיסמה אינה נכונה.");
+  }
+
+  return {
+    email: demoCredentials.email,
+    accountType,
+  };
 }
 
+/**
+ * Validates credentials before sending them to the login function.
+ * Returns:
+ *  - string with an error message (Hebrew) if invalid
+ *  - null if credentials look OK
+ */
 function validateCredentials(credentials: LoginCredentials): string | null {
-  const email = credentials.email.trim();
-  const password = credentials.password.trim();
+  const { email, password } = trimCredentials(credentials);
 
   if (!email || !password) {
-    return "נא למלא דוא״ל וסיסמה";
+    return "יש למלא אימייל וסיסמה.";
   }
 
-  if (!email.includes("@")) {
-    return "דוא״ל לא תקין";
+  const basicEmailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!basicEmailPattern.test(email)) {
+    return "כתובת האימייל אינה תקינה.";
   }
 
   if (password.length < 4) {
-    return "הסיסמה צריכה להיות לפחות 4 תווים";
+    return "הסיסמה צריכה להכיל לפחות 4 תווים.";
   }
 
   return null;
-}
-
-async function login(credentials: LoginCredentials): Promise<LoginResult> {
-  await simulateNetworkDelay(500);
-
-  const demoEntries = Object.entries(demoAccounts) as [
-    DemoAccountKey,
-    LoginCredentials
-  ][];
-
-  const matchingEntry = demoEntries.find(([_, account]) => {
-    return (
-      account.email.toLowerCase() === credentials.email.toLowerCase() &&
-      account.password === credentials.password
-    );
-  });
-
-  if (!matchingEntry) {
-    throw new LoginError("דוא״ל או סיסמה שגויים", 401);
-  }
-
-  const [accountType, account] = matchingEntry;
-
-  return {
-    accountType,
-    email: account.email,
-  };
 }
 
 function getDemoCredentials(key: DemoAccountKey): LoginCredentials | null {

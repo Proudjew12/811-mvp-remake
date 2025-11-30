@@ -199,7 +199,7 @@
     "hebrew": "עברית",
     "english": "English",
     "switchToHebrew": "החלף לעברית",
-    "switchToEnglish": "Switch to English"
+    "switchToEnglish": "החלף לאנגלית"
   },
   "redux": {
     "languageChanged": "שפה שונתה בהצלחה",
@@ -213,7 +213,7 @@
     "defaultDescription": "אפשר לשים כאן כל תוכן - טפסים, תמונות, טקסט וכו'.",
     "smallModalDescription": "זהו חלון קטן, מושלם לאישורים מהירים או טפסים קטנים.",
     "largeModalTitle": "תוכן חלון גדול",
-    "largeModalDescription": "החלון这个 גדול יותר ויכול להכיל יותר תוכן.",
+    "largeModalDescription": "החלון הזה גדול יותר ויכול להכיל יותר תוכן.",
     "largeModalUseCase": "הוא נהדר לטפסים, תצוגות מפורטות או אינטראקציות מורכבות.",
     "uiElementsTitle": "אפשר לכלול אלמנטי ממשק שונים כמו:",
     "uiElement1": "טפסים ושדות קלט",

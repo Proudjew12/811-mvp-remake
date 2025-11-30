@@ -1,16 +1,10 @@
-// src/services/ui/alerts.service.ts
+// src/services/notifications/alerts.service.ts
 import Swal from "sweetalert2";
-
-type AppLanguage = "he" | "en";
-
-/**
- * Extracts username from an email (before the @).
- */
-function extractUsername(email: string | null | undefined): string {
-  if (!email) return "";
-  const [username] = email.split("@");
-  return username || "";
-}
+import {
+  AlertLanguage,
+  extractUsername,
+  buildWelcomeTitle,
+} from "../../utils/Notifications/AlertFunctions";
 
 /**
  * Global toast base config (top, auto-close, progress bar).
@@ -27,12 +21,11 @@ const Toast = Swal.mixin({
  * Welcome message when user logs in.
  * Shows username (before '@') + localized greeting.
  */
-export function showWelcomeToast(email: string, language: AppLanguage) {
+export function showWelcomeToast(email: string, language: AlertLanguage) {
   const username = extractUsername(email);
   if (!username) return;
 
-  const title =
-    language === "he" ? `ברוך/ה הבא/ה, ${username}` : `Welcome, ${username}`;
+  const title = buildWelcomeTitle(username, language);
 
   Toast.fire({
     icon: "success",
@@ -41,7 +34,7 @@ export function showWelcomeToast(email: string, language: AppLanguage) {
 }
 
 /**
- * Generic success toast
+ * Generic success toast.
  */
 export function showSuccessToast(message: string) {
   Toast.fire({
@@ -51,7 +44,7 @@ export function showSuccessToast(message: string) {
 }
 
 /**
- * Generic error toast
+ * Generic error toast.
  */
 export function showErrorToast(message: string) {
   Toast.fire({

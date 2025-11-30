@@ -26,18 +26,14 @@ function updateDocumentDirection(language: string) {
   document.documentElement.lang = isHebrew ? "he" : "en";
 }
 
-
-
-i18n
-  .use(initReactI18next)
-  .init({
-    resources,
-    lng: initialLanguage,
-    fallbackLng: "en",
-    interpolation: {
-      escapeValue: false,
-    },
-  });
+i18n.use(initReactI18next).init({
+  resources,
+  lng: initialLanguage,
+  fallbackLng: "en",
+  interpolation: {
+    escapeValue: false,
+  },
+});
 
 updateDocumentDirection(initialLanguage);
 

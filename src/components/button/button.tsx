@@ -14,6 +14,14 @@ export interface ButtonProps
   children?: ReactNode;
 }
 
+/**
+ * Reusable app button.
+ *
+ * - Supports visual variants ("primary", "secondary", "ghost", "danger")
+ * - Two sizes: "sm" and "md"
+ * - `isLoading` disables the button and adds a loading class
+ * - Defaults to `type="button"` to avoid accidental form submits
+ */
 export default function Button(props: ButtonProps) {
   const {
     variant = "primary",
@@ -23,11 +31,12 @@ export default function Button(props: ButtonProps) {
     fullWidth = false,
     className = "",
     disabled,
+    type = "button",
     children,
     ...rest
   } = props;
 
-  const classes = [
+  const classNames = [
     "app-button",
     `app-button--variant-${variant}`,
     `app-button--size-${size}`,
@@ -41,7 +50,8 @@ export default function Button(props: ButtonProps) {
 
   return (
     <button
-      className={classes}
+      type={type}
+      className={classNames}
       disabled={disabled || isLoading}
       {...rest}
     >

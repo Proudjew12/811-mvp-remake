@@ -1,4 +1,4 @@
-import "../RequestPage/RequestPage.scss";
+import "./MyRequest.scss";
 
 import Button from "../../../components/button/button";
 import { useTranslation } from "react-i18next";
@@ -9,7 +9,7 @@ import {
   UserRequestSnapshot,
   AssistanceCategoryId,
   City,
-} from "../../../services/RequestedPage/requestedPage.service";
+} from "../../../services/RequestPage/UserRequestPage.service";
 
 export default function MyRequestPage() {
   const { t, i18n } = useTranslation();
@@ -145,6 +145,7 @@ export default function MyRequestPage() {
           </div>
 
           <div className="request-summary-accordion">
+            {/* REQUEST (includes Step 3, Step 4 toggles, Step 5 text) */}
             <div className="request-summary-section">
               <div className="request-summary-section__header flex">
                 <span>{t("userRequest.step6.sectionRequest")}</span>
@@ -179,12 +180,32 @@ export default function MyRequestPage() {
                         .join(" | ")
                     : t("userRequest.step6.assistanceTypeNotSelected")}
                 </p>
+
                 {request.detailsDescription && (
                   <p>{request.detailsDescription}</p>
+                )}
+
+                {request.needsTransport != null && (
+                  <p>
+                    <strong>{t("userRequest.step4.transportQuestion")}</strong>{" "}
+                    {request.needsTransport
+                      ? t("userRequest.step4.transportYes")
+                      : t("userRequest.step4.transportNo")}
+                  </p>
+                )}
+
+                {request.needsVolunteers != null && (
+                  <p>
+                    <strong>{t("userRequest.step4.volunteersQuestion")}</strong>{" "}
+                    {request.needsVolunteers
+                      ? t("userRequest.step4.volunteersYes")
+                      : t("userRequest.step4.volunteersNo")}
+                  </p>
                 )}
               </div>
             </div>
 
+            {/* REQUESTER */}
             <div className="request-summary-section">
               <div className="request-summary-section__header flex">
                 <span>{t("userRequest.step6.sectionRequester")}</span>
@@ -197,6 +218,7 @@ export default function MyRequestPage() {
               </div>
             </div>
 
+            {/* LOCATION */}
             <div className="request-summary-section">
               <div className="request-summary-section__header flex">
                 <span>{t("userRequest.step6.sectionLocation")}</span>
@@ -217,6 +239,7 @@ export default function MyRequestPage() {
               </div>
             </div>
 
+            {/* ATTACHMENTS */}
             <div className="request-summary-section">
               <div className="request-summary-section__header flex">
                 <span>{t("userRequest.step6.sectionAttachments")}</span>

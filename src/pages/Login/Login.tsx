@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import "./login.scss";
 import logoGreen from "../../assets/Logo/mate-logo-green.png";
 import Button from "../../components/button/button";
-import { showWelcomeToast } from "../../services/ui/alerts.service";
+import { showWelcomeToast } from "../../services/Notifications/alerts.service";
 
 import {
   loginService,
@@ -14,6 +14,20 @@ import {
   LoginResult,
 } from "../../services/Login/login.service";
 
+import {
+  getDashboardPath,
+  getLanguageCode,
+  getNextLanguage,
+  isHebrewLanguage,
+} from "../../utils/Login/LoginFunctions";
+
+/**
+ * Public login screen.
+ *
+ * - Manual email/password login
+ * - Demo accounts for each role (admin / organization / user)
+ * - Redirects user to the relevant dashboard based on accountType
+ */
 export default function Login() {
   const navigate = useNavigate();
   const { t, i18n } = useTranslation();
@@ -24,10 +38,10 @@ export default function Login() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const isHebrew = i18n.language.startsWith("he");
+  const isHebrew = isHebrewLanguage(i18n.language);
 
   function onLanguageToggle() {
-    const nextLanguage = isHebrew ? "en" : "he";
+    const nextLanguage = getNextLanguage(i18n.language);
     i18n.changeLanguage(nextLanguage);
   }
 
@@ -53,22 +67,13 @@ export default function Login() {
     if (errorMessage) setErrorMessage(null);
   }
 
+  /**
+   * Navigate to the correct dashboard based on login result.
+   * Uses shared helper so roles/routes stay consistent across the app.
+   */
   function navigateByAccountType(result: LoginResult) {
-    switch (result.accountType) {
-      case "admin":
-        navigate("/admin/dashboard");
-        break;
-      case "organization":
-        navigate("/organization/dashboard");
-        break;
-      case "user":
-      case "user":
-        navigate("/user/dashboard");
-        break;
-      default:
-        navigate("/user/dashboard");
-        break;
-    }
+    const path = getDashboardPath(result.accountType);
+    navigate(path);
   }
 
   async function onLoginSubmit(event: FormEvent<HTMLFormElement>) {
@@ -85,7 +90,7 @@ export default function Login() {
       setIsSubmitting(true);
       const loginResult = await loginService.login(credentials);
 
-      const lang: "he" | "en" = i18n.language.startsWith("he") ? "he" : "en";
+      const lang = getLanguageCode(i18n.language);
       showWelcomeToast(loginResult.email, lang);
 
       navigateByAccountType(loginResult);
@@ -178,7 +183,6 @@ export default function Login() {
           <Button
             type="button"
             variant="secondary"
-            // label says "user", internal key stays "requester"
             onClick={() => onDemoAccountClick("user")}
           >
             user
