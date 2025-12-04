@@ -41,3 +41,7 @@ $login-bg-overlay: radial-gradient(
     transparent 55%
   ),
   radial-gradient(circle at 85% 80%, rgba(11, 63, 45, 0.25) 0, transparent 60%);
+
+$clr-primary-dark: #083726 !default;
+$clr-primary-light: #145f45 !default;
+$transition-fast: 0.15s ease !default;

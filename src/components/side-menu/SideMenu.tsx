@@ -1,72 +1,86 @@
-// src/components/side-menu/SideMenu.tsx
+import React, { useState } from "react";
 import "./SideMenu.scss";
-import mateLogoGreen from "../../assets/Logo mate-logo-green.png";
+import mateLogoGreen from "@assets/Logo/mate-logo-green.png";
+
+type MenuItem = { id: string; label: string };
+
+const ITEMS: MenuItem[] = [
+  { id: "my-requests", label: "ניהול הבקשות שלי" },
+  { id: "active-tasks", label: "ניהול משימות בטיפול" },
+  { id: "market", label: "מרקט פלייס" },
+  { id: "internal-org", label: "ניהול ארגון פנימי" },
+  { id: "org-directory", label: "אלפון ארגונים" },
+  { id: "messages", label: "מערכת הודעות" },
+  { id: "settings", label: "הגדרות מערכת" },
+];
 
 export type SideMenuProps = {
-  isHebrew: boolean;
+  activeId?: string;
+  onSelect?: (id: string) => void;
+  collapsed?: boolean;
+  onToggleCollapsed?: (next: boolean) => void;
 };
 
-type SideMenuItem = {
-  id: string;
-  label: string;
-};
+export default function SideMenu({
+  activeId = "my-requests",
+  onSelect,
+  collapsed: collapsedProp,
+  onToggleCollapsed,
+}: SideMenuProps) {
+  const [collapsedSelf, setCollapsedSelf] = useState(false);
+  const collapsed = collapsedProp ?? collapsedSelf;
 
-export default function SideMenu({ isHebrew }: SideMenuProps) {
-  const title = isHebrew ? "מרכז בקרה" : "Control center";
-
-  const items: SideMenuItem[] = isHebrew
-    ? [
-        { id: "my-requests", label: "ניהול הבקשות שלי" },
-        { id: "active-tasks", label: "ניהול משימות בטיפול" },
-        { id: "marketplace", label: "מרקט פלייס" },
-        { id: "internal-org", label: "ניהול ארגון פנימי" },
-        { id: "org-directory", label: "אלפון ארגונים" },
-        { id: "messages", label: "מערכת הודעות" },
-        { id: "settings", label: "הגדרות מערכת" },
-      ]
-    : [
-        { id: "my-requests", label: "My requests" },
-        { id: "active-tasks", label: "Active tasks" },
-        { id: "marketplace", label: "Marketplace" },
-        { id: "internal-org", label: "Internal organization" },
-        { id: "org-directory", label: "Organizations directory" },
-        { id: "messages", label: "Messages" },
-        { id: "settings", label: "System settings" },
-      ];
+  function toggle() {
+    if (onToggleCollapsed) onToggleCollapsed(!collapsed);
+    else setCollapsedSelf(!collapsed);
+  }
 
   return (
-    <aside className="user-dashboard-side-menu" aria-label={title}>
-      <div className="user-dashboard-side-menu__inner">
-        <header className="user-dashboard-side-menu__header">
-          <span className="user-dashboard-side-menu__title">{title}</span>
-        </header>
+    <aside
+      className={`side-menu ${collapsed ? "is-collapsed" : ""}`}
+      dir="rtl"
+      aria-label="מרכז בקרה"
+    >
+      <div className="side-menu__head">
+        <button
+          type="button"
+          className="side-menu__hamburger"
+          aria-label="פתח/סגור תפריט"
+          aria-pressed={!collapsed}
+          onClick={toggle}
+        >
+          <span aria-hidden="true" />
+          <span aria-hidden="true" />
+          <span aria-hidden="true" />
+        </button>
+      </div>
 
-        <nav className="user-dashboard-side-menu__nav" aria-label={title}>
-          <ul className="user-dashboard-side-menu__list clean-list">
-            {items.map((item) => (
-              <li key={item.id} className="user-dashboard-side-menu__item">
+      <div className="side-menu__content flex column">
+        <h2 className="side-menu__title">מרכז בקרה</h2>
+
+        <ul className="clean-list side-menu__list">
+          {ITEMS.map((it) => {
+            const active = it.id === activeId;
+            return (
+              <li key={it.id}>
                 <button
                   type="button"
-                  className="user-dashboard-side-menu__link"
+                  className={`side-menu__link${active ? " is-active" : ""}`}
+                  onClick={() => onSelect?.(it.id)}
+                  aria-current={active ? "page" : undefined}
                 >
-                  <span className="user-dashboard-side-menu__link-text">
-                    {item.label}
-                  </span>
+                  {it.label}
                 </button>
               </li>
-            ))}
-          </ul>
-        </nav>
+            );
+          })}
+        </ul>
 
-        <div className="user-dashboard-side-menu__logo">
+        <div className="side-menu__brand">
           <img
+            className="side-menu__brand-img"
             src={mateLogoGreen}
-            alt={
-              isHebrew
-                ? "מטה המתנדבים הארצי"
-                : "National volunteers headquarters"
-            }
-            className="user-dashboard-side-menu__logo-img"
+            alt="מטה המתנדבים הארצי"
           />
         </div>
       </div>

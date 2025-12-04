@@ -1,96 +1,78 @@
-// src/pages/UserDashboard.tsx
 import React from "react";
 import "./UserDashboard.scss";
-
-/* =========================
-   HEADER
-   ========================= */
+import SideMenu from "@components/side-menu/SideMenu";
 
 function UserDashboardHeader() {
   const now = new Date();
-
   const formattedDate = now.toLocaleDateString("he-IL", {
     day: "2-digit",
     month: "2-digit",
     year: "2-digit",
   });
-
   const formattedTime = now.toLocaleTimeString("he-IL", {
     hour: "2-digit",
     minute: "2-digit",
   });
 
-  const userName = "דנה לוי"; // later: from auth
-
   return (
     <header className="user-dashboard__header">
       <div className="flex user-dashboard__header-row">
-        {/* FIRST in DOM = RIGHT side (RTL) → search + icons + user */}
         <div className="flex user-dashboard__header-right">
-          {/* User chip */}
           <div className="flex user-dashboard__user-chip">
-            <div className="user-dashboard__avatar">
+            <div className="user-dashboard__avatar" aria-hidden="true">
               <span className="user-dashboard__avatar-layer user-dashboard__avatar-layer--outer" />
               <span className="user-dashboard__avatar-layer user-dashboard__avatar-layer--inner" />
             </div>
-            <span className="user-dashboard__user-name">{userName}</span>
+            <span className="user-dashboard__user-name">דנה לוי</span>
           </div>
 
-          {/* Notifications */}
           <button
             type="button"
             className="user-dashboard__icon-button"
             aria-label="התראות"
           >
-            <span aria-hidden="true">🔔</span>
+            <span aria-hidden>🔔</span>
           </button>
-
-          {/* Messages */}
           <button
             type="button"
             className="user-dashboard__icon-button"
             aria-label="הודעות"
           >
-            <span aria-hidden="true">💬</span>
+            <span aria-hidden>💬</span>
           </button>
-
-          {/* Search pill */}
           <button
             type="button"
             className="flex user-dashboard__search-pill"
             aria-label="חיפוש"
           >
-            <span className="user-dashboard__search-icon" aria-hidden="true">
+            <span className="user-dashboard__search-icon" aria-hidden>
               🔍
             </span>
           </button>
         </div>
 
-        {/* SECOND in DOM = LEFT side (RTL) → date / time / שגרה / ? */}
         <div className="flex user-dashboard__header-left">
-          {/* Help button */}
           <button
             type="button"
             className="user-dashboard__help-button"
             aria-label="עזרה"
+            title="עזרה"
           >
             ?
           </button>
-
-          {/* Routine pill */}
-          <div className="flex user-dashboard__routine-pill">
+          <div className="flex user-dashboard__routine-pill" aria-label="שגרה">
             <span className="user-dashboard__routine-label">שגרה</span>
-            {/* Routine icon (double circle) */}
-            <div className="user-dashboard__routine-icon">
+            <div className="user-dashboard__routine-icon" aria-hidden="true">
               <span className="user-dashboard__routine-layer user-dashboard__routine-layer--outer" />
               <span className="user-dashboard__routine-layer user-dashboard__routine-layer--inner" />
             </div>
           </div>
-
-          {/* Time */}
-          <span className="user-dashboard__header-time">{formattedTime}</span>
-
-          {/* Date */}
+          <time
+            className="user-dashboard__header-time"
+            dateTime={now.toISOString()}
+          >
+            {formattedTime}
+          </time>
           <span className="user-dashboard__header-date">{formattedDate}</span>
         </div>
       </div>
@@ -98,119 +80,33 @@ function UserDashboardHeader() {
   );
 }
 
-/* =========================
-   SIDEBAR
-   ========================= */
-
-type UserDashboardSidebarProps = {
-  collapsed: boolean;
-  onToggle: () => void;
-};
-
-function UserDashboardSidebar({
-  collapsed,
-  onToggle,
-}: UserDashboardSidebarProps) {
-  return (
-    <aside
-      className={`user-dashboard__sidebar ${
-        collapsed ? "user-dashboard__sidebar--collapsed" : ""
-      }`}
-    >
-      {/* Hamburger toggle (3 lines) */}
-      <button
-        type="button"
-        className="flex user-dashboard__sidebar-toggle"
-        onClick={onToggle}
-        aria-label={collapsed ? "פתח תפריט" : "סגור תפריט"}
-      >
-        <span />
-        <span />
-        <span />
-      </button>
-
-      {/* Inner content we hide when collapsed */}
-      <div className="flex user-dashboard__sidebar-inner">
-        {/* TOP logo placeholder – replace with real img later if you want */}
-        <div className="flex user-dashboard__sidebar-logo-top">
-          <span className="user-dashboard__sidebar-logo-top-text">לב אחד</span>
-        </div>
-
-        {/* NAV links */}
-        <nav className="flex user-dashboard__sidebar-nav" aria-label="תפריט צד">
-          <h2 className="user-dashboard__sidebar-title">מרכז בקרה</h2>
-
-          <button
-            type="button"
-            className="user-dashboard__sidebar-link user-dashboard__sidebar-link--active"
-          >
-            ניהול הבקשות שלי
-          </button>
-
-          <button type="button" className="user-dashboard__sidebar-link">
-            ניהול משימות בטיפול
-          </button>
-
-          <button type="button" className="user-dashboard__sidebar-link">
-            מרקט פלייס
-          </button>
-
-          <button type="button" className="user-dashboard__sidebar-link">
-            ניהול ארגון פנימי
-          </button>
-
-          <button type="button" className="user-dashboard__sidebar-link">
-            אלפון ארגונים
-          </button>
-
-          <button type="button" className="user-dashboard__sidebar-link">
-            מערכת הודעות
-          </button>
-
-          <button type="button" className="user-dashboard__sidebar-link">
-            הגדרות מערכת
-          </button>
-        </nav>
-
-        {/* BOTTOM logo placeholder – replace later */}
-        <div className="flex user-dashboard__sidebar-logo-bottom">
-          <span className="user-dashboard__sidebar-logo-bottom-text">
-            חמ״ל ארצי
-          </span>
-        </div>
-      </div>
-    </aside>
-  );
-}
-
-/* =========================
-   PAGE WRAPPER
-   ========================= */
-
-function UserDashboard() {
-  const [isSidebarCollapsed, setIsSidebarCollapsed] = React.useState(false);
-
-  const handleToggleSidebar = () => {
-    setIsSidebarCollapsed((prev) => !prev);
-  };
+export default function UserDashboard() {
+  const [active, setActive] = React.useState("my-requests");
+  const [collapsed, setCollapsed] = React.useState(false);
 
   return (
-    <div className="user-dashboard">
+    <div className="user-dashboard" dir="rtl">
       <UserDashboardHeader />
 
-      {/* Body: sidebar + content */}
+      {/* Body: fixed height (fills viewport below header) */}
       <div className="flex user-dashboard__body">
-        <UserDashboardSidebar
-          collapsed={isSidebarCollapsed}
-          onToggle={handleToggleSidebar}
+        {/* Sidebar fills the body height */}
+        <SideMenu
+          activeId={active}
+          onSelect={setActive}
+          collapsed={collapsed}
+          onToggleCollapsed={setCollapsed}
         />
 
-        <main className="user-dashboard__content">
-          {/* dashboard content will go here */}
+        {/* Main content fills remaining space and scrolls internally */}
+        <main
+          className="user-dashboard__content"
+          role="main"
+          aria-label="תוכן מרכזי"
+        >
+          {/* Your tabs/content */}
         </main>
       </div>
     </div>
   );
 }
-
-export default UserDashboard;
