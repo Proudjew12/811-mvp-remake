@@ -1,0 +1,45 @@
+// src/components/sidebar/sidebar.scss
+@use "../../styles/base/_variables" as *;
+@use "sass:color";
+
+.user-dashboard-sidebar {
+  grid-area: logistics;
+}
+
+.user-dashboard-sidebar__card {
+  background: $clr-surface;
+  border-radius: 18px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+  padding: 24px 20px;
+  min-block-size: 100%;
+}
+
+.user-dashboard-sidebar__title {
+  margin-bottom: 12px;
+}
+
+.user-dashboard-sidebar__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.user-dashboard-sidebar__item {
+  padding-block: 8px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.user-dashboard-sidebar__item:last-child {
+  border-bottom: none;
+}
+
+.user-dashboard-sidebar__label {
+  font-size: 0.86rem;
+  color: $clr-text;
+}
+
+.user-dashboard-sidebar__value {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: $clr-primary;
+}

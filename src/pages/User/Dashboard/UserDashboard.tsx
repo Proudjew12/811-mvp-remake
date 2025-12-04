@@ -1,126 +1,216 @@
-// src/pages/HomePage/UserHomePage.tsx
+// src/pages/UserDashboard.tsx
+import React from "react";
 import "./UserDashboard.scss";
-import Button from "../../../components/button/button";
-import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
 
-export default function UserHomePage() {
-  const { t, i18n } = useTranslation();
-  const navigate = useNavigate();
-  const isHebrew = i18n.language.startsWith("he");
+/* =========================
+   HEADER
+   ========================= */
 
-  function onToggleLanguage() {
-    const nextLang = isHebrew ? "en" : "he";
-    i18n.changeLanguage(nextLang);
-  }
+function UserDashboardHeader() {
+  const now = new Date();
 
-  function onLogoutClick() {
-    navigate("/", { replace: true });
-  }
+  const formattedDate = now.toLocaleDateString("he-IL", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "2-digit",
+  });
 
-  function onViewMyRequestClick() {
-    navigate("/user/my-request");
-  }
+  const formattedTime = now.toLocaleTimeString("he-IL", {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
 
-  function onNewRequestClick() {
-    navigate("/user/request");
-  }
+  const userName = "דנה לוי"; // later: from auth
 
   return (
-    <div className="home-page">
-      <header className="home-header flex justify-between align-center">
-        <div className="home-header__side home-header__side--left flex align-center">
-          <Button
-            type="button"
-            variant="secondary"
-            size="sm"
-            onClick={onLogoutClick}
-          >
-            {t("common.logout")}
-          </Button>
-        </div>
-
-        <h1 className="home-header__title">{t("dashboard.title")} – User</h1>
-
-        <div className="home-header__side home-header__side--right flex align-center">
-          <Button
-            type="button"
-            variant="secondary"
-            size="sm"
-            onClick={onToggleLanguage}
-          >
-            {isHebrew
-              ? t("languageSwitcher.english")
-              : t("languageSwitcher.hebrew")}
-          </Button>
-        </div>
-      </header>
-
-      <main className="home-layout grid">
-        <section className="home-card home-card--overview">
-          <header className="home-card__header">
-            <h2 className="home-card__title">
-              {t("dashboard.overview.title")}
-            </h2>
-            <p className="home-card__subtitle">
-              {t("dashboard.overview.subtitle")}
-            </p>
-          </header>
-
-          <div className="home-stats grid">
-            <div className="home-stat">
-              <span className="home-stat__label">
-                {t("dashboard.stats.openRequests.label")}
-              </span>
-              <span className="home-stat__value">3</span>
-              <span className="home-stat__hint">
-                {t("dashboard.stats.openRequests.hint")}
-              </span>
+    <header className="user-dashboard__header">
+      <div className="flex user-dashboard__header-row">
+        {/* FIRST in DOM = RIGHT side (RTL) → search + icons + user */}
+        <div className="flex user-dashboard__header-right">
+          {/* User chip */}
+          <div className="flex user-dashboard__user-chip">
+            <div className="user-dashboard__avatar">
+              <span className="user-dashboard__avatar-layer user-dashboard__avatar-layer--outer" />
+              <span className="user-dashboard__avatar-layer user-dashboard__avatar-layer--inner" />
             </div>
-            <div className="home-stat">
-              <span className="home-stat__label">
-                {t("dashboard.stats.todayRequests.label")}
-              </span>
-              <span className="home-stat__value">1</span>
-              <span className="home-stat__hint">
-                {t("dashboard.stats.todayRequests.hint")}
-              </span>
+            <span className="user-dashboard__user-name">{userName}</span>
+          </div>
+
+          {/* Notifications */}
+          <button
+            type="button"
+            className="user-dashboard__icon-button"
+            aria-label="התראות"
+          >
+            <span aria-hidden="true">🔔</span>
+          </button>
+
+          {/* Messages */}
+          <button
+            type="button"
+            className="user-dashboard__icon-button"
+            aria-label="הודעות"
+          >
+            <span aria-hidden="true">💬</span>
+          </button>
+
+          {/* Search pill */}
+          <button
+            type="button"
+            className="flex user-dashboard__search-pill"
+            aria-label="חיפוש"
+          >
+            <span className="user-dashboard__search-icon" aria-hidden="true">
+              🔍
+            </span>
+          </button>
+        </div>
+
+        {/* SECOND in DOM = LEFT side (RTL) → date / time / שגרה / ? */}
+        <div className="flex user-dashboard__header-left">
+          {/* Help button */}
+          <button
+            type="button"
+            className="user-dashboard__help-button"
+            aria-label="עזרה"
+          >
+            ?
+          </button>
+
+          {/* Routine pill */}
+          <div className="flex user-dashboard__routine-pill">
+            <span className="user-dashboard__routine-label">שגרה</span>
+            {/* Routine icon (double circle) */}
+            <div className="user-dashboard__routine-icon">
+              <span className="user-dashboard__routine-layer user-dashboard__routine-layer--outer" />
+              <span className="user-dashboard__routine-layer user-dashboard__routine-layer--inner" />
             </div>
           </div>
 
-          <div className="home-actions grid">
-            <Button
-              type="button"
-              variant="secondary"
-              onClick={onViewMyRequestClick}
-            >
-              {t("dashboard.actions.viewAllRequests")}
-            </Button>
-            <Button type="button" variant="primary" onClick={onNewRequestClick}>
-              {t("dashboard.actions.newRequest")}
-            </Button>
-          </div>
-        </section>
+          {/* Time */}
+          <span className="user-dashboard__header-time">{formattedTime}</span>
 
-        <section className="home-card home-card--activity">
-          <header className="home-card__header home-card__header--row flex justify-between align-center">
-            <h2 className="home-card__title">
-              {t("dashboard.recentActivity.title")}
-            </h2>
-          </header>
+          {/* Date */}
+          <span className="user-dashboard__header-date">{formattedDate}</span>
+        </div>
+      </div>
+    </header>
+  );
+}
 
-          <ul className="home-activity-list grid">
-            <li className="home-activity">
-              <p className="home-activity__main">
-                {t("dashboard.recentActivity.item1.main")}
-              </p>
-              <p className="home-activity__meta">
-                {t("dashboard.recentActivity.item1.meta")}
-              </p>
-            </li>
-          </ul>
-        </section>
-      </main>
+/* =========================
+   SIDEBAR
+   ========================= */
+
+type UserDashboardSidebarProps = {
+  collapsed: boolean;
+  onToggle: () => void;
+};
+
+function UserDashboardSidebar({
+  collapsed,
+  onToggle,
+}: UserDashboardSidebarProps) {
+  return (
+    <aside
+      className={`user-dashboard__sidebar ${
+        collapsed ? "user-dashboard__sidebar--collapsed" : ""
+      }`}
+    >
+      {/* Hamburger toggle (3 lines) */}
+      <button
+        type="button"
+        className="flex user-dashboard__sidebar-toggle"
+        onClick={onToggle}
+        aria-label={collapsed ? "פתח תפריט" : "סגור תפריט"}
+      >
+        <span />
+        <span />
+        <span />
+      </button>
+
+      {/* Inner content we hide when collapsed */}
+      <div className="flex user-dashboard__sidebar-inner">
+        {/* TOP logo placeholder – replace with real img later if you want */}
+        <div className="flex user-dashboard__sidebar-logo-top">
+          <span className="user-dashboard__sidebar-logo-top-text">לב אחד</span>
+        </div>
+
+        {/* NAV links */}
+        <nav className="flex user-dashboard__sidebar-nav" aria-label="תפריט צד">
+          <h2 className="user-dashboard__sidebar-title">מרכז בקרה</h2>
+
+          <button
+            type="button"
+            className="user-dashboard__sidebar-link user-dashboard__sidebar-link--active"
+          >
+            ניהול הבקשות שלי
+          </button>
+
+          <button type="button" className="user-dashboard__sidebar-link">
+            ניהול משימות בטיפול
+          </button>
+
+          <button type="button" className="user-dashboard__sidebar-link">
+            מרקט פלייס
+          </button>
+
+          <button type="button" className="user-dashboard__sidebar-link">
+            ניהול ארגון פנימי
+          </button>
+
+          <button type="button" className="user-dashboard__sidebar-link">
+            אלפון ארגונים
+          </button>
+
+          <button type="button" className="user-dashboard__sidebar-link">
+            מערכת הודעות
+          </button>
+
+          <button type="button" className="user-dashboard__sidebar-link">
+            הגדרות מערכת
+          </button>
+        </nav>
+
+        {/* BOTTOM logo placeholder – replace later */}
+        <div className="flex user-dashboard__sidebar-logo-bottom">
+          <span className="user-dashboard__sidebar-logo-bottom-text">
+            חמ״ל ארצי
+          </span>
+        </div>
+      </div>
+    </aside>
+  );
+}
+
+/* =========================
+   PAGE WRAPPER
+   ========================= */
+
+function UserDashboard() {
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = React.useState(false);
+
+  const handleToggleSidebar = () => {
+    setIsSidebarCollapsed((prev) => !prev);
+  };
+
+  return (
+    <div className="user-dashboard">
+      <UserDashboardHeader />
+
+      {/* Body: sidebar + content */}
+      <div className="flex user-dashboard__body">
+        <UserDashboardSidebar
+          collapsed={isSidebarCollapsed}
+          onToggle={handleToggleSidebar}
+        />
+
+        <main className="user-dashboard__content">
+          {/* dashboard content will go here */}
+        </main>
+      </div>
     </div>
   );
 }
+
+export default UserDashboard;

@@ -1,0 +1,64 @@
+// src/components/dropdown/dropdown.scss
+@use "../../styles/base/_variables" as *;
+@use "sass:color";
+
+.ui-dropdown {
+  inline-size: 100%;
+}
+
+.ui-dropdown__label {
+  display: inline-block;
+  margin-bottom: 4px;
+  font-size: 0.85rem;
+  color: $clr-text;
+}
+
+.ui-dropdown__required {
+  // same “error-ish” treatment as TextField
+  color: color.adjust($clr-primary, $lightness: -10%);
+  margin-inline-start: 2px;
+}
+
+.ui-dropdown__control {
+  position: relative;
+  inline-size: 100%;
+}
+
+.ui-dropdown__select {
+  inline-size: 100%;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  padding: 8px 32px 8px 10px;
+  font-size: 0.9rem;
+  background: #ffffff;
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+}
+
+.ui-dropdown__icon {
+  position: absolute;
+  inset-inline-end: 10px;
+  inset-block-start: 50%;
+  transform: translateY(-50%);
+  font-size: 0.8rem;
+  color: color.adjust($clr-text, $lightness: 10%);
+  pointer-events: none;
+}
+
+.ui-dropdown__helper {
+  margin: 4px 0 0;
+  font-size: 0.8rem;
+  color: color.adjust($clr-text, $lightness: 15%);
+}
+
+.ui-dropdown__error {
+  margin: 4px 0 0;
+  font-size: 0.8rem;
+  color: color.adjust($clr-primary, $lightness: -10%);
+}
+
+/* Error border */
+.ui-dropdown--error .ui-dropdown__select {
+  border-color: color.adjust($clr-primary, $lightness: -10%);
+}

@@ -32,3 +32,6 @@ Thumbs.db
 .env.production.local
 node_modules/
 node_modules/
+
+*storybook.log
+storybook-static

@@ -1,189 +1,333 @@
-@use "../../../styles/base/variables" as *;
+@use "../../../styles/base/_variables" as *;
 @use "sass:color";
 
-.home-page {
+/* =========================
+   PAGE ROOT
+   ========================= */
+
+.user-dashboard {
+  direction: rtl;
   min-height: 100vh;
-  background: $clr-bg;
+  background-color: $clr-bg;
+  color: $clr-text;
+  font-family: "Open Sans Hebrew", system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif;
 }
 
-.home-header {
-  inline-size: 100%;
-  block-size: 72px;
-  padding-inline: 32px;
-  background: $clr-header;
+/* =========================
+   HEADER WRAPPER
+   ========================= */
+
+.user-dashboard__header {
+  background-color: $clr-header;
   color: $clr-header-text;
-  direction: ltr;
+  padding: 30px 24px;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.24);
+}
+
+/* Full header row: RIGHT group + LEFT group */
+.user-dashboard__header-row {
+  /* .flex from helpers gives display:flex */
+  align-items: center; /* centers both groups vertically */
+  justify-content: space-between; /* big gap between left & right */
+}
+
+/* =========================
+   LEFT SIDE: date / time / שגרה / ?
+   ========================= */
+
+.user-dashboard__header-left {
+  gap: 24px;
+  align-items: center; /* aligns date/time/שגרה/? on same line */
+}
+
+/* Date + time text */
+.user-dashboard__header-date,
+.user-dashboard__header-time {
+  font-size: 20px;
+  font-weight: 400;
+  color: $clr-header-text;
+}
+
+/* "שגרה" pill container */
+.user-dashboard__routine-pill {
+  gap: 8px;
+  align-items: center; /* text + double circle perfectly centered */
+}
+
+/* "שגרה" label text */
+.user-dashboard__routine-label {
+  font-size: 20px;
+  font-weight: 400;
+  color: $clr-header-text;
+}
+
+/* "שגרה" double-circle icon */
+.user-dashboard__routine-icon {
   position: relative;
+  width: 20px;
+  height: 20px;
 }
 
-.home-header__title {
-  font-size: 1.1rem;
-  font-weight: 600;
-  margin: 0;
-  text-align: center;
-
+.user-dashboard__routine-layer {
   position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+  border-radius: 50%;
 }
 
-.home-header__side {
-  width: 50px;
+.user-dashboard__routine-layer--outer {
+  width: 20px;
+  height: 20px;
+  border: 1px solid $clr-header-text;
+  background-color: transparent;
+}
+
+.user-dashboard__routine-layer--inner {
+  width: 14px;
+  height: 14px;
+  top: 3px;
+  left: 3px;
+  background: radial-gradient(circle at 30% 30%, #ffe6cc, #ffb366);
+}
+
+/* Help "?" button */
+.user-dashboard__help-button {
+  width: 24px;
+  height: 24px;
+  border-radius: 999px;
+  border: none;
+  background-color: transparent;
+  color: $clr-header-text;
+  cursor: pointer;
+  font-size: 20px;
+  line-height: 1;
+  padding: 0;
+  transition: background-color 0.15s ease, transform 0.08s ease;
+}
+
+.user-dashboard__help-button:hover {
+  background-color: rgba(255, 255, 255, 0.12);
+}
+
+.user-dashboard__help-button:active {
+  transform: translateY(1px);
+}
+
+/* =========================
+   RIGHT SIDE: user / icons / search
+   ========================= */
+
+.user-dashboard__header-right {
+  gap: 16px;
+  align-items: center; /* user chip + icons + search aligned */
+}
+
+/* Search pill (empty search field) */
+.user-dashboard__search-pill {
+  border-radius: 33px;
+  padding: 4px 14px;
+  border: 1px solid rgba(255, 255, 255, 1);
+  background-color: transparent;
+  color: $clr-header-text;
+  cursor: pointer;
+  min-width: 220px;
+  justify-content: flex-start; /* works with .flex helper */
+  align-items: center; /* centers the 🔍 vertically */
+  transition: background-color 0.15s ease, box-shadow 0.15s ease,
+    transform 0.08s ease;
+}
+
+.user-dashboard__search-pill:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.2);
+}
+
+.user-dashboard__search-pill:active {
+  transform: translateY(1px);
+}
+
+/* Magnifier icon inside search pill */
+.user-dashboard__search-icon {
+  font-size: 20px;
+}
+
+/* Header icon buttons (notifications, messages) */
+.user-dashboard__icon-button {
+  width: 24px;
+  height: 24px;
+  border-radius: 999px;
+  border: none;
+  background-color: transparent;
+  color: $clr-header-text;
+  cursor: pointer;
+  font-size: 20px;
+  line-height: 1;
+  padding: 0;
+  transition: background-color 0.15s ease, transform 0.08s ease;
+}
+
+.user-dashboard__icon-button:hover {
+  background-color: rgba(255, 255, 255, 0.12);
+}
+
+.user-dashboard__icon-button:active {
+  transform: translateY(1px);
+}
+
+/* =========================
+   USER CHIP (avatar + name)
+   ========================= */
+
+.user-dashboard__user-chip {
+  gap: 4px;
+  align-items: center; /* avatar + name center-aligned */
+}
+
+/* User name text */
+.user-dashboard__user-name {
+  font-size: 20px;
+  font-weight: 400;
+  color: $clr-header-text;
+}
+
+/* Avatar circle wrapper */
+.user-dashboard__avatar {
+  position: relative;
+  width: 20px;
+  height: 20px;
+}
+
+/* Avatar double circle */
+.user-dashboard__avatar-layer {
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
+  border-radius: 50%;
 }
 
-.home-header__side--left {
-  left: 32px;
+.user-dashboard__avatar-layer--outer {
+  width: 20px;
+  height: 20px;
+  border: 1px solid $clr-header-text;
+  background-color: color.scale($clr-header, $lightness: 15%);
 }
 
-.home-header__side--right {
-  right: 32px;
+.user-dashboard__avatar-layer--inner {
+  width: 14px;
+  height: 14px;
+  top: 3px;
+  left: 3px;
+  background: radial-gradient(circle at 30% 30%, #fdfdfd, #e3e3e3);
 }
 
-.home-layout {
-  max-width: 1120px;
-  margin: 32px auto 48px;
-  padding-inline: 16px;
-  grid-template-columns: minmax(0, 2.1fr) minmax(0, 1.5fr);
-  grid-template-areas:
-    "overview sidebar"
-    "activity activity";
+/* =========================
+   CONTENT WRAPPER (below header)
+   ========================= */
+
+.user-dashboard__content {
+  margin-top: 8px;
+  background-color: $clr-surface;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+}
+
+/* =========================
+   BODY LAYOUT (SIDEBAR + MAIN)
+   ========================= */
+
+.user-dashboard__body {
+  /* .flex from helpers gives display:flex */
+  align-items: stretch;
   gap: 24px;
 }
 
-.home-card {
-  background: $clr-surface;
-  border-radius: 18px;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
-  padding: 24px 28px;
+/* =========================
+   SIDEBAR – BASE
+   ========================= */
+
+.user-dashboard__sidebar {
+  position: relative;
+  width: 190px;
+  min-height: calc(96vh - 30px - 24px);
+  padding: 24px 24px 32px;
+  background-color: color.scale($clr-surface, $lightness: -5%);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.24);
+
+  /* no display:flex here – flex comes from helpers on children */
 }
 
-.home-card--overview {
-  grid-area: overview;
+/* Inner wrapper we hide when collapsed */
+.user-dashboard__sidebar-inner {
+  /* .flex helper on TSX */
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 40px;
+  height: 100%;
 }
 
-.home-card--sidebar {
-  grid-area: sidebar;
+/* collapsed state stays the same */
+.user-dashboard__sidebar--collapsed {
+  width: 60px;
+  padding-inline: 16px;
 }
 
-.home-card--activity {
-  grid-area: activity;
+.user-dashboard__sidebar--collapsed .user-dashboard__sidebar-inner {
+  opacity: 0;
+  pointer-events: none;
 }
 
-.home-card__header {
-  margin-block-end: 20px;
-}
-
-.home-card__title {
-  font-size: 1rem;
-  font-weight: 600;
-  color: $clr-header;
-}
-
-.home-card__subtitle {
-  margin-block-start: 8px;
-  font-size: 0.9rem;
-  color: color.adjust($clr-text, $lightness: 10%);
-}
-
-.home-stats {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 16px;
-  margin-block-end: 24px;
-}
-
-.home-stat {
-  padding: 12px 14px;
-  border-radius: 12px;
-  background: color.adjust($clr-primary, $lightness: 70%);
-  border: 1px solid rgba(11, 63, 45, 0.12);
-}
-
-.home-stat__label {
-  display: block;
-  font-size: 0.78rem;
-  color: color.adjust($clr-text, $lightness: 5%);
-  margin-block-end: 4px;
-}
-
-.home-stat__value {
-  display: block;
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: $clr-primary;
-}
-
-.home-stat__hint {
-  display: block;
-  margin-block-start: 2px;
-  font-size: 0.75rem;
-  color: color.adjust($clr-text, $lightness: 15%);
-}
-
-.home-actions {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
-}
-
-.home-quick-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  gap: 10px;
-}
-
-.home-quick-item {
-  padding: 10px 12px;
-  border-radius: 12px;
-  cursor: pointer;
-  transition: background 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
-}
-
-.home-quick-item:hover {
-  background: color.adjust($clr-primary, $lightness: 72%);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
-}
-
-.home-quick-item__bullet {
-  inline-size: 8px;
-  block-size: 8px;
+/* Hamburger toggle – .flex comes from TSX */
+.user-dashboard__sidebar-toggle {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  width: 32px;
+  height: 32px;
+  border: none;
   border-radius: 999px;
-  background: $clr-primary;
-  margin-inline-end: 10px;
+  background-color: black;
+  cursor: pointer;
+  padding: 6px;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: stretch;
+  transition: background-color 0.15s ease, transform 0.08s ease;
 }
 
-.home-quick-item__text {
-  font-size: 0.88rem;
+.user-dashboard__sidebar-toggle span {
+  display: block;
+  height: 2px;
+  border-radius: 999px;
+  background-color: $clr-header-text;
+}
+
+/* logos – use .flex in TSX, no display here */
+.user-dashboard__sidebar-logo-top {
+  width: 100%;
+  justify-content: center;
+}
+
+.user-dashboard__sidebar-logo-bottom {
+  width: 100%;
+  justify-content: center;
+}
+
+/* nav – .flex from TSX */
+.user-dashboard__sidebar-nav {
+  width: 100%;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 16px;
+}
+
+.user-dashboard__sidebar-link {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: 400;
   color: $clr-text;
-}
-
-.home-activity-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  gap: 10px;
-}
-
-.home-activity {
-  padding: 10px 0;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.04);
-}
-
-.home-activity:last-child {
-  border-bottom: none;
-}
-
-.home-activity__main {
-  font-size: 0.9rem;
-  color: $clr-text;
-}
-
-.home-activity__meta {
-  margin-block-start: 2px;
-  font-size: 0.78rem;
-  color: color.adjust($clr-text, $lightness: 15%);
+  transition: background-color 0.15s ease, color 0.15s ease,
+    transform 0.08s ease;
 }
