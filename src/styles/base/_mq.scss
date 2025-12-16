@@ -155,3 +155,49 @@
     grid-template-columns: minmax(0, 1fr);
   }
 }
+
+@media (max-width: $bp-l) {
+  .dashboardBody {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .dashboardBoard {
+    height: auto;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: auto;
+    grid-template-areas:
+      "overview market"
+      "messages treatment"
+      "messages requests";
+  }
+
+  .panelOverview,
+  .panelMarket {
+    min-height: 520px;
+  }
+}
+
+@media (max-width: $bp-m) {
+  .dashboardBoard {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "overview"
+      "messages"
+      "treatment"
+      "requests"
+      "market";
+  }
+
+  .panelOverview,
+  .panelMarket {
+    min-height: auto;
+  }
+
+  .chipRow5 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .chipRow3 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

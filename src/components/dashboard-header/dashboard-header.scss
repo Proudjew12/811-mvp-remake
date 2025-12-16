@@ -1,0 +1,114 @@
+@use "sass:color";
+@use "@styles/base/variables" as *;
+
+.dashboard-header-row {
+  grid-template-columns: minmax(240px, 1fr) auto;
+  padding-inline: $space-5;
+}
+
+.header-left {
+  justify-self: start;
+}
+
+.header-right {
+  justify-self: end;
+}
+
+.header-group {
+  inline-size: fit-content;
+  padding-inline: $space-5;
+}
+
+.header-meta-text {
+  font-size: 1.2rem;
+  line-height: 1;
+  opacity: 0.92;
+}
+
+.status-dot {
+  inline-size: 10px;
+  block-size: 10px;
+  border-radius: 999px;
+  border: 1px solid color.adjust($clr-header-text, $alpha: -0.4);
+  background: color.adjust($clr-header-text, $alpha: -0.55);
+}
+
+.header-sep {
+  inline-size: 1px;
+  block-size: 18px;
+  margin-inline: 6px;
+  background: color.adjust($clr-header-text, $alpha: -0.78);
+  opacity: 1;
+}
+
+.header-search {
+  inline-size: 220px;
+  block-size: 34px;
+  padding-inline: $space-3;
+  border-radius: 999px;
+
+  border: 2px solid color.adjust($clr-header-text, $alpha: -0.72);
+  background: transparent;
+  transition: border-color $transition-fast, background $transition-fast;
+}
+
+.header-search:focus-within {
+  border-color: color.adjust($clr-header-text, $alpha: -0.3);
+  background: color.adjust($clr-header-text, $alpha: -0.93);
+}
+
+.header-search-input {
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: $clr-header-text;
+  font-size: 1rem;
+}
+
+.header-search-input::placeholder {
+  color: color.adjust($clr-header-text, $alpha: -0.4);
+}
+
+.icon-btn,
+.user-btn {
+  border: 0;
+  background: transparent;
+  color: $clr-header-text;
+  transition: background $transition-fast, transform $transition-fast;
+}
+
+.icon-btn {
+  inline-size: 34px;
+  block-size: 34px;
+  border-radius: 999px;
+}
+
+.icon-btn:hover,
+.user-btn:hover {
+  background: color.adjust($clr-header-text, $alpha: -0.92);
+}
+
+.icon-btn:active,
+.user-btn:active {
+  transform: translateY(1px);
+}
+
+.user-btn {
+  block-size: 34px;
+  padding-inline: $space-2;
+  border-radius: 999px;
+}
+
+.user-name {
+  max-inline-size: 200px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+}
+
+.emoji {
+  display: inline-block;
+  font-size: 16px;
+  line-height: 1;
+  transform: translateY(1px);
+}

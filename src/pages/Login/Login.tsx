@@ -6,14 +6,14 @@ import "./login.scss";
 
 import logoGreen from "@assets/Logo/mate-logo-green.png";
 import Button from "@components/button/button";
-import { showWelcomeToast } from "@services/Notifications/alerts.service";
+import { showWelcomeToast } from "@services/notifications/alerts.service";
 
 import {
   loginService,
   DemoAccountKey,
   LoginCredentials,
   LoginResult,
-} from "@services/Login/login.service";
+} from "@services/login/login.service";
 
 import {
   getDashboardPath,
