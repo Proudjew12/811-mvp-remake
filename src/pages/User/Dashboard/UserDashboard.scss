@@ -8,3 +8,92 @@ $user-header-height: calc(#{$header-height} - 36px);
   color: $clr-header-text;
   box-shadow: $shadow-header;
 }
+
+.user-dashboard {
+  background: $clr-page;
+}
+
+.user-dashboard-main {
+  padding: $space-4;
+}
+
+.user-dashboard-outertitle {
+  color: $clr-text-strong;
+}
+
+.dash-card {
+  height: 100%;
+}
+
+.dash-inner {
+  padding: $space-3;
+}
+
+.dash-sub {
+  margin-top: $space-2;
+  margin-bottom: $space-3;
+  color: $clr-text-muted;
+  font-size: 0.95rem;
+}
+
+.dash-statrow {
+  padding-block: $space-2;
+  border-top: 1px solid $clr-border-subtle;
+}
+
+.dash-statrow:first-child {
+  border-top: 0;
+}
+
+.dash-statlabel {
+  color: $clr-text;
+  font-size: 0.95rem;
+}
+
+.dash-statvalue {
+  font-weight: 700;
+  color: $clr-text-strong;
+}
+
+.dash-cardhint {
+  font-size: 0.9rem;
+}
+
+.dash-taskpreview {
+  background: $clr-surface;
+  border: 1px solid $clr-border-subtle;
+  border-radius: $radius-md;
+  padding: $space-3;
+}
+
+.dash-meta {
+  font-size: 0.9rem;
+}
+
+.dash-scroll {
+  border-top: 1px solid $clr-border-subtle;
+  padding-top: $space-2;
+}
+
+.dash-listitem {
+  background: $clr-surface;
+  border: 1px solid $clr-border-subtle;
+  border-radius: $radius-md;
+  padding: $space-3;
+}
+
+.dash-listtitle {
+  font-weight: 700;
+  color: $clr-text-strong;
+}
+
+.dash-listtext {
+  font-size: 0.95rem;
+}
+
+.dash-task {
+  background: $clr-surface;
+  border: 1px solid $clr-border-subtle;
+  border-radius: $radius-md;
+  padding: $space-3;
+}
