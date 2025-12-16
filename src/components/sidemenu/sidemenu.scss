@@ -1,0 +1,94 @@
+@use "@styles/base/variables" as *;
+
+.side-menu {
+  inline-size: $side-menu-width;
+  block-size: 100%;
+  background: $clr-card-muted;
+  border-inline-start: 1px solid $clr-border-subtle;
+  box-shadow: $shadow-card;
+  transition: inline-size $transition-fast;
+}
+
+.side-menu.is-collapsed {
+  inline-size: $side-menu-collapsed-width;
+  background: $clr-surface;
+}
+
+.side-menu-top {
+  padding: $space-3;
+  gap: $space-3;
+}
+
+.side-menu.is-collapsed .side-menu-top {
+  justify-items: center;
+  align-content: start;
+  padding-top: $space-4;
+  padding-inline: 0;
+}
+
+.side-menu-burger {
+  inline-size: 44px;
+  block-size: 44px;
+  border-radius: $radius-md;
+
+  background: transparent;
+  border: 1px solid $clr-border-subtle;
+  color: $clr-text-strong;
+
+  font-size: 1.25rem;
+}
+
+.side-menu-burger:hover {
+  background: $clr-surface;
+}
+
+.side-menu-burger:active {
+  transform: translateY(1px);
+}
+
+.side-menu-brand {
+  justify-items: center;
+  text-align: center;
+}
+
+.side-menu-title {
+  font-weight: 800;
+  color: $clr-text-strong;
+  font-size: 1.35rem;
+  line-height: 1.2;
+}
+
+.side-menu-nav {
+  padding: $space-3;
+}
+
+.side-menu-item {
+  inline-size: 100%;
+  text-align: center;
+
+  padding: $space-2 $space-3;
+  border-radius: $radius-md;
+
+  background: transparent;
+  border: 1px solid transparent;
+  color: $clr-text;
+
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.side-menu-item:hover {
+  background: $clr-surface;
+  border-color: $clr-border-subtle;
+}
+
+.side-menu-bottom {
+  padding: $space-3;
+}
+
+.side-menu-logo {
+  inline-size: min(180px, 100%);
+  block-size: auto;
+  object-fit: contain;
+  justify-self: center;
+}

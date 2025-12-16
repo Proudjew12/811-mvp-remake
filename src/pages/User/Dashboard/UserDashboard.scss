@@ -97,3 +97,6 @@ $user-header-height: calc(#{$header-height} - 36px);
   border-radius: $radius-md;
   padding: $space-3;
 }
+.user-dashboard-body {
+  block-size: 100%;
+}
