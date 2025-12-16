@@ -2,25 +2,17 @@ import { ChangeEvent, FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
-import "./login.scss";
+import "./Login.scss";
 
 import logoGreen from "@assets/Logo/mate-logo-green.png";
-import Button from "@components/button/button";
+import { Button } from "@components/button/button";
 import { showWelcomeToast } from "@services/notifications/alerts.service";
-
 import {
   loginService,
-  DemoAccountKey,
-  LoginCredentials,
-  LoginResult,
+  type DemoAccountKey,
+  type LoginCredentials,
 } from "@services/login/login.service";
-
-import {
-  getDashboardPath,
-  getLanguageCode,
-  getNextLanguage,
-  isHebrewLanguage,
-} from "@utils/Login/LoginFunctions";
+import { loginUtils } from "@utils/login/login-utils";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -32,58 +24,37 @@ export default function Login() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const isHebrew = isHebrewLanguage(i18n.language);
+  const isHebrew = loginUtils.isHebrewLanguage(i18n.language);
 
   function onLanguageToggle() {
-    const nextLanguage = getNextLanguage(i18n.language);
+    const nextLanguage = loginUtils.getNextLanguage(i18n.language);
     i18n.changeLanguage(nextLanguage);
   }
 
   function onEmailChange(event: ChangeEvent<HTMLInputElement>) {
     const value = event.target.value;
-
-    setCredentials((prev) => ({
-      ...prev,
-      email: value,
-    }));
-
+    setCredentials((prev) => ({ ...prev, email: value }));
     if (errorMessage) setErrorMessage(null);
   }
 
   function onPasswordChange(event: ChangeEvent<HTMLInputElement>) {
     const value = event.target.value;
-
-    setCredentials((prev) => ({
-      ...prev,
-      password: value,
-    }));
-
+    setCredentials((prev) => ({ ...prev, password: value }));
     if (errorMessage) setErrorMessage(null);
-  }
-
-  function navigateByAccountType(result: LoginResult) {
-    const path = getDashboardPath(result.accountType);
-    navigate(path);
   }
 
   async function onLoginSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setErrorMessage(null);
 
-    const validationError = loginService.validateCredentials(credentials);
-    if (validationError) {
-      setErrorMessage(validationError);
-      return;
-    }
-
     try {
       setIsSubmitting(true);
-      const loginResult = await loginService.login(credentials);
 
-      const lang = getLanguageCode(i18n.language);
+      const { loginResult, redirectPath, lang } =
+        await loginService.runLoginFlow(credentials, i18n.language);
+
       showWelcomeToast(loginResult.email, lang);
-
-      navigateByAccountType(loginResult);
+      navigate(redirectPath);
     } catch (error) {
       setErrorMessage(loginService.getErrorMessage(error));
     } finally {
@@ -164,7 +135,6 @@ export default function Login() {
           >
             organization
           </Button>
-
           <Button
             type="button"
             variant="secondary"
@@ -172,7 +142,6 @@ export default function Login() {
           >
             admin
           </Button>
-
           <Button
             type="button"
             variant="secondary"

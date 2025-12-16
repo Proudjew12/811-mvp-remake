@@ -1,9 +1,9 @@
 import Swal from "sweetalert2";
-import type { AlertLanguage } from "@utils/Notifications/AlertFunctions";
 import {
   buildWelcomeTitle,
   extractUsername,
-} from "@utils/Notifications/AlertFunctions";
+  type AlertLanguage,
+} from "@utils/notifications/alert-functions";
 
 const Toast = Swal.mixin({
   toast: true,

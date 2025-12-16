@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 
 import { DashboardHeader } from "@components/dashboard-header/dashboard-header";
-import { SideMenu } from "@components/sidemenu/sidemenu";
+import { SideMenu } from "@components/side-menu/side-menu";
 
 import { Card } from "@components/card/card";
 import { Button } from "@components/button/button";

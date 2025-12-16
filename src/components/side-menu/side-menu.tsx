@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 
 import mateLogoGreen from "@assets/Logo/mate-logo-green.png";
 
-import "./sidemenu.scss";
+import "./side-menu.scss";
 import {
   userDashboardSidemenuService,
   type SideMenuItem,
