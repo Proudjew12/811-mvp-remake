@@ -1,32 +1,62 @@
-@use "../../../styles/base/_variables" as *;
-@use "sass:color";
+@use "@styles/base/variables" as *;
 
 .control-page {
-  min-height: 100vh;
-  background: $clr-bg;
+  min-height: 100dvh;
+  background: $clr-page;
+  grid-template-rows: auto 1fr;
+  overflow: hidden;
+}
+
+.control-header {
+  background: $clr-header;
+  color: $clr-header-text;
+  padding: $space-3 $space-4;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.control-header-title {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 700;
+  justify-self: center;
 }
 
 .control-main {
-  max-width: 1120px;
-  margin: 32px auto 48px;
-  padding-inline: 16px;
+  min-height: 0;
+  overflow: auto;
+  padding: $space-3;
 }
 
 .control-card {
-  background: $clr-surface;
-  border-radius: 18px;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
-  padding: 24px 28px;
+  max-width: 1120px;
+  width: 100%;
+  margin: 0 auto;
+  background: $clr-card;
+  border-radius: $radius-lg;
+  box-shadow: $shadow-card;
+  padding: $space-4;
+  border: 1px solid $clr-border-subtle;
 }
 
-.control-card__title {
-  font-size: 1rem;
-  font-weight: 600;
-  color: $clr-header;
+.control-card-title {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: $clr-text-strong;
 }
 
-.control-card__subtitle {
-  margin-block-start: 8px;
-  font-size: 0.9rem;
-  color: color.adjust($clr-text, $lightness: 10%);
+.control-card-subtitle {
+  margin: 0;
+  color: $clr-text-muted;
+  font-size: 0.95rem;
+}
+
+@media (max-width: $bp-s) {
+  .control-header-title {
+    font-size: 1rem;
+  }
+
+  .control-card {
+    padding: $space-3;
+  }
 }

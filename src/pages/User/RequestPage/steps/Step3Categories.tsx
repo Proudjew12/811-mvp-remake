@@ -1,12 +1,12 @@
 import { Dispatch, SetStateAction, ReactNode } from "react";
-import Button from "../../../../components/button/button";
+import Button from "@components/button/button";
 import { RequestFormData } from "../UserRequestPage";
 import {
   AssistanceCategory,
   AssistanceCategoryId,
   CategoryDetailsMap,
-} from "../../../../services/RequestPage/UserRequestPage.service";
-import { CategoryCard } from "../../../../components/RequestPage/CategoryCard";
+} from "@services/RequestPage/UserRequestPage.service";
+import { CategoryCard } from "@components/RequestPage/CategoryCard";
 
 type Props = {
   t: (key: string) => string;
@@ -47,20 +47,22 @@ export function Step3Categories({
   }
 
   return (
-    <section className="request-step">
-      <h2 className="request-step__title">{t("userRequest.step3.title")}</h2>
+    <section className="grid request-step">
+      <div className="grid step-top">
+        <h2 className="request-step-title">{t("userRequest.step3.title")}</h2>
 
-      <div className="request-step__actions flex">
-        <Button
-          type="button"
-          variant="secondary"
-          onClick={handleClearSelection}
-        >
-          {t("userRequest.clearSelection")}
-        </Button>
+        <div className="grid step-actions">
+          <Button
+            type="button"
+            variant="secondary"
+            onClick={handleClearSelection}
+          >
+            {t("userRequest.clearSelection")}
+          </Button>
+        </div>
       </div>
 
-      <div className="request-categories grid">
+      <div className="grid category-grid">
         {assistanceCategories.map((category) => {
           const isActive = form.categories.includes(category.id);
           const selectedOptions = form.categoryDetails[category.id] || [];
@@ -68,7 +70,7 @@ export function Step3Categories({
           const options = category.options ?? [];
 
           return (
-            <div key={category.id} className="request-category flex column">
+            <div key={category.id} className="grid category-card-wrap">
               <CategoryCard
                 id={category.id}
                 label={label}
@@ -77,12 +79,9 @@ export function Step3Categories({
               />
 
               {options.length > 0 && (
-                <div className="request-category__options flex">
+                <div className="grid category-options">
                   {options.map((option) => {
                     const isSelected = selectedOptions.includes(option.id);
-                    const optionClassName =
-                      "request-category__option" +
-                      (isSelected ? " request-category__option--active" : "");
                     const optionLabel = isHebrew
                       ? option.labelHe
                       : option.labelEn;
@@ -91,7 +90,12 @@ export function Step3Categories({
                       <button
                         key={option.id}
                         type="button"
-                        className={optionClassName}
+                        className={[
+                          "category-option",
+                          isSelected ? "is-active" : "",
+                        ]
+                          .filter(Boolean)
+                          .join(" ")}
                         onClick={() =>
                           onUpdateCategoryDetail(category.id, option.id)
                         }
@@ -107,12 +111,12 @@ export function Step3Categories({
         })}
       </div>
 
-      <footer className="request-step-footer flex">
+      <footer className="grid request-footer">
         <Button type="button" variant="secondary" onClick={onPreviousStep}>
           ← {t("footer.previous")}
         </Button>
 
-        {renderProgressDots()}
+        <div className="request-footer-center">{renderProgressDots()}</div>
 
         <Button type="button" variant="primary" onClick={onNextStep}>
           {t("footer.next")} →

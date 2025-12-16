@@ -6,21 +6,24 @@
     "moduleResolution": "bundler",
     "strict": true,
     "jsx": "react-jsx",
-    "types": ["vite/client"],
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true,
 
     "paths": {
       "@/*": ["./src/*"],
       "@components/*": ["./src/components/*"],
       "@assets/*": ["./src/assets/*"],
       "@pages/*": ["./src/pages/*"],
+      "@styles/*": ["./src/styles/*"],
       "@services/*": ["./src/services/*"],
       "@utils/*": ["./src/utils/*"]
-    }
+    },
+
+    "types": ["vite/client"],
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true
   },
-  "include": ["src"]
+  "include": ["src", "global.d.ts", "vitest.shims.d.ts"]
 }

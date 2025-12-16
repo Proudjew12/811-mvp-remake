@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import "./SummarySection.scss";
 import { SummarySectionId } from "../../pages/User/RequestPage/UserRequestPage";
 
 type SummarySectionProps = {
@@ -17,21 +18,20 @@ export function SummarySection({
   children,
 }: SummarySectionProps) {
   return (
-    <div className="request-summary-section">
+    <div className="summarySection">
       <button
         type="button"
-        className="request-summary-section__header flex"
+        className="grid summaryHeader"
         onClick={() => onToggle(id)}
+        aria-expanded={isOpen}
       >
-        <span>{title}</span>
-        <span className="request-summary-section__chevron">
+        <span className="summaryHeaderTitle">{title}</span>
+        <span className="summaryHeaderChevron" aria-hidden>
           {isOpen ? "▲" : "▼"}
         </span>
       </button>
 
-      {isOpen && (
-        <div className="request-summary-section__body">{children}</div>
-      )}
+      {isOpen && <div className="summaryBody">{children}</div>}
     </div>
   );
 }

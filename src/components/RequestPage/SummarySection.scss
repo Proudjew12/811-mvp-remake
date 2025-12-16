@@ -1,0 +1,42 @@
+@use "@styles/base/_variables" as *;
+
+.summarySection {
+  border: 1px solid $clr-border-subtle;
+  border-radius: $radius-md;
+  background: #fff;
+  overflow: hidden;
+}
+
+.summaryHeader {
+  width: 100%;
+  border: none;
+  background: transparent;
+  padding: $space-3;
+  cursor: pointer;
+
+  grid-auto-flow: column;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  column-gap: $space-2;
+  text-align: right;
+}
+
+.summaryHeader:focus-visible {
+  outline: $focus-ring;
+  outline-offset: 2px;
+}
+
+.summaryHeaderTitle {
+  font-weight: 600;
+  color: $clr-text-strong;
+}
+
+.summaryHeaderChevron {
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.summaryBody {
+  padding: $space-3;
+  border-top: 1px solid $clr-border-subtle;
+  color: $clr-text;
+}

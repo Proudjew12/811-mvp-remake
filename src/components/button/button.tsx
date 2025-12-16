@@ -1,5 +1,5 @@
-import { ButtonHTMLAttributes, ReactNode } from "react";
-import "./_button.scss";
+import { ButtonHTMLAttributes, ReactNode, forwardRef } from "react";
+import "./button.scss";
 
 export type ButtonVariant = "primary" | "secondary" | "ghost" | "danger";
 export type ButtonSize = "sm" | "md";
@@ -14,48 +14,47 @@ export interface ButtonProps
   children?: ReactNode;
 }
 
-/**
- * Reusable app button.
- *
- * - Supports visual variants ("primary", "secondary", "ghost", "danger")
- * - Two sizes: "sm" and "md"
- * - `isLoading` disables the button and adds a loading class
- * - Defaults to `type="button"` to avoid accidental form submits
- */
-export default function Button(props: ButtonProps) {
-  const {
-    variant = "primary",
-    size = "md",
-    isLoading = false,
-    isActive = false,
-    fullWidth = false,
-    className = "",
-    disabled,
-    type = "button",
-    children,
-    ...rest
-  } = props;
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+  function Button(
+    {
+      variant = "primary",
+      size = "md",
+      isLoading = false,
+      isActive = false,
+      fullWidth = false,
+      className = "",
+      disabled,
+      type = "button",
+      children,
+      ...rest
+    },
+    ref
+  ) {
+    const classNames = [
+      "btn",
+      `btn--${variant}`,
+      `btn--${size}`,
+      fullWidth ? "is-full" : "",
+      isLoading ? "is-loading" : "",
+      isActive ? "is-active" : "",
+      className,
+    ]
+      .filter(Boolean)
+      .join(" ");
 
-  const classNames = [
-    "app-button",
-    `app-button--variant-${variant}`,
-    `app-button--size-${size}`,
-    fullWidth ? "app-button--fullWidth" : "",
-    isLoading ? "app-button--loading" : "",
-    isActive ? "app-button--active" : "",
-    className,
-  ]
-    .filter(Boolean)
-    .join(" ");
+    return (
+      <button
+        ref={ref}
+        type={type}
+        className={classNames}
+        disabled={disabled || isLoading}
+        aria-busy={isLoading || undefined}
+        {...rest}
+      >
+        {children}
+      </button>
+    );
+  }
+);
 
-  return (
-    <button
-      type={type}
-      className={classNames}
-      disabled={disabled || isLoading}
-      {...rest}
-    >
-      {children}
-    </button>
-  );
-}
+export default Button;

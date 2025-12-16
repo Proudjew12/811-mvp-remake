@@ -1,14 +1,10 @@
-// src/services/notifications/alerts.service.ts
 import Swal from "sweetalert2";
+import type { AlertLanguage } from "@utils/Notifications/AlertFunctions";
 import {
-  AlertLanguage,
-  extractUsername,
   buildWelcomeTitle,
-} from "../../utils/Notifications/AlertFunctions";
+  extractUsername,
+} from "@utils/Notifications/AlertFunctions";
 
-/**
- * Global toast base config (top, auto-close, progress bar).
- */
 const Toast = Swal.mixin({
   toast: true,
   position: "top",
@@ -17,10 +13,6 @@ const Toast = Swal.mixin({
   timerProgressBar: true,
 });
 
-/**
- * Welcome message when user logs in.
- * Shows username (before '@') + localized greeting.
- */
 export function showWelcomeToast(email: string, language: AlertLanguage) {
   const username = extractUsername(email);
   if (!username) return;
@@ -33,9 +25,6 @@ export function showWelcomeToast(email: string, language: AlertLanguage) {
   });
 }
 
-/**
- * Generic success toast.
- */
 export function showSuccessToast(message: string) {
   Toast.fire({
     icon: "success",
@@ -43,9 +32,6 @@ export function showSuccessToast(message: string) {
   });
 }
 
-/**
- * Generic error toast.
- */
 export function showErrorToast(message: string) {
   Toast.fire({
     icon: "error",

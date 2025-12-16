@@ -1,15 +1,16 @@
-import "./MyRequest.scss";
-
-import Button from "../../../components/button/button";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+
+import "./MyRequest.scss";
+
+import Button from "@components/button/button";
 import {
   requestedPageService,
   UserRequestSnapshot,
   AssistanceCategoryId,
   City,
-} from "../../../services/RequestPage/UserRequestPage.service";
+} from "@services/RequestPage/UserRequestPage.service";
 
 export default function MyRequestPage() {
   const { t, i18n } = useTranslation();
@@ -33,13 +34,10 @@ export default function MyRequestPage() {
 
   if (!request) {
     return (
-      <div
-        className="user-request-page flex column"
-        dir={isHebrew ? "rtl" : "ltr"}
-      >
-        <header className="user-request-header flex">
-          <h1 className="user-request-header__title">{t("myRequest.title")}</h1>
-          <div className="user-request-header__actions">
+      <div className="grid requestPage" dir={isHebrew ? "rtl" : "ltr"}>
+        <header className="grid requestHeader items-center">
+          <h1 className="requestHeaderTitle">{t("myRequest.title")}</h1>
+          <div className="grid requestHeaderActions justify-end">
             <Button
               type="button"
               variant="secondary"
@@ -53,13 +51,12 @@ export default function MyRequestPage() {
           </div>
         </header>
 
-        <main className="request-step-main">
-          <section className="request-step">
-            <h2 className="request-step__title">{t("myRequest.emptyTitle")}</h2>
-            <p className="request-success-text--muted">
-              {t("myRequest.emptyBody")}
-            </p>
-            <div className="request-success-actions flex center">
+        <main className="requestMain">
+          <section className="grid requestCard gap-3">
+            <h2 className="requestTitle">{t("myRequest.emptyTitle")}</h2>
+            <p className="mutedText">{t("myRequest.emptyBody")}</p>
+
+            <div className="grid place-center">
               <Button
                 type="button"
                 variant="primary"
@@ -84,13 +81,10 @@ export default function MyRequestPage() {
   );
 
   return (
-    <div
-      className="user-request-page flex column"
-      dir={isHebrew ? "rtl" : "ltr"}
-    >
-      <header className="user-request-header flex">
-        <h1 className="user-request-header__title">{t("myRequest.title")}</h1>
-        <div className="user-request-header__actions">
+    <div className="grid requestPage" dir={isHebrew ? "rtl" : "ltr"}>
+      <header className="grid requestHeader items-center">
+        <h1 className="requestHeaderTitle">{t("myRequest.title")}</h1>
+        <div className="grid requestHeaderActions justify-end">
           <Button
             type="button"
             variant="secondary"
@@ -104,53 +98,52 @@ export default function MyRequestPage() {
         </div>
       </header>
 
-      <main className="request-step-main">
-        <section className="request-step">
-          <div className="request-summary__meta">
-            <span>
-              {new Date(request.savedAt).toLocaleTimeString(locale, {
-                hour: "2-digit",
-                minute: "2-digit",
-              })}{" "}
-              | {new Date(request.savedAt).toLocaleDateString(locale)}
-            </span>
+      <main className="requestMain">
+        <section className="grid requestCard gap-3">
+          <div className="mutedText">
+            {new Date(request.savedAt).toLocaleTimeString(locale, {
+              hour: "2-digit",
+              minute: "2-digit",
+            })}{" "}
+            | {new Date(request.savedAt).toLocaleDateString(locale)}
           </div>
 
-          <div className="request-summary__headline">
-            <div className="request-summary__headline-main flex">
-              <span className="request-summary__title-text">
+          <div className="grid requestHeadline gap-2">
+            <div className="grid requestHeadlineMain">
+              <span className="requestHeadlineTitle">
                 {request.requestTitle ||
                   t("userRequest.step5.requestTitleLabel")}
               </span>
-              <span className="request-summary__heart">💚</span>
+              <span className="requestHeart" aria-hidden>
+                💚
+              </span>
             </div>
 
-            <div className="request-summary__chips flex">
+            <div className="grid requestChips gap-2">
               {district && (
-                <span className="request-chip">
+                <span className="requestChip">
                   {isHebrew ? district.nameHe : district.nameEn}
                 </span>
               )}
               {city && (
-                <span className="request-chip">
+                <span className="requestChip">
                   {isHebrew ? city.nameHe : city.nameEn}
                 </span>
               )}
               {categories[0] && (
-                <span className="request-chip">
+                <span className="requestChip">
                   {isHebrew ? categories[0]!.labelHe : categories[0]!.labelEn}
                 </span>
               )}
             </div>
           </div>
 
-          <div className="request-summary-accordion">
-            {/* REQUEST (includes Step 3, Step 4 toggles, Step 5 text) */}
-            <div className="request-summary-section">
-              <div className="request-summary-section__header flex">
-                <span>{t("userRequest.step6.sectionRequest")}</span>
+          <div className="grid requestAccordion gap-2">
+            <div className="requestSection">
+              <div className="requestSectionHeader">
+                {t("userRequest.step6.sectionRequest")}
               </div>
-              <div className="request-summary-section__body">
+              <div className="requestSectionBody">
                 <p>
                   <strong>{t("userRequest.step6.assistanceTypeLabel")}</strong>{" "}
                   {request.categories.length
@@ -159,11 +152,13 @@ export default function MyRequestPage() {
                           const category =
                             requestedPageService.getCategoryById(categoryId);
                           if (!category) return categoryId;
+
                           const baseLabel = isHebrew
                             ? category.labelHe
                             : category.labelEn;
                           const detailIds =
                             request.categoryDetails[categoryId] || [];
+
                           const optionLabels =
                             category.options
                               ?.filter((option) =>
@@ -172,6 +167,7 @@ export default function MyRequestPage() {
                               .map((option) =>
                                 isHebrew ? option.labelHe : option.labelEn
                               ) ?? [];
+
                           const suffix = optionLabels.length
                             ? ` – ${optionLabels.join(", ")}`
                             : "";
@@ -205,12 +201,11 @@ export default function MyRequestPage() {
               </div>
             </div>
 
-            {/* REQUESTER */}
-            <div className="request-summary-section">
-              <div className="request-summary-section__header flex">
-                <span>{t("userRequest.step6.sectionRequester")}</span>
+            <div className="requestSection">
+              <div className="requestSectionHeader">
+                {t("userRequest.step6.sectionRequester")}
               </div>
-              <div className="request-summary-section__body">
+              <div className="requestSectionBody">
                 <p>
                   {request.recipientName || t("userRequest.step6.noName")} ·{" "}
                   {request.recipientPhone || t("userRequest.step6.noPhone")}
@@ -218,12 +213,11 @@ export default function MyRequestPage() {
               </div>
             </div>
 
-            {/* LOCATION */}
-            <div className="request-summary-section">
-              <div className="request-summary-section__header flex">
-                <span>{t("userRequest.step6.sectionLocation")}</span>
+            <div className="requestSection">
+              <div className="requestSectionHeader">
+                {t("userRequest.step6.sectionLocation")}
               </div>
-              <div className="request-summary-section__body">
+              <div className="requestSectionBody">
                 <p>
                   {(district &&
                     (isHebrew ? district.nameHe : district.nameEn)) ||
@@ -239,12 +233,11 @@ export default function MyRequestPage() {
               </div>
             </div>
 
-            {/* ATTACHMENTS */}
-            <div className="request-summary-section">
-              <div className="request-summary-section__header flex">
-                <span>{t("userRequest.step6.sectionAttachments")}</span>
+            <div className="requestSection">
+              <div className="requestSectionHeader">
+                {t("userRequest.step6.sectionAttachments")}
               </div>
-              <div className="request-summary-section__body">
+              <div className="requestSectionBody">
                 {request.attachments.length ? (
                   <ul className="clean-list">
                     {request.attachments.map((name, index) => (
@@ -258,7 +251,7 @@ export default function MyRequestPage() {
             </div>
           </div>
 
-          <footer className="request-step-footer flex">
+          <footer className="grid requestFooter cols-3 items-center gap-2">
             <Button
               type="button"
               variant="secondary"

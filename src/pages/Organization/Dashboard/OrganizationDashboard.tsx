@@ -1,27 +1,34 @@
-// src/pages/HomePage/OrganizationHomePage.tsx
 import "./OrganizationDashboard.scss";
-import Button from "../../../components/button/button";
+
+import Button from "@components/button/button";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
-export default function OrganizationHomePage() {
+export default function OrganizationDashboard() {
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const isHebrew = i18n.language.startsWith("he");
 
   function onToggleLanguage() {
-    const nextLang = isHebrew ? "en" : "he";
-    i18n.changeLanguage(nextLang);
+    i18n.changeLanguage(isHebrew ? "en" : "he");
   }
 
   function onLogoutClick() {
     navigate("/", { replace: true });
   }
 
+  function onGoToVolunteers() {
+    navigate("/organization/volunteers");
+  }
+
+  function onGoToRequests() {
+    navigate("/organization/requests");
+  }
+
   return (
-    <div className="home-page">
-      <header className="home-header flex justify-between align-center">
-        <div className="home-header__side home-header__side--left flex align-center">
+    <div className="grid org-page" dir={isHebrew ? "rtl" : "ltr"}>
+      <header className="grid org-header items-center">
+        <div className="grid justify-start">
           <Button
             type="button"
             variant="secondary"
@@ -32,11 +39,11 @@ export default function OrganizationHomePage() {
           </Button>
         </div>
 
-        <h1 className="home-header__title">
+        <h1 className="org-title text-center">
           {t("dashboard.title")} – Organization
         </h1>
 
-        <div className="home-header__side home-header__side--right flex align-center">
+        <div className="grid justify-end">
           <Button
             type="button"
             variant="secondary"
@@ -50,110 +57,115 @@ export default function OrganizationHomePage() {
         </div>
       </header>
 
-      {/* reuse same layout for now */}
-      <main className="home-layout grid">
-        {/* you can customize these stats for orgs later */}
-        <section className="home-card home-card--overview">
-          <header className="home-card__header">
-            <h2 className="home-card__title">
-              {t("dashboard.overview.title")}
-            </h2>
-            <p className="home-card__subtitle">
-              {t("dashboard.overview.subtitle")}
-            </p>
-          </header>
+      <main className="org-main">
+        <div className="grid org-layout">
+          <section className="org-card org-card--overview">
+            <header className="grid org-cardHead">
+              <h2 className="org-cardTitle">{t("dashboard.overview.title")}</h2>
+              <p className="org-cardSubtitle">
+                {t("dashboard.overview.subtitle")}
+              </p>
+            </header>
 
-          <div className="home-stats grid">
-            <div className="home-stat">
-              <span className="home-stat__label">
-                {t("dashboard.stats.openRequests.label")}
-              </span>
-              <span className="home-stat__value">7</span>
-              <span className="home-stat__hint">
-                {t("dashboard.stats.openRequests.hint")}
-              </span>
+            <div className="grid org-stats">
+              <div className="grid org-stat">
+                <span className="org-statLabel">
+                  {t("dashboard.stats.openRequests.label")}
+                </span>
+                <span className="org-statValue">7</span>
+                <span className="org-statHint">
+                  {t("dashboard.stats.openRequests.hint")}
+                </span>
+              </div>
+
+              <div className="grid org-stat">
+                <span className="org-statLabel">
+                  {t("dashboard.stats.todayRequests.label")}
+                </span>
+                <span className="org-statValue">3</span>
+                <span className="org-statHint">
+                  {t("dashboard.stats.todayRequests.hint")}
+                </span>
+              </div>
+
+              <div className="grid org-stat">
+                <span className="org-statLabel">
+                  {t("dashboard.stats.handledThisWeek.label")}
+                </span>
+                <span className="org-statValue">15</span>
+                <span className="org-statHint">
+                  {t("dashboard.stats.handledThisWeek.hint")}
+                </span>
+              </div>
             </div>
 
-            <div className="home-stat">
-              <span className="home-stat__label">
-                {t("dashboard.stats.todayRequests.label")}
-              </span>
-              <span className="home-stat__value">3</span>
-              <span className="home-stat__hint">
-                {t("dashboard.stats.todayRequests.hint")}
-              </span>
+            <div className="grid org-actions">
+              <Button type="button" variant="primary" onClick={onGoToRequests}>
+                {t("dashboard.actions.viewAllRequests")}
+              </Button>
+
+              <Button
+                type="button"
+                variant="secondary"
+                onClick={onGoToVolunteers}
+              >
+                מתנדבים
+              </Button>
             </div>
+          </section>
 
-            <div className="home-stat">
-              <span className="home-stat__label">
-                {t("dashboard.stats.handledThisWeek.label")}
-              </span>
-              <span className="home-stat__value">15</span>
-              <span className="home-stat__hint">
-                {t("dashboard.stats.handledThisWeek.hint")}
-              </span>
-            </div>
-          </div>
+          <aside className="org-card org-card--sidebar">
+            <header className="grid org-cardHead">
+              <h2 className="org-cardTitle">
+                {t("dashboard.quickActions.title")}
+              </h2>
+            </header>
 
-          <div className="home-actions grid">
-            <Button type="button" variant="primary">
-              {t("dashboard.actions.newRequest")}
-            </Button>
-            <Button type="button" variant="secondary">
-              {t("dashboard.actions.viewAllRequests")}
-            </Button>
-          </div>
-        </section>
+            <ul className="clean-list grid org-quickList">
+              <li className="grid org-quickItem flow-col items-center">
+                <span className="org-bullet" aria-hidden />
+                <span className="org-quickText">
+                  {t("dashboard.quickActions.itemRecent")}
+                </span>
+              </li>
 
-        <aside className="home-card home-card--sidebar">
-          <header className="home-card__header">
-            <h2 className="home-card__title">
-              {t("dashboard.quickActions.title")}
-            </h2>
-          </header>
+              <li className="grid org-quickItem flow-col items-center">
+                <span className="org-bullet" aria-hidden />
+                <span className="org-quickText">
+                  {t("dashboard.quickActions.itemUrgent")}
+                </span>
+              </li>
+            </ul>
+          </aside>
 
-          <ul className="home-quick-list grid">
-            <li className="home-quick-item flex align-center">
-              <span className="home-quick-item__bullet" />
-              <span className="home-quick-item__text">
-                {t("dashboard.quickActions.itemRecent")}
-              </span>
-            </li>
-            <li className="home-quick-item flex align-center">
-              <span className="home-quick-item__bullet" />
-              <span className="home-quick-item__text">
-                {t("dashboard.quickActions.itemUrgent")}
-              </span>
-            </li>
-          </ul>
-        </aside>
+          <section className="org-card org-card--activity">
+            <header className="grid org-cardHead">
+              <h2 className="org-cardTitle">
+                {t("dashboard.recentActivity.title")}
+              </h2>
+            </header>
 
-        <section className="home-card home-card--activity">
-          <header className="home-card__header home-card__header--row flex justify-between align-center">
-            <h2 className="home-card__title">
-              {t("dashboard.recentActivity.title")}
-            </h2>
-          </header>
+            <ul className="clean-list grid org-activityList">
+              <li className="grid org-activityItem">
+                <p className="org-activityMain">
+                  {t("dashboard.recentActivity.item1.main")}
+                </p>
+                <p className="org-activityMeta">
+                  {t("dashboard.recentActivity.item1.meta")}
+                </p>
+              </li>
 
-          <ul className="home-activity-list grid">
-            <li className="home-activity">
-              <p className="home-activity__main">
-                {t("dashboard.recentActivity.item1.main")}
-              </p>
-              <p className="home-activity__meta">
-                {t("dashboard.recentActivity.item1.meta")}
-              </p>
-            </li>
-            <li className="home-activity">
-              <p className="home-activity__main">
-                {t("dashboard.recentActivity.item2.main")}
-              </p>
-              <p className="home-activity__meta">
-                {t("dashboard.recentActivity.item2.meta")}
-              </p>
-            </li>
-          </ul>
-        </section>
+              <li className="grid org-activityItem">
+                <p className="org-activityMain">
+                  {t("dashboard.recentActivity.item2.main")}
+                </p>
+                <p className="org-activityMeta">
+                  {t("dashboard.recentActivity.item2.meta")}
+                </p>
+              </li>
+            </ul>
+          </section>
+        </div>
       </main>
     </div>
   );

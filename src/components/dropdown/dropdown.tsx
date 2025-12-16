@@ -1,12 +1,12 @@
 import { ChangeEvent } from "react";
 import "./dropdown.scss";
 
-type Option = {
+export type Option = {
   value: string;
   label: string;
 };
 
-type DropdownProps = {
+export type DropdownProps = {
   id?: string;
   name?: string;
   label?: string;
@@ -22,7 +22,7 @@ type DropdownProps = {
   className?: string;
 };
 
-export default function Dropdown({
+export function Dropdown({
   id,
   name,
   label,
@@ -37,27 +37,28 @@ export default function Dropdown({
   dir,
   className = "",
 }: DropdownProps) {
-  const errorId = error ? `${id || name}-error` : undefined;
-  const helperId = helperText ? `${id || name}-helper` : undefined;
+  const baseId = id || name;
+  const errorId = error && baseId ? `${baseId}-error` : undefined;
+  const helperId = helperText && baseId ? `${baseId}-helper` : undefined;
 
   return (
     <div
-      className={`ui-dropdown ${
-        error ? "ui-dropdown--error" : ""
-      } ${className}`.trim()}
+      className={["dropdown", error ? "is-error" : "", className]
+        .filter(Boolean)
+        .join(" ")}
     >
       {label && (
-        <label className="ui-dropdown__label" htmlFor={id || name}>
+        <label className="dropdown-label" htmlFor={baseId}>
           {label}
-          {required && <span className="ui-dropdown__required">*</span>}
+          {required && <span className="dropdown-required">*</span>}
         </label>
       )}
 
-      <div className="ui-dropdown__control">
+      <div className="dropdown-control">
         <select
-          id={id || name}
+          id={baseId}
           name={name}
-          className="ui-dropdown__select"
+          className="dropdown-select"
           value={value}
           onChange={onChange}
           required={required}
@@ -73,6 +74,7 @@ export default function Dropdown({
               {placeholder}
             </option>
           )}
+
           {options.map((opt) => (
             <option key={opt.value} value={opt.value}>
               {opt.label}
@@ -80,22 +82,24 @@ export default function Dropdown({
           ))}
         </select>
 
-        <span className="ui-dropdown__icon" aria-hidden="true">
+        <span className="dropdown-icon" aria-hidden="true">
           ▾
         </span>
       </div>
 
       {helperText && !error && (
-        <p id={helperId} className="ui-dropdown__helper">
+        <p id={helperId} className="dropdown-helper" aria-live="polite">
           {helperText}
         </p>
       )}
 
       {error && (
-        <p id={errorId} className="ui-dropdown__error">
+        <p id={errorId} className="dropdown-error" aria-live="assertive">
           {error}
         </p>
       )}
     </div>
   );
 }
+
+export default Dropdown;

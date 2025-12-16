@@ -1,5 +1,5 @@
 import { ChangeEvent, FormEvent, ReactNode } from "react";
-import Button from "../../../../components/button/button";
+import Button from "@components/button/button";
 import { RequestFormData } from "../UserRequestPage";
 
 type Props = {
@@ -30,15 +30,16 @@ export function Step4Extras({
   }
 
   return (
-    <section className="request-step">
-      <h2 className="request-step__title">{t("userRequest.step4.title")}</h2>
+    <section className="grid request-step">
+      <h2 className="request-step-title">{t("userRequest.step4.title")}</h2>
 
-      <form onSubmit={handleSubmit} className="request-form">
-        <div className="request-toggle-group">
-          <span className="request-toggle-group__label">
+      <form onSubmit={handleSubmit} className="grid request-form">
+        <div className="grid toggle-group">
+          <span className="toggle-label">
             {t("userRequest.step4.transportQuestion")}
           </span>
-          <div className="request-toggle-group__buttons flex">
+
+          <div className="grid toggle-buttons">
             <Button
               type="button"
               variant={form.needsTransport === false ? "primary" : "secondary"}
@@ -56,11 +57,12 @@ export function Step4Extras({
           </div>
         </div>
 
-        <div className="request-toggle-group">
-          <span className="request-toggle-group__label">
+        <div className="grid toggle-group">
+          <span className="toggle-label">
             {t("userRequest.step4.volunteersQuestion")}
           </span>
-          <div className="request-toggle-group__buttons flex">
+
+          <div className="grid toggle-buttons">
             <Button
               type="button"
               variant={form.needsVolunteers === false ? "primary" : "secondary"}
@@ -78,19 +80,18 @@ export function Step4Extras({
           </div>
         </div>
 
-        <div className="request-upload">
-          <p className="request-upload__label">
-            {t("userRequest.step4.uploadLabel")}
-          </p>
-          <label className="request-upload__dropzone flex center">
-            <span className="request-upload__hint">
+        <div className="grid upload">
+          <p className="upload-label">{t("userRequest.step4.uploadLabel")}</p>
+
+          <label className="upload-dropzone">
+            <span className="upload-hint">
               {t("userRequest.step4.uploadPlaceholder")}
             </span>
             <input type="file" multiple onChange={onFilesSelected} hidden />
           </label>
 
           {form.attachments.length > 0 && (
-            <ul className="request-upload__list clean-list">
+            <ul className="clean-list upload-list">
               {form.attachments.map((file, index) => (
                 <li key={index}>{file.name}</li>
               ))}
@@ -98,12 +99,12 @@ export function Step4Extras({
           )}
         </div>
 
-        <footer className="request-step-footer flex">
+        <footer className="grid request-footer">
           <Button type="button" variant="secondary" onClick={onPreviousStep}>
             ← {t("footer.previous")}
           </Button>
 
-          {renderProgressDots()}
+          <div className="request-footer-center">{renderProgressDots()}</div>
 
           <Button type="submit" variant="primary">
             {t("footer.next")} →

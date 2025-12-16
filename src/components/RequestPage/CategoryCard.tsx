@@ -1,4 +1,5 @@
 import { AssistanceCategoryId } from "../../services/RequestPage/UserRequestPage.service";
+import "./CategoryCard.scss";
 
 type CategoryCardProps = {
   id: AssistanceCategoryId;
@@ -13,13 +14,13 @@ export function CategoryCard({
   isActive,
   onToggle,
 }: CategoryCardProps) {
-  const className =
-    "request-category-card" +
-    (isActive ? " request-category-card--active" : "");
+  const className = ["categoryCard", isActive ? "isActive" : ""]
+    .filter(Boolean)
+    .join(" ");
 
   return (
     <button type="button" className={className} onClick={() => onToggle(id)}>
-      <div className="request-category-card__title">{label}</div>
+      <div className="categoryCardTitle">{label}</div>
     </button>
   );
 }

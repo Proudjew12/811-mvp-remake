@@ -1,61 +1,55 @@
-// src/components/text-field/text-field.scss
-@use "../../styles/base/_variables" as *;
-@use "sass:color";
+@use "@styles/base/_variables" as *;
 
-.ui-field {
-  inline-size: 100%;
+.field {
+  width: 100%;
 }
 
-.ui-field__label {
-  display: inline-block;
-  margin-bottom: 4px;
-  font-size: 0.85rem;
+.field-label {
+  display: block;
+  margin-bottom: $space-2;
+  font-size: 0.95rem;
   color: $clr-text;
 }
 
-.ui-field__required {
-  // use a darker primary as "error" instead of $clr-error
-  color: color.adjust($clr-primary, $lightness: -10%);
-  margin-inline-start: 2px;
+.field-required {
+  margin-inline-start: 6px;
+  color: #b00020;
 }
 
-.ui-field__control {
-  inline-size: 100%;
+.field-control {
+  position: relative;
 }
 
-.ui-field__input,
-.ui-field__textarea {
-  inline-size: 100%;
-  border-radius: 10px;
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  padding: 8px 10px;
-  font-size: 0.9rem;
-  background: #ffffff;
+.field-input {
+  width: 100%;
+  border: 1px solid $clr-border;
+  border-radius: $radius-md;
+  background: #fff;
+  color: $clr-text;
+  padding: $space-2 $space-3;
 }
 
-.ui-field__input::placeholder,
-.ui-field__textarea::placeholder {
-  color: rgba(0, 0, 0, 0.4);
+.field-input:focus-visible {
+  outline: $focus-ring;
+  outline-offset: 2px;
 }
 
-.ui-field__textarea {
+.field-textarea {
   resize: vertical;
 }
 
-.ui-field__helper {
-  margin: 4px 0 0;
-  font-size: 0.8rem;
-  color: color.adjust($clr-text, $lightness: 15%);
+.field-helper {
+  margin: $space-2 0 0;
+  font-size: 0.85rem;
+  color: $clr-text-muted;
 }
 
-.ui-field__error {
-  margin: 4px 0 0;
-  font-size: 0.8rem;
-  color: color.adjust($clr-primary, $lightness: -10%);
+.field-error {
+  margin: $space-2 0 0;
+  font-size: 0.85rem;
+  color: #b00020;
 }
 
-/* Error state border */
-.ui-field--error .ui-field__input,
-.ui-field--error .ui-field__textarea {
-  border-color: color.adjust($clr-primary, $lightness: -10%);
+.field.is-error .field-input {
+  border-color: #b00020;
 }

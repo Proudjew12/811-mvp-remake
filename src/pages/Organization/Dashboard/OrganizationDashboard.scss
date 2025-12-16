@@ -1,9 +1,9 @@
-@use "../../../styles/base/_variables" as *;
+@use "@styles/base/_variables" as *;
 @use "sass:color";
 
 .home-page {
   min-height: 100vh;
-  background: $clr-bg;
+  background: $clr-page;
 }
 
 .home-header {
@@ -98,8 +98,8 @@
 .home-stat {
   padding: 12px 14px;
   border-radius: 12px;
-  background: color.adjust($clr-primary, $lightness: 70%);
-  border: 1px solid rgba(11, 63, 45, 0.12);
+  background: color.adjust($clr-brand, $lightness: 70%);
+  border: 1px solid rgba($clr-brand, 0.12);
 }
 
 .home-stat__label {
@@ -113,7 +113,7 @@
   display: block;
   font-size: 1.2rem;
   font-weight: 600;
-  color: $clr-primary;
+  color: $clr-brand;
 }
 
 .home-stat__hint {
@@ -143,7 +143,7 @@
 }
 
 .home-quick-item:hover {
-  background: color.adjust($clr-primary, $lightness: 72%);
+  background: color.adjust($clr-brand, $lightness: 72%);
   transform: translateY(-1px);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
 }
@@ -152,7 +152,7 @@
   inline-size: 8px;
   block-size: 8px;
   border-radius: 999px;
-  background: $clr-primary;
+  background: $clr-brand;
   margin-inline-end: 10px;
 }
 

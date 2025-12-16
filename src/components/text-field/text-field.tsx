@@ -1,4 +1,4 @@
-import { ChangeEvent } from "react";
+import React, { ChangeEvent } from "react";
 import "./text-field.scss";
 
 type BaseProps = {
@@ -30,7 +30,7 @@ type TextFieldProps =
       rows?: number;
     });
 
-export default function TextField(props: TextFieldProps) {
+export function TextField(props: TextFieldProps) {
   const {
     id,
     name,
@@ -46,11 +46,12 @@ export default function TextField(props: TextFieldProps) {
     className = "",
   } = props;
 
-  const errorId = error ? `${id || name}-error` : undefined;
-  const helperId = helperText ? `${id || name}-helper` : undefined;
+  const baseId = id || name;
+  const errorId = error && baseId ? `${baseId}-error` : undefined;
+  const helperId = helperText && baseId ? `${baseId}-helper` : undefined;
 
   const commonProps = {
-    id,
+    id: baseId,
     name,
     value,
     onChange,
@@ -65,27 +66,27 @@ export default function TextField(props: TextFieldProps) {
 
   return (
     <div
-      className={`ui-field ${
-        error ? "ui-field--error" : ""
-      } ${className}`.trim()}
+      className={["field", error ? "is-error" : "", className]
+        .filter(Boolean)
+        .join(" ")}
     >
       {label && (
-        <label className="ui-field__label" htmlFor={id || name}>
+        <label className="field-label" htmlFor={baseId}>
           {label}
-          {required && <span className="ui-field__required">*</span>}
+          {required && <span className="field-required">*</span>}
         </label>
       )}
 
-      <div className="ui-field__control">
+      <div className="field-control">
         {"multiline" in props && props.multiline ? (
           <textarea
-            className="ui-field__textarea"
+            className="field-input field-textarea"
             rows={props.rows ?? 3}
             {...commonProps}
           />
         ) : (
           <input
-            className="ui-field__input"
+            className="field-input"
             type={props.type ?? "text"}
             {...commonProps}
           />
@@ -93,16 +94,18 @@ export default function TextField(props: TextFieldProps) {
       </div>
 
       {helperText && !error && (
-        <p id={helperId} className="ui-field__helper">
+        <p id={helperId} className="field-helper" aria-live="polite">
           {helperText}
         </p>
       )}
 
       {error && (
-        <p id={errorId} className="ui-field__error">
+        <p id={errorId} className="field-error" aria-live="assertive">
           {error}
         </p>
       )}
     </div>
   );
 }
+
+export default TextField;

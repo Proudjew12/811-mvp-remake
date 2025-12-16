@@ -1,39 +1,104 @@
 @use "sass:color";
 
-// Colors – green palette
-$clr-primary: #0b3f2d;
-$clr-primary-light: color.adjust($clr-primary, $lightness: 10%);
-$clr-primary-dark: color.adjust($clr-primary, $lightness: -8%);
+/* =========================================
+   Brand palette
+   ========================================= */
 
-$clr-header: $clr-primary;
+$clr-brand: #0b3f2d;
+
+$clr-brand-strong: color.adjust($clr-brand, $lightness: -8%);
+$clr-brand-soft: color.adjust($clr-brand, $lightness: 10%);
+
+$clr-header: $clr-brand;
 $clr-header-text: #eaf5ef;
 
-$clr-bg: #e6efe9;
+/* =========================================
+   App surfaces
+   ========================================= */
+
+$clr-page: #e6efe9;
 $clr-surface: #f7faf8;
+
+$clr-card: #f7f7f7;
+$clr-card-muted: #f0f0f0;
+
+/* =========================================
+   Text
+   ========================================= */
+
 $clr-text: #222;
+$clr-text-strong: #000;
+$clr-text-muted: rgba(0, 0, 0, 0.7);
 
-// Spacing scale
-$space-xs: 4px;
-$space-sm: 8px;
-$space-md: 16px;
-$space-lg: 32px;
+/* =========================================
+   Borders
+   ========================================= */
 
-// Breakpoints
+$clr-border: #333;
+$clr-border-subtle: #dddddd;
+
+/* =========================================
+   Actions (buttons / CTAs)
+   ========================================= */
+
+$clr-btn-muted: #d9d9d9;
+$clr-btn-muted-hover: #cfcfcf;
+
+$clr-btn-primary: #c7c7c7;
+$clr-btn-secondary: #e4e4e4;
+
+/* =========================================
+   Spacing scale
+   ========================================= */
+
+$space-1: 4px;
+$space-2: 8px;
+$space-3: 16px;
+$space-4: 24px;
+$space-5: 32px;
+
+/* =========================================
+   Layout tokens
+   ========================================= */
+
+$radius-md: 12px;
+$radius-lg: 16px;
+
+$header-height: 92px;
+
+$shadow-card: 0 8px 20px rgba(0, 0, 0, 0.06);
+$shadow-header: 0 10px 28px rgba(0, 0, 0, 0.24);
+
+/* =========================================
+   Motion
+   ========================================= */
+
+$transition-fast: 0.15s ease;
+
+/* =========================================
+   Breakpoints
+   ========================================= */
+
 $bp-s: 600px;
 $bp-m: 890px;
 $bp-l: 1060px;
 
-// Transition
-$transition-fast: 0.2s ease;
+/* =========================================
+   Focus / accessibility
+   ========================================= */
 
-// Login page colors
-$login-primary: #0b3f2d;
-$login-primary-hover: color.adjust($login-primary, $lightness: -8%);
+$focus-ring: 2px solid $clr-brand-soft;
+
+/* =========================================
+   Login theme
+   ========================================= */
+
+$login-brand: $clr-brand;
+$login-brand-hover: color.adjust($login-brand, $lightness: -8%);
 
 $login-demo-bg: #d7e4d7;
 $login-demo-bg-hover: color.adjust($login-demo-bg, $lightness: -6%);
 
-// Login page background (white → green + glow)
 $login-bg-gradient: linear-gradient(135deg, #eaf5ef 0%, #d8eade 100%);
 $login-bg-overlay: radial-gradient(
     circle at 15% 20%,
@@ -42,6 +107,4 @@ $login-bg-overlay: radial-gradient(
   ),
   radial-gradient(circle at 85% 80%, rgba(11, 63, 45, 0.25) 0, transparent 60%);
 
-$clr-primary-dark: #083726 !default;
-$clr-primary-light: #145f45 !default;
-$transition-fast: 0.15s ease !default;
+$layout-max: 980px;

@@ -3,31 +3,25 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 import "./login.scss";
-import logoGreen from "../../assets/Logo/mate-logo-green.png";
-import Button from "../../components/button/button";
-import { showWelcomeToast } from "../../services/Notifications/alerts.service";
+
+import logoGreen from "@assets/Logo/mate-logo-green.png";
+import Button from "@components/button/button";
+import { showWelcomeToast } from "@services/Notifications/alerts.service";
 
 import {
   loginService,
   DemoAccountKey,
   LoginCredentials,
   LoginResult,
-} from "../../services/Login/login.service";
+} from "@services/Login/login.service";
 
 import {
   getDashboardPath,
   getLanguageCode,
   getNextLanguage,
   isHebrewLanguage,
-} from "../../utils/Login/LoginFunctions";
+} from "@utils/Login/LoginFunctions";
 
-/**
- * Public login screen.
- *
- * - Manual email/password login
- * - Demo accounts for each role (admin / organization / user)
- * - Redirects user to the relevant dashboard based on accountType
- */
 export default function Login() {
   const navigate = useNavigate();
   const { t, i18n } = useTranslation();
@@ -48,8 +42,8 @@ export default function Login() {
   function onEmailChange(event: ChangeEvent<HTMLInputElement>) {
     const value = event.target.value;
 
-    setCredentials((previousCredentials) => ({
-      ...previousCredentials,
+    setCredentials((prev) => ({
+      ...prev,
       email: value,
     }));
 
@@ -59,18 +53,14 @@ export default function Login() {
   function onPasswordChange(event: ChangeEvent<HTMLInputElement>) {
     const value = event.target.value;
 
-    setCredentials((previousCredentials) => ({
-      ...previousCredentials,
+    setCredentials((prev) => ({
+      ...prev,
       password: value,
     }));
 
     if (errorMessage) setErrorMessage(null);
   }
 
-  /**
-   * Navigate to the correct dashboard based on login result.
-   * Uses shared helper so roles/routes stay consistent across the app.
-   */
   function navigateByAccountType(result: LoginResult) {
     const path = getDashboardPath(result.accountType);
     navigate(path);
@@ -110,7 +100,10 @@ export default function Login() {
   }
 
   return (
-    <div className="login-page flex column center">
+    <div
+      className="login-page grid place-center"
+      dir={isHebrew ? "rtl" : "ltr"}
+    >
       <Button
         className="lang-btn"
         type="button"
@@ -123,14 +116,14 @@ export default function Login() {
           : t("languageSwitcher.english")}
       </Button>
 
-      <div className="login-card flex column center">
+      <div className="login-card grid place-center gap-3 text-center">
         <img
           src={logoGreen}
           className="login-logo"
           alt="לוגו מטה החיילים הארצי"
         />
 
-        <form onSubmit={onLoginSubmit} className="flex column center">
+        <form onSubmit={onLoginSubmit} className="grid gap-3 full-width">
           <input
             type="email"
             placeholder={t("forms.emailPlaceholder")}
@@ -163,7 +156,7 @@ export default function Login() {
 
         <p className="demo-title">Demo Accounts</p>
 
-        <div className="demo-buttons flex center gap-16">
+        <div className="demo-buttons grid flow-col place-center gap-3">
           <Button
             type="button"
             variant="secondary"

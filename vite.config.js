@@ -1,4 +1,3 @@
-/// <reference types="vitest/config" />
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 
@@ -7,21 +6,18 @@ import { fileURLToPath } from "node:url";
 import { storybookTest } from "@storybook/addon-vitest/vitest-plugin";
 import { playwright } from "@vitest/browser-playwright";
 
-const dirname =
-  typeof __dirname !== "undefined"
-    ? __dirname
-    : path.dirname(fileURLToPath(import.meta.url));
+const dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
   plugins: [react()],
 
-  // ✅ Runtime aliases for Vite
   resolve: {
     alias: {
       "@": path.resolve(dirname, "src"),
       "@components": path.resolve(dirname, "src/components"),
       "@assets": path.resolve(dirname, "src/assets"),
       "@pages": path.resolve(dirname, "src/pages"),
+      "@styles": path.resolve(dirname, "src/styles"),
       "@services": path.resolve(dirname, "src/services"),
       "@utils": path.resolve(dirname, "src/utils"),
     },

@@ -1,6 +1,11 @@
+@use "./variables" as *;
+
 .main-layout {
   display: grid;
-  grid-template-columns: minmax(16px, 1fr) minmax(0, 980px) minmax(16px, 1fr);
+  grid-template-columns:
+    minmax($space-3, 1fr)
+    minmax(0, $layout-max)
+    minmax($space-3, 1fr);
 
   & > *:not(.full) {
     grid-column: 2;

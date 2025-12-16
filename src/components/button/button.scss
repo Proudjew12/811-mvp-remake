@@ -1,0 +1,72 @@
+@use "@styles/base/_variables" as *;
+
+.btn {
+  border: none;
+  border-radius: $radius-md;
+  padding: $space-2 $space-3;
+  font: inherit;
+  transition: background-color $transition-fast, transform $transition-fast,
+    opacity $transition-fast;
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn.is-full {
+  width: 100%;
+}
+
+.btn--sm {
+  padding: $space-2 $space-3;
+  font-size: 0.875rem;
+}
+
+.btn--md {
+  padding: $space-3 $space-4;
+  font-size: 1rem;
+}
+
+.btn--primary {
+  background: $clr-btn-primary;
+  color: $clr-text-strong;
+}
+
+.btn--secondary {
+  background: $clr-btn-secondary;
+  color: $clr-text-strong;
+}
+
+.btn--ghost {
+  background: transparent;
+  border: 1px solid $clr-border-subtle;
+  color: $clr-text;
+}
+
+.btn--danger {
+  background: #ffd6d6;
+  color: #5a0000;
+}
+
+.btn--primary:hover {
+  background: $clr-btn-muted-hover;
+}
+
+.btn--secondary:hover {
+  background: $clr-btn-muted;
+}
+
+.btn--ghost:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.btn.is-active {
+  outline: $focus-ring;
+  outline-offset: 2px;
+}

@@ -1,7 +1,7 @@
-import "../../Admin/Dashboard/AdminDashboard.scss"; // reuse header styles
+import "@pages/Admin/Dashboard/AdminDashboard.scss";
 import "./VolunteersPage.scss";
 
-import Button from "../../../components/button/button";
+import Button from "@components/button/button";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
@@ -62,10 +62,9 @@ export default function VolunteersPage() {
   }
 
   return (
-    <div className="volunteers-page">
-      {/* HEADER (reusing dashboard-header styles) */}
-      <header className="dashboard-header flex justify-between align-center">
-        <div className="dashboard-header__side dashboard-header__side--left flex align-center">
+    <div className="grid vol-page" dir={isHebrew ? "rtl" : "ltr"}>
+      <header className="grid dashboard-header items-center">
+        <div className="grid justify-start">
           <Button
             type="button"
             variant="secondary"
@@ -76,9 +75,9 @@ export default function VolunteersPage() {
           </Button>
         </div>
 
-        <h1 className="dashboard-header__title">מתנדבים</h1>
+        <h1 className="dashboard-header-title text-center">מתנדבים</h1>
 
-        <div className="dashboard-header__side dashboard-header__side--right flex align-center">
+        <div className="grid justify-end">
           <Button
             type="button"
             variant="secondary"
@@ -90,10 +89,9 @@ export default function VolunteersPage() {
         </div>
       </header>
 
-      <main className="volunteers-main">
-        {/* TOP BAR */}
-        <div className="volunteers-toolbar flex justify-between align-center">
-          <div className="volunteers-toolbar__left flex align-center">
+      <main className="vol-main">
+        <div className="grid vol-toolbar items-center">
+          <div className="grid justify-start">
             <Button
               type="button"
               variant="secondary"
@@ -104,42 +102,42 @@ export default function VolunteersPage() {
             </Button>
           </div>
 
-          <div className="volunteers-search-wrapper">
+          <div className="vol-search">
             <input
-              className="volunteers-search-input"
+              className="vol-searchInput"
               type="text"
               placeholder="חיפוש מתנדבים לפי שם, תפקיד או אזור..."
             />
           </div>
 
-          <div className="volunteers-toolbar__right flex align-center">
+          <div className="grid justify-end">
             <Button type="button" variant="secondary" size="sm">
-              Filter 🤯
+              Filter
             </Button>
           </div>
         </div>
 
-        {/* VOLUNTEERS GRID */}
-        <section className="volunteers-grid grid">
-          {MOCK_VOLUNTEERS.map((volunteer) => (
-            <article key={volunteer.id} className="volunteer-card">
-              <header className="volunteer-card__header">
-                <h2 className="volunteer-card__name">{volunteer.name}</h2>
-                <p className="volunteer-card__role">{volunteer.role}</p>
+        <section className="grid vol-grid">
+          {MOCK_VOLUNTEERS.map((v) => (
+            <article key={v.id} className="grid vol-card">
+              <header className="grid vol-cardHead">
+                <h2 className="vol-name">{v.name}</h2>
+                <p className="vol-role">{v.role}</p>
               </header>
 
-              <div className="volunteer-card__body">
-                <p className="volunteer-card__field">
-                  <span className="volunteer-card__label">אזור פעילות:</span>
-                  <span>{volunteer.area}</span>
+              <div className="grid vol-body">
+                <p className="vol-field">
+                  <span className="vol-label">אזור פעילות:</span>
+                  <span>{v.area}</span>
                 </p>
-                <p className="volunteer-card__field">
-                  <span className="volunteer-card__label">זמינות:</span>
-                  <span>{volunteer.availability}</span>
+
+                <p className="vol-field">
+                  <span className="vol-label">זמינות:</span>
+                  <span>{v.availability}</span>
                 </p>
               </div>
 
-              <footer className="volunteer-card__footer flex justify-between align-center">
+              <footer className="grid vol-footer items-center">
                 <Button type="button" variant="secondary" size="sm">
                   פרטי קשר
                 </Button>

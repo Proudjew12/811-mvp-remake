@@ -1,49 +1,20 @@
-// src/components/card/card.scss
-@use "../../styles/base/_variables" as *;
-@use "sass:color";
+@use "@styles/base/_variables" as *;
 
-.ui-card {
+.card {
+  background: $clr-card;
+  border-radius: $radius-md;
+  box-shadow: $shadow-card;
+  overflow: hidden;
+  min-width: 0;
+  min-height: 0;
+}
+
+.card--soft {
   background: $clr-surface;
-  border-radius: 18px;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
-  padding: 24px 24px;
 }
 
-.ui-card__header {
-  margin-block-end: 12px;
-}
-
-.ui-card__header-main {
-  max-width: 100%;
-}
-
-.ui-card__title {
-  margin: 0;
-  font-size: 1.05rem;
-  font-weight: 600;
-  color: $clr-text;
-}
-
-.ui-card__subtitle {
-  margin: 4px 0 0;
-  font-size: 0.85rem;
-  color: color.adjust($clr-text, $lightness: 15%);
-}
-
-.ui-card__actions {
-  margin-inline-start: 12px;
-}
-
-.ui-card__body {
-  inline-size: 100%;
-}
-
-/* Variants */
-
-.ui-card--soft {
-  background: #f1f6f2;
-}
-
-.ui-card--accent {
-  background: color.adjust($clr-primary, $lightness: 70%);
+.card--outline {
+  background: $clr-card;
+  box-shadow: none;
+  border: 1px solid $clr-border-subtle;
 }

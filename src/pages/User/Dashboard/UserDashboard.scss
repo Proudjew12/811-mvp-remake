@@ -1,244 +1,309 @@
-@use "../../../styles/base/_variables" as *;
+@use "@styles/base/variables" as *;
 @use "sass:color";
 
-/* =========================
-   PAGE ROOT
-   ========================= */
+.userDashboard {
+  height: 100dvh;
+  background: $clr-page;
+  grid-template-rows: auto 1fr;
+  overflow: hidden;
+}
 
-.user-dashboard {
-  direction: rtl;
-  min-height: 100vh;
-  background-color: $clr-bg;
+.userHeader {
+  background: $clr-header;
+  color: $clr-header-text;
+  padding: $space-3 $space-4;
+}
+
+.userHeaderRow {
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  column-gap: $space-3;
+}
+
+.userHeaderRight {
+  grid-auto-flow: column;
+  grid-template-columns: auto auto auto auto;
+  justify-content: start;
+  align-items: center;
+  column-gap: $space-2;
+}
+
+.userHeaderLeft {
+  grid-auto-flow: column;
+  grid-template-columns: auto auto auto auto;
+  justify-content: end;
+  align-items: center;
+  column-gap: $space-2;
+}
+
+.userBody {
+  min-height: 0;
+  grid-template-columns: auto 1fr;
+  overflow: hidden;
+}
+
+.userSidebar {
+  min-height: 0;
+  padding: $space-3;
+  overflow: hidden;
+}
+
+.userMain {
+  min-height: 0;
+  overflow: auto;
+  padding: $space-3;
+}
+
+.userCards {
+  max-width: 1320px;
+  margin: 0 auto;
+  align-content: start;
+
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.userCard {
+  min-width: 0;
+}
+
+.userIdentity {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: $radius-md;
+  padding: $space-2 $space-3;
+}
+
+.userAvatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  position: relative;
+  overflow: hidden;
+}
+
+.userAvatarLayer {
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+}
+
+.userAvatarLayerOuter {
+  background: rgba(255, 255, 255, 0.35);
+}
+
+.userAvatarLayerInner {
+  inset: 6px;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.userName {
+  font-weight: 700;
+  color: $clr-header-text;
+}
+
+.userIconBtn,
+.userHelpBtn {
+  width: 44px;
+  height: 44px;
+  border-radius: $radius-md;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.1);
+  color: $clr-header-text;
+}
+
+.userSearchBtn {
+  width: 44px;
+  height: 44px;
+  border-radius: $radius-md;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.1);
+  color: $clr-header-text;
+}
+
+.userRoutine {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: $radius-md;
+  padding: $space-2 $space-3;
+}
+
+.userRoutineIcon {
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  position: relative;
+  overflow: hidden;
+}
+
+.userRoutineLayer {
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+}
+
+.userRoutineLayerOuter {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.userRoutineLayerInner {
+  inset: 6px;
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.userTime,
+.userDate {
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 600;
+}
+
+.linkBtn {
+  border: none;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.92);
+  text-decoration: underline;
+  justify-self: end;
+}
+
+.mutedText {
+  color: $clr-text-muted;
+  margin: 0;
+}
+
+.input {
+  width: 100%;
+  border: 1px solid $clr-border-subtle;
+  border-radius: $radius-md;
+  background: #fff;
   color: $clr-text;
-  font-family: "Open Sans Hebrew", system-ui, -apple-system, BlinkMacSystemFont,
-    "Segoe UI", sans-serif;
+  padding: $space-2 $space-3;
 }
 
-/* =========================
-   HEADER WRAPPER
-   ========================= */
-
-.user-dashboard__header {
-  background-color: $clr-header;
-  color: $clr-header-text;
-  padding: 30px 24px;
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.24);
+.textarea {
+  min-height: 110px;
+  resize: vertical;
 }
 
-/* Full header row: RIGHT group + LEFT group */
-.user-dashboard__header-row {
-  /* .flex from helpers gives display:flex */
-  align-items: center; /* centers both groups vertically */
-  justify-content: space-between; /* big gap between left & right */
-}
-
-/* =========================
-   LEFT SIDE: date / time / שגרה / ?
-   ========================= */
-
-.user-dashboard__header-left {
-  gap: 24px;
-  align-items: center; /* aligns date/time/שגרה/? on same line */
-}
-
-/* Date + time text */
-.user-dashboard__header-date,
-.user-dashboard__header-time {
-  font-size: 20px;
-  font-weight: 400;
-  color: $clr-header-text;
-}
-
-/* "שגרה" pill container */
-.user-dashboard__routine-pill {
-  gap: 8px;
-  align-items: center; /* text + double circle perfectly centered */
-}
-
-/* "שגרה" label text */
-.user-dashboard__routine-label {
-  font-size: 20px;
-  font-weight: 400;
-  color: $clr-header-text;
-}
-
-/* "שגרה" double-circle icon */
-.user-dashboard__routine-icon {
-  position: relative;
-  width: 20px;
-  height: 20px;
-}
-
-.user-dashboard__routine-layer {
-  position: absolute;
-  border-radius: 50%;
-}
-
-.user-dashboard__routine-layer--outer {
-  width: 20px;
-  height: 20px;
-  border: 1px solid $clr-header-text;
-  background-color: transparent;
-}
-
-.user-dashboard__routine-layer--inner {
-  width: 14px;
-  height: 14px;
-  top: 3px;
-  left: 3px;
-  background: radial-gradient(circle at 30% 30%, #ffe6cc, #ffb366);
-}
-
-/* Help "?" button */
-.user-dashboard__help-button {
-  width: 24px;
-  height: 24px;
-  border-radius: 999px;
+.primaryBtn {
   border: none;
-  background-color: transparent;
-  color: $clr-header-text;
-  cursor: pointer;
-  font-size: 20px;
-  line-height: 1;
-  padding: 0;
-  transition: background-color 0.15s ease, transform 0.08s ease;
+  border-radius: $radius-md;
+  background: $clr-brand;
+  color: #fff;
+  padding: $space-2 $space-3;
 }
 
-.user-dashboard__help-button:hover {
-  background-color: rgba(255, 255, 255, 0.12);
+.secondaryBtn {
+  border: 1px solid $clr-border-subtle;
+  border-radius: $radius-md;
+  background: #fff;
+  color: $clr-text;
+  padding: $space-2 $space-3;
 }
 
-.user-dashboard__help-button:active {
-  transform: translateY(1px);
+.ghostBtn {
+  border: 1px solid $clr-border-subtle;
+  border-radius: $radius-md;
+  background: $clr-surface;
+  padding: $space-2 $space-3;
+  width: 100%;
 }
 
-/* =========================
-   RIGHT SIDE: user / icons / search
-   ========================= */
-
-.user-dashboard__header-right {
-  gap: 16px;
-  align-items: center; /* user chip + icons + search aligned */
+.iconBtn {
+  border: 1px solid $clr-border-subtle;
+  border-radius: $radius-md;
+  background: #fff;
+  width: 44px;
+  height: 44px;
 }
 
-/* Search pill (empty search field) */
-.user-dashboard__search-pill {
-  border-radius: 33px;
-  padding: 4px 14px;
-  border: 1px solid rgba(255, 255, 255, 1);
-  background-color: transparent;
-  color: $clr-header-text;
-  cursor: pointer;
-  min-width: 220px;
-  justify-content: flex-start; /* works with .flex helper */
-  align-items: center; /* centers the 🔍 vertically */
-  transition: background-color 0.15s ease, box-shadow 0.15s ease,
-    transform 0.08s ease;
+.overviewHead,
+.broadcastHead,
+.taskBoxHead,
+.inboxMeta,
+.overviewItemHead {
+  grid-auto-flow: column;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  column-gap: $space-2;
 }
 
-.user-dashboard__search-pill:hover {
-  background-color: rgba(255, 255, 255, 0.08);
-  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.2);
+.overviewList {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
-.user-dashboard__search-pill:active {
-  transform: translateY(1px);
+.overviewItem {
+  border: 1px solid $clr-border-subtle;
+  background: $clr-surface;
+  border-radius: $radius-md;
+  padding: $space-2 $space-3;
 }
 
-/* Magnifier icon inside search pill */
-.user-dashboard__search-icon {
-  font-size: 20px;
+.overviewItemLabel {
+  color: $clr-text-muted;
+  font-size: 0.9rem;
 }
 
-/* Header icon buttons (notifications, messages) */
-.user-dashboard__icon-button {
-  width: 24px;
-  height: 24px;
-  border-radius: 999px;
+.overviewItemValue {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: $clr-text-strong;
+}
+
+.taskBox {
+  border: 1px solid $clr-border-subtle;
+  background: $clr-surface;
+  border-radius: $radius-md;
+  padding: $space-3;
+}
+
+.taskTitle {
   border: none;
-  background-color: transparent;
-  color: $clr-header-text;
-  cursor: pointer;
-  font-size: 20px;
-  line-height: 1;
-  padding: 0;
-  transition: background-color 0.15s ease, transform 0.08s ease;
+  background: transparent;
+  text-align: right;
+  font-weight: 700;
+  color: $clr-text-strong;
 }
 
-.user-dashboard__icon-button:hover {
-  background-color: rgba(255, 255, 255, 0.12);
+.chip {
+  border: 1px solid $clr-border-subtle;
+  background: #fff;
+  border-radius: 999px;
+  padding: 6px 10px;
+  width: 100%;
+  text-align: center;
 }
 
-.user-dashboard__icon-button:active {
-  transform: translateY(1px);
+.inboxBtn {
+  width: 100%;
+  border: 1px solid $clr-border-subtle;
+  background: #fff;
+  border-radius: $radius-md;
+  padding: $space-3;
+  text-align: right;
 }
 
-/* =========================
-   USER CHIP (avatar + name)
-   ========================= */
-
-.user-dashboard__user-chip {
-  gap: 4px;
-  align-items: center; /* avatar + name center-aligned */
+.inboxTitle {
+  font-weight: 700;
+  color: $clr-text-strong;
 }
 
-/* User name text */
-.user-dashboard__user-name {
-  font-size: 20px;
-  font-weight: 400;
-  color: $clr-header-text;
+.inboxPreview {
+  margin: 0;
 }
 
-/* Avatar circle wrapper */
-.user-dashboard__avatar {
-  position: relative;
-  width: 20px;
-  height: 20px;
+@media (max-width: $bp-l) {
+  .userCards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
-/* Avatar double circle */
-.user-dashboard__avatar-layer {
-  position: absolute;
-  border-radius: 50%;
-}
+@media (max-width: $bp-m) {
+  .userBody {
+    grid-template-columns: minmax(0, 1fr);
+  }
 
-.user-dashboard__avatar-layer--outer {
-  width: 20px;
-  height: 20px;
-  border: 1px solid $clr-header-text;
-  background-color: color.scale($clr-header, $lightness: 15%);
-}
+  .userSidebar {
+    padding: $space-2 $space-3;
+  }
 
-.user-dashboard__avatar-layer--inner {
-  width: 14px;
-  height: 14px;
-  top: 3px;
-  left: 3px;
-  background: radial-gradient(circle at 30% 30%, #fdfdfd, #e3e3e3);
-}
-
-/* =========================
-   CONTENT WRAPPER (below header)
-   ========================= */
-
-.user-dashboard__content {
-  margin-top: 8px;
-  background-color: $clr-surface;
-  border-radius: 16px;
-  padding: 24px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
-}
-
-/* =========================
-   BODY LAYOUT (SIDEBAR + MAIN)
-   ========================= */
-
-.user-dashboard__body {
-  /* .flex from helpers gives display:flex */
-  align-items: stretch;
-  gap: 24px;
-
-  /* ✅ NEW: make the body (under the header) fill the viewport.
-     Adjust 96px if your header height changes. */
-  height: calc(100vh - 96px);
+  .userCards {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }

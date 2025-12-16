@@ -1,17 +1,9 @@
-export const loginService = {
-  login,
-  validateCredentials,
-  getDemoCredentials,
-  getErrorMessage,
-  getEmptyCredentials,
-};
-
+import type { AccountType } from "@utils/Login/LoginFunctions";
 import {
-  AccountType,
   delay,
   normalizeEmail,
   trimCredentials,
-} from "../../utils/Login/LoginFunctions";
+} from "@utils/Login/LoginFunctions";
 
 export type LoginCredentials = {
   email: string;
@@ -32,10 +24,6 @@ class LoginError extends Error {
   }
 }
 
-/**
- * Demo accounts used by the MVP.
- * These are the only accounts the login flow currently accepts.
- */
 const demoAccounts: Record<DemoAccountKey, LoginCredentials> = {
   admin: {
     email: "admin@demo.com",
@@ -52,15 +40,12 @@ const demoAccounts: Record<DemoAccountKey, LoginCredentials> = {
 };
 
 async function login(credentials: LoginCredentials): Promise<LoginResult> {
-  // Normalize & trim once at the service level
   const sanitized = trimCredentials(credentials);
   const email = normalizeEmail(sanitized.email);
   const password = sanitized.password;
 
-  // Simulate network delay so the UI can show a loading state
   await delay(400);
 
-  // Find a matching demo account by normalized email
   const entry = (
     Object.entries(demoAccounts) as [DemoAccountKey, LoginCredentials][]
   ).find(([, demo]) => normalizeEmail(demo.email) === email);
@@ -81,27 +66,15 @@ async function login(credentials: LoginCredentials): Promise<LoginResult> {
   };
 }
 
-/**
- * Validates credentials before sending them to the login function.
- * Returns:
- *  - string with an error message (Hebrew) if invalid
- *  - null if credentials look OK
- */
 function validateCredentials(credentials: LoginCredentials): string | null {
   const { email, password } = trimCredentials(credentials);
 
-  if (!email || !password) {
-    return "יש למלא אימייל וסיסמה.";
-  }
+  if (!email || !password) return "יש למלא אימייל וסיסמה.";
 
   const basicEmailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!basicEmailPattern.test(email)) {
-    return "כתובת האימייל אינה תקינה.";
-  }
+  if (!basicEmailPattern.test(email)) return "כתובת האימייל אינה תקינה.";
 
-  if (password.length < 4) {
-    return "הסיסמה צריכה להכיל לפחות 4 תווים.";
-  }
+  if (password.length < 4) return "הסיסמה צריכה להכיל לפחות 4 תווים.";
 
   return null;
 }
@@ -119,3 +92,11 @@ function getErrorMessage(error: unknown): string {
 function getEmptyCredentials(): LoginCredentials {
   return { email: "", password: "" };
 }
+
+export const loginService = {
+  login,
+  validateCredentials,
+  getDemoCredentials,
+  getErrorMessage,
+  getEmptyCredentials,
+};

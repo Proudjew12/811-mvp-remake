@@ -4,7 +4,7 @@ import { ChangeEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
-import Button from "../../../components/button/button";
+import Button from "@components/button/button";
 import {
   requestedPageService,
   DistrictId,
@@ -12,7 +12,7 @@ import {
   CategoryDetailsMap,
   City,
   UserRequestSnapshot,
-} from "../../../services/RequestPage/UserRequestPage.service";
+} from "@services/RequestPage/UserRequestPage.service";
 
 import {
   appendAttachments,
@@ -21,9 +21,9 @@ import {
   sanitizePhoneInput,
   toggleCategory,
   toggleCategoryDetail,
-} from "../../../utils/User/RequestPage/RequestPageFunctions";
+} from "@utils/User/RequestPage/RequestPageFunctions";
 
-import { RequestProgressDots } from "../../../components/RequestPage/RequestProgressDots";
+import { RequestProgressDots } from "@components/RequestPage/RequestProgressDots";
 import { Step1BasicInfo } from "./steps/Step1BasicInfo";
 import { Step2Location } from "./steps/Step2Location";
 import { Step3Categories } from "./steps/Step3Categories";
@@ -96,7 +96,7 @@ export default function UserRequestPage() {
 
   const selectedDistrict = requestedPageService.getDistrictById(form.district);
   const selectedCity: City | undefined = selectedDistrict?.cities.find(
-    (city) => city.id === form.city
+    (c) => c.id === form.city
   );
 
   function onToggleLanguage() {
@@ -111,15 +111,11 @@ export default function UserRequestPage() {
   }
 
   function onNextStep() {
-    if (step < TOTAL_STEPS - 1) {
-      setStep((prev) => prev + 1);
-    }
+    if (step < TOTAL_STEPS - 1) setStep((prev) => prev + 1);
   }
 
   function onPreviousStep() {
-    if (step > 0) {
-      setStep((prev) => prev - 1);
-    }
+    if (step > 0) setStep((prev) => prev - 1);
   }
 
   function onToggleCategoryHandler(categoryId: AssistanceCategoryId) {
@@ -186,17 +182,17 @@ export default function UserRequestPage() {
 
   const locale = getLocaleFromIsHebrew(isHebrew);
 
+  const Progress = () => (
+    <RequestProgressDots currentStep={step} totalSteps={TOTAL_STEPS} />
+  );
+
   if (isSubmitted) {
     return (
-      <div
-        className="user-request-page flex column"
-        dir={isHebrew ? "rtl" : "ltr"}
-      >
-        <header className="user-request-header flex">
-          <h1 className="user-request-header__title">
-            {t("userRequest.title")}
-          </h1>
-          <div className="user-request-header__actions">
+      <div className="grid request-page" dir={isHebrew ? "rtl" : "ltr"}>
+        <header className="grid request-header">
+          <h1 className="request-header-title">{t("userRequest.title")}</h1>
+
+          <div className="grid request-header-actions">
             <Button
               type="button"
               variant="secondary"
@@ -210,19 +206,19 @@ export default function UserRequestPage() {
           </div>
         </header>
 
-        <main className="request-step-main">
-          <section className="request-success-card">
-            <h2 className="request-step__title">
+        <main className="request-main">
+          <section className="grid request-card request-success">
+            <h2 className="request-step-title">
               {t("userRequest.successTitle")}
             </h2>
             <p className="request-success-text">
               {t("userRequest.successBody1")}
             </p>
-            <p className="request-success-text request-success-text--muted">
+            <p className="request-success-text request-success-muted">
               {t("userRequest.successBody2")}
             </p>
 
-            <div className="request-success-actions flex center">
+            <div className="grid request-success-actions">
               <Button
                 type="button"
                 variant="secondary"
@@ -245,13 +241,11 @@ export default function UserRequestPage() {
   }
 
   return (
-    <div
-      className="user-request-page flex column"
-      dir={isHebrew ? "rtl" : "ltr"}
-    >
-      <header className="user-request-header flex">
-        <h1 className="user-request-header__title">{t("userRequest.title")}</h1>
-        <div className="user-request-header__actions">
+    <div className="grid request-page" dir={isHebrew ? "rtl" : "ltr"}>
+      <header className="grid request-header">
+        <h1 className="request-header-title">{t("userRequest.title")}</h1>
+
+        <div className="grid request-header-actions">
           <Button
             type="button"
             variant="secondary"
@@ -265,7 +259,7 @@ export default function UserRequestPage() {
         </div>
       </header>
 
-      <main className="request-step-main">
+      <main className="request-main">
         {step === 0 && (
           <Step1BasicInfo
             t={t}
@@ -274,12 +268,7 @@ export default function UserRequestPage() {
             onUpdateField={onUpdateField}
             onNextStep={onNextStep}
             onNavigateHome={() => navigate("/user/dashboard")}
-            renderProgressDots={() => (
-              <RequestProgressDots
-                currentStep={step}
-                totalSteps={TOTAL_STEPS}
-              />
-            )}
+            renderProgressDots={() => <Progress />}
             sanitizePhoneInput={sanitizePhoneInput}
           />
         )}
@@ -295,12 +284,7 @@ export default function UserRequestPage() {
             districts={DISTRICTS}
             selectedDistrict={selectedDistrict}
             getCitiesByDistrict={requestedPageService.getCitiesByDistrict}
-            renderProgressDots={() => (
-              <RequestProgressDots
-                currentStep={step}
-                totalSteps={TOTAL_STEPS}
-              />
-            )}
+            renderProgressDots={() => <Progress />}
           />
         )}
 
@@ -316,12 +300,7 @@ export default function UserRequestPage() {
             assistanceCategories={ASSISTANCE_CATEGORIES}
             emptyCategoryDetails={EMPTY_CATEGORY_DETAILS}
             setForm={setForm}
-            renderProgressDots={() => (
-              <RequestProgressDots
-                currentStep={step}
-                totalSteps={TOTAL_STEPS}
-              />
-            )}
+            renderProgressDots={() => <Progress />}
           />
         )}
 
@@ -333,12 +312,7 @@ export default function UserRequestPage() {
             onPreviousStep={onPreviousStep}
             onNextStep={onNextStep}
             onFilesSelected={onFilesSelected}
-            renderProgressDots={() => (
-              <RequestProgressDots
-                currentStep={step}
-                totalSteps={TOTAL_STEPS}
-              />
-            )}
+            renderProgressDots={() => <Progress />}
           />
         )}
 
@@ -349,12 +323,7 @@ export default function UserRequestPage() {
             onUpdateField={onUpdateField}
             onPreviousStep={onPreviousStep}
             onNextStep={onNextStep}
-            renderProgressDots={() => (
-              <RequestProgressDots
-                currentStep={step}
-                totalSteps={TOTAL_STEPS}
-              />
-            )}
+            renderProgressDots={() => <Progress />}
           />
         )}
 
@@ -371,12 +340,7 @@ export default function UserRequestPage() {
             onToggleSummarySection={onToggleSummarySection}
             onPreviousStep={onPreviousStep}
             onSubmitRequest={onSubmitRequest}
-            renderProgressDots={() => (
-              <RequestProgressDots
-                currentStep={step}
-                totalSteps={TOTAL_STEPS}
-              />
-            )}
+            renderProgressDots={() => <Progress />}
           />
         )}
       </main>

@@ -1,158 +1,105 @@
-@use "../../styles/base/_variables" as *;
-@use "sass:color";
+@use "@styles/base/_variables" as *;
 
-/* ========= keep the old green panel look ========= */
 .side-menu {
-  position: relative;
-  background: color.scale($clr-surface, $lightness: -5%); /* old green */
-  border: 1px solid color.change($clr-text, $alpha: 0.12);
-  border-radius: 14px;
-  color: $clr-text;
-
+  background: $clr-surface;
+  border-radius: $radius-lg;
+  box-shadow: $shadow-card;
+  padding: $space-3;
   height: 100%;
-  width: 300px;
-  padding: 10px 10px 12px;
   overflow: hidden;
+  width: 280px;
+  transition: width $transition-fast;
 }
 
-/* ======= head / hamburger ======= */
-.side-menu__head {
-  padding: 2px 2px 8px;
-  border-bottom: 1px solid color.change($clr-text, $alpha: 0.08);
-  margin-bottom: 10px;
+.side-menu.is-collapsed {
+  width: 84px;
 }
 
-/* ✅ No circle: no border, no background — just the lines */
-.side-menu__hamburger {
-  width: 36px;
-  height: 36px;
-  border: 0; /* remove frame */
-  border-radius: 999px; /* keeps a round hit area (invisible) */
-  background: transparent; /* remove fill */
-  color: $clr-primary; /* lines color */
-  cursor: pointer;
-  transition: color $transition-fast, transform 0.08s ease;
-
-  &:hover {
-    color: color.change($clr-primary, $alpha: 0.9);
-  }
-  &:active {
-    transform: scale(0.98);
-  }
-
-  & > span {
-    display: block;
-    width: 18px;
-    height: 2px;
-    margin: 4px auto 0;
-    background: currentColor;
-    border-radius: 2px;
-    &:first-child {
-      margin-top: 8px;
-    }
-  }
+.side-menu-head {
+  margin-bottom: $space-3;
 }
 
-/* ========== content ========== */
-.side-menu__content {
-  padding: 12px 8px 92px; /* keep space for brand */
-  height: calc(100% - 54px); /* subtract head */
+.side-menu-toggle {
+  width: 44px;
+  height: 44px;
+  border: 1px solid $clr-border-subtle;
+  border-radius: $radius-md;
+  background: #fff;
+  padding: 8px;
+  row-gap: 6px;
+  justify-items: stretch;
 }
 
-/* title: real heading look, centered */
-.side-menu__title {
+.side-menu-toggle:focus-visible {
+  outline: $focus-ring;
+  outline-offset: 2px;
+}
+
+.side-menu-toggle-line {
+  height: 2px;
+  background: $clr-brand;
+  border-radius: 999px;
+}
+
+.side-menu-body {
+  min-height: 0;
+  height: calc(100% - 60px);
+  overflow: hidden;
+  grid-template-rows: auto 1fr auto;
+}
+
+.side-menu-title {
   margin: 0;
-  text-align: center;
-  font-size: 22px;
-  font-weight: 800;
-  letter-spacing: 0.2px;
-  color: color.scale($clr-text, $lightness: -20%);
-
-  &::after {
-    content: "";
-    display: block;
-    width: 56%;
-    height: 3px;
-    margin: 10px auto 14px;
-    background: $clr-primary;
-    border-radius: 2px;
-    opacity: 0.95;
-  }
+  font-size: 1.1rem;
+  color: $clr-brand;
 }
 
-/* list container */
-.side-menu__list {
-  margin: 0;
-  padding: 0;
-  overflow-y: auto;
-  overflow-x: hidden;
-  max-height: 100%;
+.side-menu-list {
+  min-height: 0;
+  overflow: auto;
+  align-content: start;
 }
 
-/* spacing between items */
-.side-menu__list li + li {
-  margin-top: 14px;
+.side-menu-link {
+  width: 100%;
+  border: 1px solid $clr-border-subtle;
+  background: #fff;
+  border-radius: $radius-md;
+  padding: $space-2 $space-3;
+  text-align: right;
+  color: $clr-text;
 }
 
-/* buttons: no frames, readable text, no background */
-.side-menu__link {
-  display: block; /* no flex/grid */
-  width: 230px; /* straight column */
-  margin: 0 auto; /* centered */
-  text-align: center;
-
-  color: color.scale($clr-text, $lightness: -35%);
-  background: transparent; /* no fill */
-  border: 0; /* no frame */
-  border-radius: 10px;
-  padding: 12px 14px;
-  font-size: 18px;
-  font-weight: 600;
-  cursor: pointer;
-
-  text-underline-offset: 3px;
-  transition: color $transition-fast, background $transition-fast,
-    transform 0.08s ease;
-
-  &:hover {
-    color: $clr-primary;
-    background: color.change(#fff, $alpha: 0.06); /* subtle hover only */
-  }
-  &:active {
-    transform: translateY(1px);
-  }
+.side-menu-link:focus-visible {
+  outline: $focus-ring;
+  outline-offset: 2px;
 }
 
-/* active state */
-.side-menu__link.is-active {
-  color: $clr-primary;
-  font-weight: 700;
-  text-decoration: underline;
+.side-menu-link.is-active {
+  border-color: $clr-brand;
+  box-shadow: 0 0 0 1px rgba(11, 63, 45, 0.2);
 }
 
-/* bottom brand pinned */
-.side-menu__brand {
-  position: absolute;
-  left: 10px;
-  right: 10px;
-  bottom: 12px;
-
-  padding-top: 12px;
-  border-top: 1px dashed color.change($clr-text, $alpha: 0.12);
-  text-align: center;
+.side-menu-brand {
+  padding-top: $space-2;
 }
 
-.side-menu__brand-img {
-  display: inline-block;
+.side-menu-brand-img {
   max-width: 120px;
+  width: 100%;
   height: auto;
   opacity: 0.95;
 }
 
-/* collapsed */
-.side-menu.is-collapsed .side-menu__content {
+.side-menu.is-collapsed .side-menu-title {
   display: none;
 }
-.side-menu.is-collapsed {
-  width: 60px;
+
+.side-menu.is-collapsed .side-menu-link {
+  padding: $space-2;
+  text-align: center;
+}
+
+.side-menu.is-collapsed .side-menu-brand-img {
+  max-width: 48px;
 }

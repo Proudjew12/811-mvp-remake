@@ -1,64 +1,62 @@
-// src/components/dropdown/dropdown.scss
-@use "../../styles/base/_variables" as *;
-@use "sass:color";
+@use "@styles/base/_variables" as *;
 
-.ui-dropdown {
-  inline-size: 100%;
+.dropdown {
+  width: 100%;
 }
 
-.ui-dropdown__label {
-  display: inline-block;
-  margin-bottom: 4px;
-  font-size: 0.85rem;
+.dropdown-label {
+  display: block;
+  margin-bottom: $space-2;
+  font-size: 0.95rem;
   color: $clr-text;
 }
 
-.ui-dropdown__required {
-  // same “error-ish” treatment as TextField
-  color: color.adjust($clr-primary, $lightness: -10%);
-  margin-inline-start: 2px;
+.dropdown-required {
+  margin-inline-start: 6px;
+  color: #b00020;
 }
 
-.ui-dropdown__control {
+.dropdown-control {
   position: relative;
-  inline-size: 100%;
 }
 
-.ui-dropdown__select {
-  inline-size: 100%;
-  border-radius: 10px;
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  padding: 8px 32px 8px 10px;
-  font-size: 0.9rem;
-  background: #ffffff;
+.dropdown-select {
+  width: 100%;
   appearance: none;
-  -moz-appearance: none;
-  -webkit-appearance: none;
+  border: 1px solid $clr-border;
+  border-radius: $radius-md;
+  background: #fff;
+  color: $clr-text;
+  padding: $space-2 $space-3;
+  padding-inline-end: 36px;
 }
 
-.ui-dropdown__icon {
+.dropdown-select:focus-visible {
+  outline: $focus-ring;
+  outline-offset: 2px;
+}
+
+.dropdown-icon {
   position: absolute;
-  inset-inline-end: 10px;
-  inset-block-start: 50%;
+  inset-inline-end: 12px;
+  top: 50%;
   transform: translateY(-50%);
-  font-size: 0.8rem;
-  color: color.adjust($clr-text, $lightness: 10%);
   pointer-events: none;
+  color: rgba(0, 0, 0, 0.6);
 }
 
-.ui-dropdown__helper {
-  margin: 4px 0 0;
-  font-size: 0.8rem;
-  color: color.adjust($clr-text, $lightness: 15%);
+.dropdown-helper {
+  margin: $space-2 0 0;
+  font-size: 0.85rem;
+  color: $clr-text-muted;
 }
 
-.ui-dropdown__error {
-  margin: 4px 0 0;
-  font-size: 0.8rem;
-  color: color.adjust($clr-primary, $lightness: -10%);
+.dropdown-error {
+  margin: $space-2 0 0;
+  font-size: 0.85rem;
+  color: #b00020;
 }
 
-/* Error border */
-.ui-dropdown--error .ui-dropdown__select {
-  border-color: color.adjust($clr-primary, $lightness: -10%);
+.dropdown.is-error .dropdown-select {
+  border-color: #b00020;
 }

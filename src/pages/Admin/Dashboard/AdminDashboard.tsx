@@ -1,5 +1,5 @@
 import "./AdminDashboard.scss";
-import Button from "../../../components/button/button";
+import Button from "@components/button/button";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
@@ -25,10 +25,9 @@ export default function AdminDashboard() {
   }
 
   return (
-    <div className="dashboard-page">
-      {/* HEADER */}
-      <header className="dashboard-header flex justify-between align-center">
-        <div className="dashboard-header__side dashboard-header__side--left flex align-center">
+    <div className="grid dashboard-page" dir={isHebrew ? "rtl" : "ltr"}>
+      <header className="grid dashboard-header cols-3 items-center gap-3">
+        <div className="grid justify-start">
           <Button
             type="button"
             variant="secondary"
@@ -39,9 +38,11 @@ export default function AdminDashboard() {
           </Button>
         </div>
 
-        <h1 className="dashboard-header__title">{t("dashboard.title")}</h1>
+        <h1 className="dashboard-header-title text-center">
+          {t("dashboard.title")}
+        </h1>
 
-        <div className="dashboard-header__side dashboard-header__side--right flex align-center">
+        <div className="grid justify-end">
           <Button
             type="button"
             variant="secondary"
@@ -55,132 +56,133 @@ export default function AdminDashboard() {
         </div>
       </header>
 
-      {/* MAIN */}
-      <main className="dashboard-layout grid">
-        {/* OVERVIEW CARD */}
-        <section className="dashboard-card dashboard-card--overview">
-          <header className="dashboard-card__header">
-            <h2 className="dashboard-card__title">
-              {t("dashboard.overview.title")}
-            </h2>
-            <p className="dashboard-card__subtitle">
-              {t("dashboard.overview.subtitle")}
-            </p>
-          </header>
+      <main className="dashboard-main">
+        <div className="grid dashboard-layout gap-3">
+          <section className="dashboard-card dashboard-card--overview">
+            <header className="grid dashboard-card-header gap-1">
+              <h2 className="dashboard-card-title">
+                {t("dashboard.overview.title")}
+              </h2>
+              <p className="dashboard-card-subtitle">
+                {t("dashboard.overview.subtitle")}
+              </p>
+            </header>
 
-          <div className="dashboard-stats grid">
-            <div className="dashboard-stat">
-              <span className="dashboard-stat__label">
-                {t("dashboard.stats.openRequests.label")}
-              </span>
-              <span className="dashboard-stat__value">12</span>
-              <span className="dashboard-stat__hint">
-                {t("dashboard.stats.openRequests.hint")}
-              </span>
+            <div className="grid dashboard-stats cols-3 gap-3">
+              <div className="grid dashboard-stat gap-1">
+                <span className="dashboard-stat-label">
+                  {t("dashboard.stats.openRequests.label")}
+                </span>
+                <span className="dashboard-stat-value">12</span>
+                <span className="dashboard-stat-hint">
+                  {t("dashboard.stats.openRequests.hint")}
+                </span>
+              </div>
+
+              <div className="grid dashboard-stat gap-1">
+                <span className="dashboard-stat-label">
+                  {t("dashboard.stats.todayRequests.label")}
+                </span>
+                <span className="dashboard-stat-value">5</span>
+                <span className="dashboard-stat-hint">
+                  {t("dashboard.stats.todayRequests.hint")}
+                </span>
+              </div>
+
+              <div className="grid dashboard-stat gap-1">
+                <span className="dashboard-stat-label">
+                  {t("dashboard.stats.handledThisWeek.label")}
+                </span>
+                <span className="dashboard-stat-value">27</span>
+                <span className="dashboard-stat-hint">
+                  {t("dashboard.stats.handledThisWeek.hint")}
+                </span>
+              </div>
             </div>
 
-            <div className="dashboard-stat">
-              <span className="dashboard-stat__label">
-                {t("dashboard.stats.todayRequests.label")}
-              </span>
-              <span className="dashboard-stat__value">5</span>
-              <span className="dashboard-stat__hint">
-                {t("dashboard.stats.todayRequests.hint")}
-              </span>
+            <div className="grid dashboard-actions cols-2 gap-2">
+              <Button
+                type="button"
+                variant="secondary"
+                onClick={onGoToControlPanel}
+              >
+                System settings
+              </Button>
+
+              <Button type="button" variant="primary" onClick={onGoToRequests}>
+                {t("dashboard.actions.viewAllRequests")}
+              </Button>
             </div>
+          </section>
 
-            <div className="dashboard-stat">
-              <span className="dashboard-stat__label">
-                {t("dashboard.stats.handledThisWeek.label")}
-              </span>
-              <span className="dashboard-stat__value">27</span>
-              <span className="dashboard-stat__hint">
-                {t("dashboard.stats.handledThisWeek.hint")}
-              </span>
-            </div>
-          </div>
+          <aside className="dashboard-card dashboard-card--sidebar">
+            <header className="grid dashboard-card-header gap-1">
+              <h2 className="dashboard-card-title">
+                {t("dashboard.quickActions.title")}
+              </h2>
+            </header>
 
-          <div className="dashboard-actions grid">
-            <Button
-              type="button"
-              variant="secondary"
-              onClick={onGoToControlPanel}
-            >
-              {/* You can later move this into i18n */}
-              System settings
-            </Button>
+            <ul className="clean-list grid dashboard-quick-list gap-2">
+              <li className="grid dashboard-quick-item flow-col items-center gap-2">
+                <span className="dashboard-quick-bullet" aria-hidden />
+                <span className="dashboard-quick-text">
+                  {t("dashboard.quickActions.itemApprovePending")}
+                </span>
+              </li>
 
-            <Button type="button" variant="primary" onClick={onGoToRequests}>
-              {t("dashboard.actions.viewAllRequests")}
-            </Button>
-          </div>
-        </section>
+              <li className="grid dashboard-quick-item flow-col items-center gap-2">
+                <span className="dashboard-quick-bullet" aria-hidden />
+                <span className="dashboard-quick-text">
+                  {t("dashboard.quickActions.itemRecent")}
+                </span>
+              </li>
 
-        {/* QUICK ACTIONS */}
-        <aside className="dashboard-card dashboard-card--sidebar">
-          <header className="dashboard-card__header">
-            <h2 className="dashboard-card__title">
-              {t("dashboard.quickActions.title")}
-            </h2>
-          </header>
+              <li className="grid dashboard-quick-item flow-col items-center gap-2">
+                <span className="dashboard-quick-bullet" aria-hidden />
+                <span className="dashboard-quick-text">
+                  {t("dashboard.quickActions.itemUrgent")}
+                </span>
+              </li>
+            </ul>
+          </aside>
 
-          <ul className="dashboard-quick-list grid">
-            <li className="dashboard-quick-item flex align-center">
-              <span className="dashboard-quick-item__bullet" />
-              <span className="dashboard-quick-item__text">
-                {t("dashboard.quickActions.itemApprovePending")}
-              </span>
-            </li>
-            <li className="dashboard-quick-item flex align-center">
-              <span className="dashboard-quick-item__bullet" />
-              <span className="dashboard-quick-item__text">
-                {t("dashboard.quickActions.itemRecent")}
-              </span>
-            </li>
-            <li className="dashboard-quick-item flex align-center">
-              <span className="dashboard-quick-item__bullet" />
-              <span className="dashboard-quick-item__text">
-                {t("dashboard.quickActions.itemUrgent")}
-              </span>
-            </li>
-          </ul>
-        </aside>
+          <section className="dashboard-card dashboard-card--activity">
+            <header className="grid dashboard-card-header gap-1">
+              <h2 className="dashboard-card-title">
+                {t("dashboard.recentActivity.title")}
+              </h2>
+            </header>
 
-        {/* RECENT ACTIVITY */}
-        <section className="dashboard-card dashboard-card--activity">
-          <header className="dashboard-card__header dashboard-card__header--row flex justify-between align-center">
-            <h2 className="dashboard-card__title">
-              {t("dashboard.recentActivity.title")}
-            </h2>
-          </header>
+            <ul className="clean-list grid dashboard-activity-list gap-2">
+              <li className="grid dashboard-activity gap-1">
+                <p className="dashboard-activity-main">
+                  {t("dashboard.recentActivity.item1.main")}
+                </p>
+                <p className="dashboard-activity-meta">
+                  {t("dashboard.recentActivity.item1.meta")}
+                </p>
+              </li>
 
-          <ul className="dashboard-activity-list grid">
-            <li className="dashboard-activity">
-              <p className="dashboard-activity__main">
-                {t("dashboard.recentActivity.item1.main")}
-              </p>
-              <p className="dashboard-activity__meta">
-                {t("dashboard.recentActivity.item1.meta")}
-              </p>
-            </li>
-            <li className="dashboard-activity">
-              <p className="dashboard-activity__main">
-                {t("dashboard.recentActivity.item2.main")}
-              </p>
-              <p className="dashboard-activity__meta">
-                {t("dashboard.recentActivity.item2.meta")}
-              </p>
-            </li>
-            <li className="dashboard-activity">
-              <p className="dashboard-activity__main">
-                {t("dashboard.recentActivity.item3.main")}
-              </p>
-              <p className="dashboard-activity__meta">
-                {t("dashboard.recentActivity.item3.meta")}
-              </p>
-            </li>
-          </ul>
-        </section>
+              <li className="grid dashboard-activity gap-1">
+                <p className="dashboard-activity-main">
+                  {t("dashboard.recentActivity.item2.main")}
+                </p>
+                <p className="dashboard-activity-meta">
+                  {t("dashboard.recentActivity.item2.meta")}
+                </p>
+              </li>
+
+              <li className="grid dashboard-activity gap-1">
+                <p className="dashboard-activity-main">
+                  {t("dashboard.recentActivity.item3.main")}
+                </p>
+                <p className="dashboard-activity-meta">
+                  {t("dashboard.recentActivity.item3.meta")}
+                </p>
+              </li>
+            </ul>
+          </section>
+        </div>
       </main>
     </div>
   );

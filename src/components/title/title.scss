@@ -1,27 +1,22 @@
-// src/components/title/titles.scss
-@use "../../styles/base/_variables" as *;
+@use "@styles/base/_variables" as *;
 
-.ui-heading {
+.title {
   margin: 0;
+  color: $clr-text-strong;
+}
+
+.title--page {
+  font-size: 1.6rem;
+  font-weight: 700;
+}
+
+.title--section {
+  font-size: 1.15rem;
+  font-weight: 600;
+}
+
+.title--label {
+  font-size: 0.95rem;
+  font-weight: 600;
   color: $clr-text;
-}
-
-/* Page title (top of screen) */
-.ui-heading--page {
-  font-size: 1.4rem;
-  font-weight: 600;
-}
-
-/* Section title (inside card) */
-.ui-heading--section {
-  font-size: 1.05rem;
-  font-weight: 600;
-}
-
-/* Small label / eyebrow */
-.ui-heading--label {
-  font-size: 0.8rem;
-  font-weight: 500;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
 }

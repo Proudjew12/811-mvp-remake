@@ -1,9 +1,9 @@
-@use "../../../styles/base/_variables" as *;
+@use "@styles/base/_variables" as *;
 @use "sass:color";
 
 .volunteers-page {
   min-height: 100vh;
-  background: $clr-bg;
+  background: $clr-page;
 }
 
 .volunteers-main {

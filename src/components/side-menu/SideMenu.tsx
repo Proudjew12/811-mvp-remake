@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "./SideMenu.scss";
 import mateLogoGreen from "@assets/Logo/mate-logo-green.png";
 
@@ -37,35 +37,39 @@ export default function SideMenu({
 
   return (
     <aside
-      className={`side-menu ${collapsed ? "is-collapsed" : ""}`}
+      className={["side-menu", collapsed ? "is-collapsed" : ""]
+        .filter(Boolean)
+        .join(" ")}
       dir="rtl"
       aria-label="מרכז בקרה"
     >
-      <div className="side-menu__head">
+      <div className="grid side-menu-head">
         <button
           type="button"
-          className="side-menu__hamburger"
+          className="grid side-menu-toggle"
           aria-label="פתח/סגור תפריט"
           aria-pressed={!collapsed}
           onClick={toggle}
         >
-          <span aria-hidden="true" />
-          <span aria-hidden="true" />
-          <span aria-hidden="true" />
+          <span className="side-menu-toggle-line" aria-hidden="true" />
+          <span className="side-menu-toggle-line" aria-hidden="true" />
+          <span className="side-menu-toggle-line" aria-hidden="true" />
         </button>
       </div>
 
-      <div className="side-menu__content flex column">
-        <h2 className="side-menu__title">מרכז בקרה</h2>
+      <div className="grid side-menu-body gap-3">
+        <h2 className="side-menu-title">מרכז בקרה</h2>
 
-        <ul className="clean-list side-menu__list">
+        <ul className="clean-list grid side-menu-list gap-2">
           {ITEMS.map((it) => {
             const active = it.id === activeId;
             return (
               <li key={it.id}>
                 <button
                   type="button"
-                  className={`side-menu__link${active ? " is-active" : ""}`}
+                  className={["side-menu-link", active ? "is-active" : ""]
+                    .filter(Boolean)
+                    .join(" ")}
                   onClick={() => onSelect?.(it.id)}
                   aria-current={active ? "page" : undefined}
                 >
@@ -76,9 +80,9 @@ export default function SideMenu({
           })}
         </ul>
 
-        <div className="side-menu__brand">
+        <div className="grid side-menu-brand place-center">
           <img
-            className="side-menu__brand-img"
+            className="side-menu-brand-img"
             src={mateLogoGreen}
             alt="מטה המתנדבים הארצי"
           />

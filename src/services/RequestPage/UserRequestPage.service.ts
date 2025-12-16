@@ -294,11 +294,7 @@ const assistanceCategories: AssistanceCategory[] = [
     labelEn: "Mental health",
     options: [
       { id: "supportCalls", labelHe: "שיחות תמיכה", labelEn: "Support calls" },
-      {
-        id: "groups",
-        labelHe: "קבוצות תמיכה",
-        labelEn: "Support groups",
-      },
+      { id: "groups", labelHe: "קבוצות תמיכה", labelEn: "Support groups" },
       { id: "kids", labelHe: "ליווי לילדים", labelEn: "Support for children" },
       {
         id: "families",
@@ -313,11 +309,7 @@ const assistanceCategories: AssistanceCategory[] = [
     labelEn: "Education & community equipment",
     options: [
       { id: "learning", labelHe: "ציוד לימודי", labelEn: "Learning materials" },
-      {
-        id: "digital",
-        labelHe: "ציוד דיגיטלי",
-        labelEn: "Digital equipment",
-      },
+      { id: "digital", labelHe: "ציוד דיגיטלי", labelEn: "Digital equipment" },
       { id: "furniture", labelHe: "ריהוט", labelEn: "Furniture" },
       {
         id: "games",
@@ -337,11 +329,7 @@ const assistanceCategories: AssistanceCategory[] = [
         labelEn: "Electrical repairs",
       },
       { id: "water", labelHe: "תיקוני מים", labelEn: "Water repairs" },
-      {
-        id: "deepCleaning",
-        labelHe: "ניקיון יסודי",
-        labelEn: "Deep cleaning",
-      },
+      { id: "deepCleaning", labelHe: "ניקיון יסודי", labelEn: "Deep cleaning" },
       { id: "fieldWork", labelHe: "עבודות שטח", labelEn: "Field work" },
     ],
   },
@@ -395,9 +383,7 @@ const assistanceCategories: AssistanceCategory[] = [
 
 function getEmptyCategoryDetails(): CategoryDetailsMap {
   const details: Partial<CategoryDetailsMap> = {};
-  for (const category of assistanceCategories) {
-    details[category.id] = [];
-  }
+  for (const category of assistanceCategories) details[category.id] = [];
   return details as CategoryDetailsMap;
 }
 
@@ -425,10 +411,9 @@ function getCategoryById(id: AssistanceCategoryId): AssistanceCategory | null {
 
 function saveRequestSnapshot(snapshot: UserRequestSnapshot) {
   try {
-    const serialized = JSON.stringify(snapshot);
-    localStorage.setItem(STORAGE_KEY, serialized);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(snapshot));
   } catch {
-    /* ignore */
+    // ignore
   }
 }
 
@@ -445,7 +430,7 @@ function loadRequestSnapshot(): UserRequestSnapshot | null {
 function clearRequestSnapshot() {
   try {
     localStorage.removeItem(STORAGE_KEY);
-  } catch {
-    // ignore
+  } catch (err) {
+    console.warn("Failed to clear request snapshot", err);
   }
 }

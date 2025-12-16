@@ -1,3 +1,9 @@
+@use "./variables" as *;
+
+/* =========================================
+   Fonts
+   ========================================= */
+
 /* Hebrew UI font – Heebo */
 @font-face {
   font-family: "Heebo";
@@ -32,10 +38,14 @@
   font-display: swap;
 }
 
-/* Global stack – Hebrew first */
+/* =========================================
+   Global typography
+   ========================================= */
+
 body {
   font-family: "Heebo", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
     sans-serif;
+  color: $clr-text;
 }
 
 /* English text: prefer Inter */

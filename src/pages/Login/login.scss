@@ -1,11 +1,10 @@
-@use "../../styles/base/variables" as *;
-@use "sass:color";
+@use "@styles/base/variables" as *;
 
 .login-page {
-  min-height: 100vh;
+  min-height: 100dvh;
   width: 100%;
   overflow: hidden;
-  padding: $space-md;
+  padding: $space-3;
   box-sizing: border-box;
   position: relative;
   background: $login-bg-overlay, $login-bg-gradient;
@@ -20,47 +19,52 @@
 .login-card {
   width: 380px;
   max-width: 100%;
-  background: #ffffff;
-  padding: 32px;
-  border-radius: 12px;
+  background: #fff;
+  padding: $space-4;
+  border-radius: $radius-md;
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
-  text-align: center;
+}
 
-  h2 {
-    font-size: 20px;
-    margin-bottom: 16px;
-  }
+.login-logo {
+  width: 180px;
+  margin: 20px auto;
+}
 
-  .login-logo {
-    width: 180px;
-    margin: 20px auto;
-    display: block;
-  }
+.login-card input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid rgba(11, 63, 45, 0.18);
+  border-radius: 6px;
+  font-size: 15px;
+  box-sizing: border-box;
+  background: #fff;
+  color: $clr-text;
+}
 
-  input {
-    width: 100%;
-    padding: 12px;
-    margin: 8px 0;
-    border: 1px solid #c8d7cd;
-    border-radius: 6px;
-    font-size: 15px;
-    box-sizing: border-box;
-  }
+.login-card input:focus-visible {
+  outline: $focus-ring;
+  outline-offset: 2px;
+}
 
-  hr {
-    margin: 24px 0;
-    border: none;
-    height: 1px;
-    background: #eeeeee;
-  }
+.login-error {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #b00020;
+}
 
-  .demo-title {
-    margin: 16px 0 12px;
-    color: #6a7c74;
-    font-size: 14px;
-  }
+.login-card hr {
+  margin: 24px 0;
+  border: none;
+  height: 1px;
+  background: #eeeeee;
+}
 
-  .demo-buttons {
-    margin-top: 8px;
-  }
+.demo-title {
+  margin: 0;
+  color: $clr-text-muted;
+  font-size: 14px;
+}
+
+.demo-buttons {
+  margin-top: 8px;
 }

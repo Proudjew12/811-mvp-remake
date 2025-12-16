@@ -1,0 +1,22 @@
+@use "@styles/base/_variables" as *;
+
+.progressDots {
+  width: 100%;
+}
+
+.progressDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.18);
+  transition: background-color $transition-fast, transform $transition-fast;
+}
+
+.progressDot.isDone {
+  background: rgba(11, 63, 45, 0.35);
+}
+
+.progressDot.isActive {
+  background: $clr-brand;
+  transform: scale(1.15);
+}

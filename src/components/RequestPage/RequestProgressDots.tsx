@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import "./RequestProgressDots.scss";
 
 type Props = {
   currentStep: number;
@@ -13,9 +14,9 @@ export function RequestProgressDots({ currentStep, totalSteps }: Props) {
     const isDone = index < currentStep;
 
     const className = [
-      "request-progress__dot",
-      isActive ? "request-progress__dot--active" : "",
-      isDone ? "request-progress__dot--done" : "",
+      "progressDot",
+      isActive ? "isActive" : "",
+      isDone ? "isDone" : "",
     ]
       .filter(Boolean)
       .join(" ");
@@ -23,5 +24,7 @@ export function RequestProgressDots({ currentStep, totalSteps }: Props) {
     dots.push(<span key={index} className={className} />);
   }
 
-  return <div className="request-progress flex center">{dots}</div>;
+  return (
+    <div className="grid progressDots flow-col place-center gap-2">{dots}</div>
+  );
 }

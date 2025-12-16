@@ -1,0 +1,45 @@
+@use "./variables" as *;
+
+/* =========================
+   Flex helpers (use sparingly)
+   ========================= */
+
+.flex {
+  display: flex;
+}
+
+.flex.row {
+  flex-direction: row;
+}
+.flex.col {
+  flex-direction: column;
+}
+
+.flex.center {
+  justify-content: center;
+  align-items: center;
+}
+
+.flex.between {
+  justify-content: space-between;
+}
+
+.flex.wrap {
+  flex-wrap: wrap;
+}
+
+.flex.gap-1 {
+  gap: $space-1;
+}
+.flex.gap-2 {
+  gap: $space-2;
+}
+.flex.gap-3 {
+  gap: $space-3;
+}
+.flex.gap-4 {
+  gap: $space-4;
+}
+.flex.gap-5 {
+  gap: $space-5;
+}

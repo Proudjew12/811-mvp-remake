@@ -1,5 +1,5 @@
 import { FormEvent, ReactNode } from "react";
-import Button from "../../../../components/button/button";
+import Button from "@components/button/button";
 import { RequestFormData } from "../UserRequestPage";
 
 type Props = {
@@ -28,13 +28,13 @@ export function Step5Details({
   }
 
   return (
-    <section className="request-step">
-      <h2 className="request-step__title">{t("userRequest.step5.title")}</h2>
-      <h3 className="request-step__subtitle">
+    <section className="grid request-step">
+      <h2 className="request-step-title">{t("userRequest.step5.title")}</h2>
+      <h3 className="request-step-subtitle">
         {t("userRequest.step5.subtitle")}
       </h3>
 
-      <form onSubmit={handleSubmit} className="request-form">
+      <form onSubmit={handleSubmit} className="grid request-form">
         <div className="request-field">
           <label className="request-label">
             {t("userRequest.step5.requestTitleLabel")}
@@ -69,12 +69,12 @@ export function Step5Details({
 
         <p className="request-hint">{t("userRequest.step5.hint")}</p>
 
-        <footer className="request-step-footer flex">
+        <footer className="grid request-footer">
           <Button type="button" variant="secondary" onClick={onPreviousStep}>
             ← {t("footer.previous")}
           </Button>
 
-          {renderProgressDots()}
+          <div className="request-footer-center">{renderProgressDots()}</div>
 
           <Button type="submit" variant="primary">
             {t("footer.next")} →
