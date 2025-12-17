@@ -1,0 +1,155 @@
+@use "@styles/base/_variables" as *;
+
+.request-page {
+  background: $clr-page;
+  min-block-size: 100vh;
+}
+
+.request-page-main {
+  padding: $space-6 $space-6;
+  min-block-size: 100vh;
+}
+
+.request-page-shell {
+  inline-size: 100%;
+  max-inline-size: 1600px;
+}
+
+.request-card {
+  inline-size: 100%;
+  min-block-size: min(860px, calc(100vh - (#{$space-6} * 2)));
+  background: $clr-surface;
+  border: 1px solid $clr-border-subtle;
+  border-radius: $radius-lg;
+  box-shadow: $shadow-header;
+}
+
+.request-card-inner {
+  position: relative;
+  padding: $space-6;
+}
+
+.request-card-grid {
+  grid-template-rows: auto 1fr auto;
+}
+
+.request-close {
+  position: absolute;
+  top: $space-4;
+  inset-inline-start: $space-4;
+  width: 38px;
+  height: 38px;
+  border-radius: $radius-md;
+  border: 1px solid $clr-border-subtle;
+  background: $clr-surface;
+  color: $clr-text-strong;
+  cursor: pointer;
+  font-size: 22px;
+  line-height: 1;
+}
+
+.request-title {
+  text-align: center;
+  font-size: 1.65rem;
+  font-weight: 800;
+  color: $clr-text-strong;
+}
+
+.request-stephead :is(h3) {
+  font-size: 1.25rem;
+  font-weight: 800;
+}
+
+.request-subtitle {
+  font-size: 1rem;
+  color: $clr-text-muted;
+  max-inline-size: 760px;
+  margin: 0 auto;
+}
+
+.request-body {
+  padding-top: $space-5;
+  padding-bottom: $space-5;
+}
+
+.request-stepwrap {
+  max-inline-size: 900px;
+  margin: 0 auto;
+}
+
+.request-stepwrap.is-wide {
+  max-inline-size: 1300px;
+}
+
+.request-footer {
+  border-top: 1px solid $clr-border-subtle;
+  padding-top: $space-4;
+}
+
+.request-footer-grid {
+  grid-template-columns: 1fr auto 1fr;
+}
+
+.request-footer-left {
+  justify-self: start;
+}
+
+.request-footer-center {
+  justify-self: center;
+}
+
+.request-footer-right {
+  justify-self: end;
+}
+
+.request-dots-inline {
+  position: relative;
+  align-items: center;
+  padding: 0;
+}
+
+.request-dots-inline::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 2px;
+  background: $clr-border-subtle;
+  transform: translateY(-50%);
+  z-index: 0;
+}
+
+.request-dots-inline > li {
+  position: relative;
+  z-index: 1;
+}
+
+.request-dot {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border-radius: 999px;
+  background: $clr-surface;
+  border: 2px solid $clr-border;
+}
+
+.request-dot.is-active {
+  background: $clr-text-strong;
+  border-color: $clr-text-strong;
+}
+
+.request-devskip-row {
+  margin-top: $space-3;
+  display: grid;
+  justify-items: center;
+}
+
+.request-devskip-btn {
+  border: 1px dashed $clr-border;
+  background: transparent;
+  padding: $space-2 $space-4;
+  border-radius: $radius-md;
+  font-weight: 700;
+  cursor: pointer;
+}

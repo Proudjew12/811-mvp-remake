@@ -56,6 +56,7 @@ $space-2: 8px;
 $space-3: 16px;
 $space-4: 24px;
 $space-5: 32px;
+$space-6: 32px;
 
 /* =========================================
    Layout tokens
@@ -110,3 +111,4 @@ $login-bg-overlay: radial-gradient(
 $layout-max: 980px;
 $side-menu-width: 240px;
 $side-menu-collapsed-width: 64px;
+$user-header-height: calc(#{$header-height} - 36px);

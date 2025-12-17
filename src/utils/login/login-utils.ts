@@ -3,16 +3,22 @@ export type AccountType = "admin" | "organization" | "user";
 
 export const loginUtils = {
   isHebrewLanguage,
+  getDir,
   getLanguageCode,
   getNextLanguage,
   delay,
   normalizeEmail,
   trimCredentials,
+  setCredential,
   getDashboardPath,
 };
 
 function isHebrewLanguage(language: string): boolean {
   return language.toLowerCase().startsWith("he");
+}
+
+function getDir(language: string): "rtl" | "ltr" {
+  return isHebrewLanguage(language) ? "rtl" : "ltr";
 }
 
 function getLanguageCode(language: string): LanguageCode {
@@ -40,6 +46,14 @@ function trimCredentials<T extends { email?: string; password?: string }>(
     email: credentials.email?.trim() ?? "",
     password: credentials.password?.trim() ?? "",
   };
+}
+
+function setCredential<T extends Record<string, unknown>, K extends keyof T>(
+  prev: T,
+  key: K,
+  value: T[K]
+): T {
+  return { ...prev, [key]: value };
 }
 
 function getDashboardPath(accountType: AccountType): string {

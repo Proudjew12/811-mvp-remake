@@ -1,5 +1,5 @@
 // src/styles/base/_mq.scss
-@use "./variables" as *;
+@use "@styles/base/_variables" as *;
 
 // ========== GLOBAL LAYOUT ==========
 
@@ -116,6 +116,45 @@
   .request-progress {
     order: -1;
     margin-bottom: 8px;
+  }
+}
+
+// ========== USER REQUEST PAGE (NEW WIZARD) ==========
+
+@media (max-width: $bp-s) {
+  .request-page-main {
+    padding: $space-4 $space-3;
+  }
+
+  .request-card-inner {
+    padding: $space-4;
+  }
+
+  .request-footer-grid {
+    grid-template-columns: 1fr;
+    gap: $space-3;
+  }
+
+  .request-footer-left,
+  .request-footer-center,
+  .request-footer-right {
+    justify-self: stretch;
+  }
+
+  .request-phone-row {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .request-phone-dash {
+    display: none;
+  }
+
+  .request-datetime-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .request-type-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 

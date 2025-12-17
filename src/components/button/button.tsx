@@ -1,60 +1,48 @@
-import { ButtonHTMLAttributes, ReactNode, forwardRef } from "react";
+import { ButtonHTMLAttributes } from "react";
 import "./button.scss";
 
-export type ButtonVariant = "primary" | "secondary" | "ghost" | "danger";
-export type ButtonSize = "sm" | "md";
+export type ButtonVariant = "primary" | "secondary";
+export type ButtonSize = "sm" | "md" | "lg";
 
-export interface ButtonProps
-  extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, "children"> {
+export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: ButtonVariant;
   size?: ButtonSize;
-  isLoading?: boolean;
-  isActive?: boolean;
   fullWidth?: boolean;
-  children?: ReactNode;
+  isLoading?: boolean;
+};
+
+export function Button({
+  variant = "secondary",
+  size = "md",
+  fullWidth,
+  isLoading,
+  disabled,
+  className = "",
+  children,
+  ...props
+}: ButtonProps) {
+  const classes = [
+    "btn",
+    `btn-${variant}`,
+    `btn-${size}`,
+    fullWidth ? "full-width" : "",
+    className,
+  ]
+    .filter(Boolean)
+    .join(" ");
+
+  const isDisabled = !!disabled || !!isLoading;
+
+  return (
+    <button
+      className={classes}
+      disabled={isDisabled}
+      aria-busy={isLoading || undefined}
+      {...props}
+    >
+      {children}
+    </button>
+  );
 }
-
-export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  function Button(
-    {
-      variant = "primary",
-      size = "md",
-      isLoading = false,
-      isActive = false,
-      fullWidth = false,
-      className = "",
-      disabled,
-      type = "button",
-      children,
-      ...rest
-    },
-    ref
-  ) {
-    const classNames = [
-      "btn",
-      `btn--${variant}`,
-      `btn--${size}`,
-      fullWidth ? "is-full" : "",
-      isLoading ? "is-loading" : "",
-      isActive ? "is-active" : "",
-      className,
-    ]
-      .filter(Boolean)
-      .join(" ");
-
-    return (
-      <button
-        ref={ref}
-        type={type}
-        className={classNames}
-        disabled={disabled || isLoading}
-        aria-busy={isLoading || undefined}
-        {...rest}
-      >
-        {children}
-      </button>
-    );
-  }
-);
 
 export default Button;

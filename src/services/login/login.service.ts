@@ -1,25 +1,28 @@
+import { loginUtils, type AccountType } from "@utils/login/login-utils";
+import {
+  demoAccounts,
+  buildDemoAccountItems,
+  type DemoAccountItem,
+  type DemoAccountKey,
+  type LoginCredentials,
+} from "@services/login/demo-accounts";
+
 export const loginService = {
   login,
   runLoginFlow,
   validateCredentials,
   getDemoCredentials,
+  getDemoAccounts,
   getErrorMessage,
   getEmptyCredentials,
 };
 
-import { loginUtils, type AccountType } from "@utils/login/login-utils";
-
-export type LoginCredentials = {
-  email: string;
-  password: string;
-};
+export type { LoginCredentials, DemoAccountKey, DemoAccountItem };
 
 export type LoginResult = {
   email: string;
   accountType: AccountType;
 };
-
-export type DemoAccountKey = AccountType;
 
 export type LoginFlowResult = {
   loginResult: LoginResult;
@@ -33,12 +36,6 @@ class LoginError extends Error {
     this.name = "LoginError";
   }
 }
-
-const demoAccounts: Record<DemoAccountKey, LoginCredentials> = {
-  admin: { email: "admin@demo.com", password: "admin123" },
-  organization: { email: "org@demo.com", password: "org123" },
-  user: { email: "user@demo.com", password: "user123" },
-};
 
 async function runLoginFlow(
   credentials: LoginCredentials,
@@ -92,6 +89,10 @@ function validateCredentials(credentials: LoginCredentials): string | null {
 
 function getDemoCredentials(key: DemoAccountKey): LoginCredentials | null {
   return demoAccounts[key] ?? null;
+}
+
+function getDemoAccounts(): DemoAccountItem[] {
+  return buildDemoAccountItems();
 }
 
 function getErrorMessage(error: unknown): string {

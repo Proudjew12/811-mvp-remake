@@ -3,10 +3,10 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import Login from "@pages/Login/Login";
 
 import AdminDashboard from "@pages/Admin/placeHolderAdmin";
-
 import OrganizationDashboard from "@pages/Organization/placeHolderOrginizintion";
 
 import UserDashboard from "@pages/User/Dashboard/UserDashboard";
+import UserRequestPage from "@pages/User/RequestPage/UserRequestPage";
 
 export default function App() {
   return (
@@ -30,6 +30,7 @@ export default function App() {
 
       <Route path="/user" element={<Navigate to="/user/dashboard" replace />} />
       <Route path="/user/dashboard" element={<UserDashboard />} />
+      <Route path="/user/request" element={<UserRequestPage />} />
 
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>

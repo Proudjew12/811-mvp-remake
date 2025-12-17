@@ -1,28 +1,24 @@
 import { ReactNode } from "react";
 import "./card.scss";
 
-export type CardVariant = "default" | "soft" | "outline";
+export type CardVariant = "outline" | "solid";
 
-export interface CardProps {
-  children?: ReactNode;
-  variant?: CardVariant;
+export type CardProps = {
+  children: ReactNode;
   className?: string;
-}
+  variant?: CardVariant;
+};
 
 export function Card({
   children,
-  variant = "default",
   className = "",
+  variant = "solid",
 }: CardProps) {
-  return (
-    <div
-      className={["card", `card--${variant}`, className]
-        .filter(Boolean)
-        .join(" ")}
-    >
-      {children}
-    </div>
-  );
+  const classes = ["card", `card-${variant}`, className]
+    .filter(Boolean)
+    .join(" ");
+
+  return <div className={classes}>{children}</div>;
 }
 
 export default Card;

@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
@@ -25,22 +25,22 @@ export default function Login() {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const isHebrew = loginUtils.isHebrewLanguage(i18n.language);
+  const dir = loginUtils.getDir(i18n.language);
+
+  const demoAccounts = useMemo(() => loginService.getDemoAccounts(), []);
 
   function onLanguageToggle() {
     const nextLanguage = loginUtils.getNextLanguage(i18n.language);
     i18n.changeLanguage(nextLanguage);
   }
 
-  function onEmailChange(event: ChangeEvent<HTMLInputElement>) {
-    const value = event.target.value;
-    setCredentials((prev) => ({ ...prev, email: value }));
-    if (errorMessage) setErrorMessage(null);
-  }
-
-  function onPasswordChange(event: ChangeEvent<HTMLInputElement>) {
-    const value = event.target.value;
-    setCredentials((prev) => ({ ...prev, password: value }));
-    if (errorMessage) setErrorMessage(null);
+  function onChangeField<K extends keyof LoginCredentials>(key: K) {
+    return (event: ChangeEvent<HTMLInputElement>) => {
+      setCredentials((prev) =>
+        loginUtils.setCredential(prev, key, event.target.value)
+      );
+      setErrorMessage(null);
+    };
   }
 
   async function onLoginSubmit(event: FormEvent<HTMLFormElement>) {
@@ -71,10 +71,7 @@ export default function Login() {
   }
 
   return (
-    <div
-      className="login-page grid place-center"
-      dir={isHebrew ? "rtl" : "ltr"}
-    >
+    <div className="login-page grid place-center" dir={dir}>
       <Button
         className="lang-btn"
         type="button"
@@ -99,7 +96,7 @@ export default function Login() {
             type="email"
             placeholder={t("forms.emailPlaceholder")}
             value={credentials.email}
-            onChange={onEmailChange}
+            onChange={onChangeField("email")}
             autoComplete="email"
           />
 
@@ -107,7 +104,7 @@ export default function Login() {
             type="password"
             placeholder={t("forms.passwordPlaceholder")}
             value={credentials.password}
-            onChange={onPasswordChange}
+            onChange={onChangeField("password")}
             autoComplete="current-password"
           />
 
@@ -128,27 +125,16 @@ export default function Login() {
         <p className="demo-title">Demo Accounts</p>
 
         <div className="demo-buttons grid flow-col place-center gap-3">
-          <Button
-            type="button"
-            variant="secondary"
-            onClick={() => onDemoAccountClick("organization")}
-          >
-            organization
-          </Button>
-          <Button
-            type="button"
-            variant="secondary"
-            onClick={() => onDemoAccountClick("admin")}
-          >
-            admin
-          </Button>
-          <Button
-            type="button"
-            variant="secondary"
-            onClick={() => onDemoAccountClick("user")}
-          >
-            user
-          </Button>
+          {demoAccounts.map((acc) => (
+            <Button
+              key={acc.key}
+              type="button"
+              variant="secondary"
+              onClick={() => onDemoAccountClick(acc.key)}
+            >
+              {acc.label}
+            </Button>
+          ))}
         </div>
       </div>
     </div>

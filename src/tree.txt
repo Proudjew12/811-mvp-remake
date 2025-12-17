@@ -1,0 +1,99 @@
+.
+├── App.tsx
+├── assets
+│   └── Logo
+│       ├── mate-logo-green.png
+│       └── mate-logo-white.png
+├── components
+│   ├── button
+│   │   ├── button.scss
+│   │   └── button.tsx
+│   ├── card
+│   │   ├── card.scss
+│   │   └── card.tsx
+│   ├── dashboard-header
+│   │   ├── dashboard-header.scss
+│   │   └── dashboard-header.tsx
+│   ├── dropdown
+│   │   ├── dropdown.scss
+│   │   └── dropdown.tsx
+│   ├── modal
+│   │   ├── modal.scss
+│   │   └── modal.tsx
+│   ├── side-menu
+│   │   ├── side-menu.scss
+│   │   └── side-menu.tsx
+│   ├── text-field
+│   │   ├── text-field.scss
+│   │   └── text-field.tsx
+│   └── title
+│       ├── title.scss
+│       └── title.tsx
+├── global.d.ts
+├── hooks
+├── i18n.ts
+├── locales
+│   ├── en.json
+│   ├── he.json
+│   └── README.md
+├── main.tsx
+├── pages
+│   ├── Admin
+│   │   └── placeHolderAdmin.tsx
+│   ├── Login
+│   │   ├── Login.scss
+│   │   └── Login.tsx
+│   ├── Organization
+│   │   └── placeHolderOrginizintion.tsx
+│   └── User
+│       ├── Dashboard
+│       │   ├── UserDashboard.scss
+│       │   └── UserDashboard.tsx
+│       └── RequestPage
+│           ├── Steps
+│           │   ├── Step-1.tsx
+│           │   ├── Step-2.tsx
+│           │   ├── Step-3.tsx
+│           │   ├── Step-4.tsx
+│           │   ├── Step-5.tsx
+│           │   ├── Step-6.tsx
+│           │   ├── Step-7.tsx
+│           │   └── Step-8.tsx
+│           │   └── Steps.scss
+│           ├── UserRequestPage.scss
+│           └── UserRequestPage.tsx
+├── services
+│   ├── dashboard
+│   │   ├── dashboard-header
+│   │   │   └── dashboard-header-service.ts
+│   │   ├── user-dashboard-main
+│   │   │   └── user-dashboard-main.ts
+│   │   ├── user-dashboard-sidemenu
+│   │   │   └── user-dashboard-sidemenu.ts
+│   │   └── user-request-page
+│   │       ├── steps.ts
+│   │       └── user-request-page.ts
+│   ├── login
+│   │   └── login.service.ts
+│   └── notifications
+│       └── alerts.service.ts
+├── styles
+│   ├── base
+│   │   ├── _base.scss
+│   │   ├── _flexHelper.scss
+│   │   ├── _gridHelper.scss
+│   │   ├── _helpers.scss
+│   │   ├── _layout.scss
+│   │   ├── _mq.scss
+│   │   ├── _reset.scss
+│   │   ├── _typography.scss
+│   │   └── _variables.scss
+│   └── main.scss
+└── utils
+    ├── login
+    │   └── login-utils.ts
+    ├── notifications
+    │   └── alert-functions.ts
+    └── user
+        └── request-page
+            └── request-page-functions.ts

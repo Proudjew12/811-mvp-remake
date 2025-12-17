@@ -3,20 +3,21 @@
 .title {
   margin: 0;
   color: $clr-text-strong;
+  line-height: 1.2;
 }
 
-.title--page {
-  font-size: 1.6rem;
+.title-page {
+  font-size: 1.25rem;
   font-weight: 700;
 }
 
-.title--section {
-  font-size: 1.15rem;
-  font-weight: 600;
+.title-section {
+  font-size: 1.05rem;
+  font-weight: 700;
 }
 
-.title--label {
+.title-label {
   font-size: 0.95rem;
-  font-weight: 600;
+  font-weight: 700;
   color: $clr-text;
 }

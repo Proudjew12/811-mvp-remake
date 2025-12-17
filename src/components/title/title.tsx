@@ -1,25 +1,26 @@
-import { ElementType, ReactNode } from "react";
+import { ElementType } from "react";
 import "./title.scss";
 
-export type TitleLevel = 1 | 2 | 3 | 4;
 export type TitleVariant = "page" | "section" | "label";
 
-export type TitleProps = {
-  level?: TitleLevel;
+export type TitleProps<T extends ElementType = "h2"> = {
+  as?: T;
+  level?: 1 | 2 | 3 | 4 | 5 | 6;
   variant?: TitleVariant;
-  children: ReactNode;
   className?: string;
+  children: React.ReactNode;
 };
 
-export function Title({
+export function Title<T extends ElementType = "h2">({
+  as,
   level = 2,
   variant = "section",
-  children,
   className = "",
-}: TitleProps) {
-  const Tag = `h${level}` as ElementType;
+  children,
+}: TitleProps<T>) {
+  const Tag = (as || (`h${level}` as ElementType)) as ElementType;
 
-  const classes = ["title", `title--${variant}`, className]
+  const classes = ["title", `title-${variant}`, className]
     .filter(Boolean)
     .join(" ");
 

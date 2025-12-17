@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import { DashboardHeader } from "@components/dashboard-header/dashboard-header";
 import { SideMenu } from "@components/side-menu/side-menu";
@@ -12,6 +13,8 @@ import "./UserDashboard.scss";
 import { userDashboardMainService } from "@services/dashboard/user-dashboard-main/user-dashboard-main";
 
 export default function UserDashboard() {
+  const navigate = useNavigate();
+
   const [subject, setSubject] = useState("");
   const [message, setMessage] = useState("");
 
@@ -50,7 +53,11 @@ export default function UserDashboard() {
               <Button variant="secondary" size="sm">
                 {copy.btnDonate}
               </Button>
-              <Button variant="secondary" size="sm">
+              <Button
+                variant="secondary"
+                size="sm"
+                onClick={() => navigate("/user/request")}
+              >
                 {copy.btnRequest}
               </Button>
             </div>

@@ -1,7 +1,5 @@
 @use "@styles/base/variables" as *;
 
-$user-header-height: calc(#{$header-height} - 36px);
-
 .user-dashboard-header {
   block-size: $user-header-height;
   background: $clr-header;
