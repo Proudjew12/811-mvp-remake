@@ -1,4 +1,3 @@
-// @components/DashboardHeader/DashboardHeader.service.ts
 export const dashboardHeaderService = {
   buildModel,
   normalizeSearchValue,

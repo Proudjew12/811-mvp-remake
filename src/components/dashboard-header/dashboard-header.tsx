@@ -5,7 +5,7 @@ import "./dashboard-header.scss";
 import {
   dashboardHeaderService,
   type DashboardHeaderProps,
-} from "@services/dashboard/dashboard-header/dashboard-header-service";
+} from "@/services/user/user-dashboard-header/user-dashboard-header-service";
 
 export function DashboardHeader(props: DashboardHeaderProps) {
   const [query, setQuery] = useState("");

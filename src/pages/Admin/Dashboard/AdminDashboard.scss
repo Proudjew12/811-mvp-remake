@@ -1,0 +1,239 @@
+@use "@styles/base/_variables" as *;
+
+.admin-dashboard {
+  background: $clr-page;
+  grid-template-rows: auto 1fr;
+}
+
+.admin-dashboard-header {
+  block-size: $user-header-height;
+  background: $clr-header;
+  color: $clr-header-text;
+  box-shadow: $shadow-header;
+}
+
+.admin-dashboard-body {
+  grid-template-columns: minmax(0, 1fr) auto;
+  block-size: 100%;
+}
+
+.admin-dashboard-main {
+  padding: $space-4;
+}
+
+.admin-top {
+  grid-template-columns: auto 1fr;
+}
+
+.admin-title {
+  color: $clr-text-strong;
+}
+
+.admin-grid {
+  grid-template-columns: minmax(0, 1.85fr) minmax(0, 1fr) minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr) minmax(0, 0.92fr);
+  grid-template-areas:
+    "chart requests tasks"
+    "messages orgs alerts";
+}
+
+.admin-area-chart {
+  grid-area: chart;
+}
+
+.admin-area-requests {
+  grid-area: requests;
+}
+
+.admin-area-tasks {
+  grid-area: tasks;
+}
+
+.admin-area-messages {
+  grid-area: messages;
+}
+
+.admin-area-orgs {
+  grid-area: orgs;
+}
+
+.admin-area-alerts {
+  grid-area: alerts;
+}
+
+.admin-panel {
+  height: 100%;
+}
+
+.admin-dashboard .card {
+  border-radius: 0;
+}
+
+.admin-panel-inner {
+  padding: $space-3;
+}
+
+.admin-panel-head {
+  grid-template-columns: auto 1fr auto;
+  gap: $space-2;
+  border-bottom: 1px solid $clr-border-subtle;
+  padding-bottom: $space-2;
+}
+
+.admin-panel-title {
+  font-weight: 800;
+  color: $clr-text-strong;
+}
+
+.admin-panel-icon {
+  inline-size: 22px;
+  text-align: center;
+}
+
+.admin-panel-tools {
+  justify-self: end;
+}
+
+.admin-tool-pill {
+  display: inline-block;
+  padding: 6px 10px;
+  border: 1px solid $clr-border;
+  background: $clr-btn-secondary;
+  border-radius: 0;
+  font-size: 0.9rem;
+}
+
+.admin-panel-scroll {
+  border-top: 0;
+}
+
+.admin-chart-row {
+  grid-template-columns: 44px minmax(0, 1fr) 140px;
+}
+
+.admin-chart-number {
+  font-weight: 800;
+  color: $clr-text-strong;
+  text-align: start;
+}
+
+.admin-chart-label {
+  text-align: end;
+  color: $clr-text;
+}
+
+.admin-stack {
+  display: block;
+  border: 1px solid $clr-border-subtle;
+  background: $clr-surface;
+  block-size: 10px;
+  overflow: hidden;
+}
+
+.admin-stack-part {
+  display: inline-block;
+  block-size: 100%;
+}
+
+.admin-stack-part-1 {
+  background: $clr-border;
+  opacity: 0.85;
+}
+
+.admin-stack-part-2 {
+  background: $clr-border;
+  opacity: 0.55;
+}
+
+.admin-stack-part-3 {
+  background: $clr-border;
+  opacity: 0.35;
+}
+
+.admin-request {
+  grid-template-columns: 46px minmax(0, 1fr);
+  gap: $space-2;
+  border: 1px solid $clr-border-subtle;
+  background: $clr-surface;
+  padding: $space-3;
+}
+
+.admin-request-icon {
+  inline-size: 46px;
+  block-size: 46px;
+  display: grid;
+  place-items: center;
+  border: 1px solid $clr-border-subtle;
+  background: $clr-card-muted;
+}
+
+.admin-request-title {
+  font-weight: 800;
+  color: $clr-text-strong;
+}
+
+.admin-task {
+  border: 1px solid $clr-border-subtle;
+  background: $clr-surface;
+  padding: $space-3;
+}
+
+.admin-task-urgent {
+  background: $clr-card-muted;
+}
+
+.admin-task-soon {
+  background: $clr-surface;
+}
+
+.admin-task-title {
+  font-weight: 800;
+  color: $clr-text-strong;
+}
+
+.admin-org {
+  grid-template-columns: 38px minmax(0, 1fr);
+  border: 1px solid $clr-border-subtle;
+  background: $clr-surface;
+  padding: $space-3;
+}
+
+.admin-org-arrow {
+  inline-size: 32px;
+  block-size: 32px;
+  border-radius: 0;
+  border: 1px solid $clr-border;
+  background: $clr-btn-secondary;
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+.admin-org-name {
+  font-weight: 800;
+  color: $clr-text-strong;
+}
+
+.admin-alert {
+  border: 1px solid $clr-border-subtle;
+  background: $clr-surface;
+  padding: $space-3;
+}
+
+.admin-alert-top {
+  grid-template-columns: auto 1fr;
+  gap: $space-2;
+}
+
+.admin-alert-title {
+  font-weight: 800;
+  color: $clr-text-strong;
+}
+
+.admin-alert-link {
+  justify-self: start;
+  border: 1px solid transparent;
+  background: transparent;
+  padding: 0;
+  color: $clr-text-muted;
+  text-decoration: underline;
+}

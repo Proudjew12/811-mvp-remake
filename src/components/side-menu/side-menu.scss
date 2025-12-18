@@ -1,17 +1,20 @@
-@use "@styles/base/variables" as *;
+@use "@styles/base/_variables" as *;
 
 .side-menu {
   inline-size: $side-menu-width;
   block-size: 100%;
   background: $clr-card-muted;
   border-inline-start: 1px solid $clr-border-subtle;
-  box-shadow: $shadow-card;
   transition: inline-size $transition-fast;
 }
 
-.side-menu.is-collapsed {
+.side-menu-collapsed {
   inline-size: $side-menu-collapsed-width;
   background: $clr-surface;
+}
+
+.side-menu-inner {
+  grid-template-rows: auto minmax(0, 1fr) auto;
 }
 
 .side-menu-top {
@@ -19,7 +22,7 @@
   gap: $space-3;
 }
 
-.side-menu.is-collapsed .side-menu-top {
+.side-menu-collapsed .side-menu-top {
   justify-items: center;
   align-content: start;
   padding-top: $space-4;
@@ -29,7 +32,7 @@
 .side-menu-burger {
   inline-size: 44px;
   block-size: 44px;
-  border-radius: $radius-md;
+  border-radius: 0;
 
   background: transparent;
   border: 1px solid $clr-border-subtle;
@@ -67,7 +70,7 @@
   text-align: center;
 
   padding: $space-2 $space-3;
-  border-radius: $radius-md;
+  border-radius: 0;
 
   background: transparent;
   border: 1px solid transparent;

@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import { Dropdown, type Option } from "@components/dropdown/dropdown";
 import { TextField } from "@components/text-field/text-field";
 import { Title } from "@components/title/title";
-import { RequestForm } from "@services/dashboard/user-request-page/steps";
+import { RequestForm } from "@/services/user/user-request-page/steps";
 
 type Props = {
   form: RequestForm;

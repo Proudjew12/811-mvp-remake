@@ -2,7 +2,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 
 import Login from "@pages/Login/Login";
 
-import AdminDashboard from "@pages/Admin/placeHolderAdmin";
+import AdminDashboard from "@pages/Admin/Dashboard/AdminDashboard";
 import OrganizationDashboard from "@pages/Organization/placeHolderOrginizintion";
 
 import UserDashboard from "@pages/User/Dashboard/UserDashboard";

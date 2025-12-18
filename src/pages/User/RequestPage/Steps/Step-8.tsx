@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import {
   RequestForm,
   userRequestStepsService,
-} from "@services/dashboard/user-request-page/steps";
+} from "@/services/user/user-request-page/steps";
 
 type Props = {
   form: RequestForm;

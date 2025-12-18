@@ -1,7 +1,7 @@
 import type {
   RequestForm,
   RequestStepKey,
-} from "@services/dashboard/user-request-page/steps";
+} from "@/services/user/user-request-page/steps";
 
 export const userRequestPageService = {
   buildNavState,

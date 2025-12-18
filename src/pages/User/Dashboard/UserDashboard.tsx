@@ -10,7 +10,7 @@ import { Title } from "@components/title/title";
 import { TextField } from "@components/text-field/text-field";
 
 import "./UserDashboard.scss";
-import { userDashboardMainService } from "@services/dashboard/user-dashboard-main/user-dashboard-main";
+import { userDashboardMainService } from "@/services/user/user-dashboard-main/user-dashboard-main";
 
 export default function UserDashboard() {
   const navigate = useNavigate();
@@ -32,7 +32,7 @@ export default function UserDashboard() {
       dir="ltr"
     >
       <header className="user-dashboard-header full">
-        <DashboardHeader userName="שני" />
+        <DashboardHeader userName="דנה לוי" />
       </header>
 
       <div

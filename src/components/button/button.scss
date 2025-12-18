@@ -11,11 +11,6 @@
   color: $clr-text;
 }
 
-.btn:focus-visible {
-  outline: $focus-ring;
-  outline-offset: 2px;
-}
-
 .btn:disabled {
   opacity: 0.6;
   cursor: not-allowed;
@@ -23,20 +18,14 @@
 
 .btn-primary {
   background: $clr-btn-primary;
-  color: $clr-text-strong;
 }
 
 .btn-secondary {
   background: $clr-btn-secondary;
-  color: $clr-text-strong;
 }
 
 .btn:hover:not(:disabled) {
   background: $clr-btn-muted-hover;
-}
-
-.btn:active:not(:disabled) {
-  transform: translateY(1px);
 }
 
 .btn-sm {
@@ -53,6 +42,6 @@
   font-size: 1.05rem;
 }
 
-.is-fullwidth {
+.btn-fullwidth {
   width: 100%;
 }
